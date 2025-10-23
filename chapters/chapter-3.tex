@@ -14,7 +14,17 @@ Penelitian ini dilaksanakan melalui beberapa tahapan yang saling terintegrasi un
 Adapun uraian tiap tahapan dalam alur penelitian pada gambar \ref{fig:3.alur} adalah sebagai berikut:\par
 
 \subsection{Langkah 1: Studi Literatur dan Analisis Kebutuhan} \label{III.Langkah1}
-Pada tahap awal dilakukan studi literatur terhadap referensi yang relevan dengan sistem teleskop robotik, algoritma Kalman Filter, sensor IMU, dan sistem koordinat langit (alt-azimuth dan ekuatorial). Selain itu, dilakukan analisis kebutuhan perangkat keras dan lunak yang akan dikembangkan berdasarkan tujuan penelitian. \par
+
+Tahap pertama penelitian ini adalah melakukan studi literatur secara komprehensif terhadap teori dan penelitian terdahulu yang relevan dengan sistem teleskop robotik \textit{Alt-Azimuth}, sensor inersial (IMU), serta algoritma estimasi orientasi berbasis \textit{Mahony Filter}. Studi literatur ini bertujuan untuk memperoleh pemahaman mendalam mengenai prinsip kerja teleskop reflektor, sistem koordinat langit, serta metode fusi sensor yang digunakan dalam estimasi sudut orientasi.  
+
+Kajian pustaka dilakukan berdasarkan sumber-sumber pada Bab~\ref{Bab II}, meliputi:  
+(1) konsep dasar teleskop reflektor dan karakteristik optiknya (lihat Subbab~\ref{II.Teori1}),  
+(2) sistem koordinat langit yang menjadi acuan arah teleskop (lihat Subbab~\ref{II.Teori4}), dan  
+(3) algoritma \textit{Mahony Filter} sebagai metode estimasi sudut yang menggabungkan data akselerometer dan giroskop secara komplementer (lihat Subbab~\ref{II.Teori5}; \cite{Maton2024}; \cite{MinhLongHoang2022}).  
+
+Selain itu, dilakukan analisis kebutuhan sistem untuk menentukan spesifikasi perangkat keras dan perangkat lunak yang akan digunakan. Analisis ini mencakup identifikasi kebutuhan fungsional seperti pengendalian dua sumbu (altitude dan azimuth), estimasi orientasi dengan IMU, komunikasi data real-time menggunakan \textit{WebSocket} (lihat Subbab~\ref{II.Teori6}), serta antarmuka pengguna untuk pemantauan arah teleskop. Kebutuhan non-fungsional juga dipertimbangkan, seperti tingkat akurasi pembacaan sensor, stabilitas sistem kendali, dan efisiensi penggunaan daya.  
+
+Hasil dari tahap ini adalah dokumen kebutuhan sistem (\textit{System Requirement Specification}) yang menjadi dasar dalam proses perancangan dan implementasi sistem teleskop robotik pada tahap berikutnya.
 
 \subsection{Perancangan Sistem Teleskop Robotik} \label{III.Langkah2}
 Tahap ini melibatkan perancangan optik teleskop reflektor, dudukan mekanik dua sumbu Alt-Azimuth, dan sistem aktuator berbasis motor stepper. Perancangan dilakukan menggunakan perangkat lunak CAD untuk memastikan presisi dan kompatibilitas antar komponen. \par
