@@ -1,0 +1,33 @@
+\contentsline {myequations}{\numberline {Rumus~2.1} Perbesaran Teleskop }{11}{equation.2.2.1}%
+\contentsline {myequations}{\numberline {Rumus~2.2} Formula sinus trigonometri bola }{12}{equation.2.2.2}%
+\contentsline {myequations}{\numberline {Rumus~2.3} Formula cosinus trigonometri bola }{12}{equation.2.2.3}%
+\contentsline {myequations}{\numberline {Rumus~2.4} Formula analogin cosinus }{12}{equation.2.2.4}%
+\contentsline {myequations}{\numberline {Rumus~2.5} Formula 4 bagian }{12}{equation.2.2.5}%
+\contentsline {myequations}{\numberline {Rumus~2.6} Julian Date }{13}{equation.2.2.6}%
+\contentsline {myequations}{\numberline {Rumus~2.7} Transformasi koordinat nilai deklinasi }{16}{equation.2.2.7}%
+\contentsline {myequations}{\numberline {Rumus~2.8} Transformasi koordinat nilai altitudo }{16}{equation.2.2.8}%
+\contentsline {myequations}{\numberline {Rumus~2.9} Transformasi koordinat Hour Angle 1 }{16}{equation.2.2.9}%
+\contentsline {myequations}{\numberline {Rumus~2.10} Transformasi koordinat Hour Angle 2 }{16}{equation.2.2.10}%
+\contentsline {myequations}{\numberline {Rumus~2.11} Estimasi Vektor Gravitasi dari Kuarternion }{17}{equation.2.2.11}%
+\contentsline {myequations}{\numberline {Rumus~2.12} Perhitungan Vektor Kesalahan }{17}{equation.2.2.12}%
+\contentsline {myequations}{\numberline {Rumus~2.13} Perhitungan Vektor Integrasi }{17}{equation.2.2.13}%
+\contentsline {myequations}{\numberline {Rumus~2.14} Perhitungan Vektor Integral }{17}{equation.2.2.14}%
+\contentsline {myequations}{\numberline {Rumus~2.15} Integrasi laju perubahan kuaternion }{17}{equation.2.2.15}%
+\contentsline {myequations}{\numberline {Rumus~2.16} Integrasi laju perubahan kuaternion dalam bentuk matriks }{17}{equation.2.2.16}%
+\contentsline {myequations}{\numberline {Rumus~2.17} Standar Deviasi }{18}{equation.2.2.17}%
+\contentsline {myequations}{\numberline {Rumus~3.1} Prediksi estimasi sudut pitch }{32}{equation.3.5.1}%
+\contentsline {myequations}{\numberline {Rumus~3.2} Prediksi kovariansi error }{32}{equation.3.5.2}%
+\contentsline {myequations}{\numberline {Rumus~3.3} Kalman Gain }{33}{equation.3.5.3}%
+\contentsline {myequations}{\numberline {Rumus~3.4} Update hasil estimasi Kalman Filter }{33}{equation.3.5.4}%
+\contentsline {myequations}{\numberline {Rumus~3.5} Perhitungan Hour Angle }{33}{equation.3.5.5}%
+\contentsline {myequations}{\numberline {Rumus~3.6} Transformasi ke Altitude }{33}{equation.3.5.6}%
+\contentsline {myequations}{\numberline {Rumus~3.7} Transformasi ke Azimuth }{33}{equation.3.5.7}%
+\contentsline {myequations}{\numberline {Rumus~3.8} Perhitungan Hour Angle }{34}{equation.3.5.8}%
+\contentsline {myequations}{\numberline {Rumus~3.9} Transformasi ke Altitude }{34}{equation.3.5.9}%
+\contentsline {myequations}{\numberline {Rumus~3.10} Transformasi ke Azimuth }{34}{equation.3.5.10}%
+\contentsline {myequations}{\numberline {Rumus~3.11} Perhitungan jumlah langkah per putaran stepper motor (1.8° dengan 1/16 step) }{34}{equation.3.5.11}%
+\contentsline {myequations}{\numberline {Rumus~3.12} Konversi sudut Altitudo ke langkah stepper }{34}{equation.3.5.12}%
+\contentsline {myequations}{\numberline {Rumus~3.13} Konversi sudut Azimuth ke langkah stepper }{35}{equation.3.5.13}%
+\contentsline {myequations}{\numberline {Rumus~3.14} Sudut Altitudo dan Azimuth target }{35}{equation.3.5.14}%
+\contentsline {myequations}{\numberline {Rumus~3.15} Perhitungan langkah stepper motor pada sumbu Altitudo }{35}{equation.3.5.15}%
+\contentsline {myequations}{\numberline {Rumus~3.16} Perhitungan langkah stepper motor pada sumbu Azimuth }{35}{equation.3.5.16}%

@@ -1,0 +1,400 @@
+\newpage
+\chapter{METODE PENELITIAN} \label{Bab III}
+
+Penelitian ini dilaksanakan melalui beberapa tahapan yang saling terintegrasi untuk merancang dan membangun sistem teleskop robotik berbasis Alt-Azimuth, mengoptimasi estimasi sudut dengan Kalman Filter, serta mengembangkan aplikasi untuk mengendalikan teleskop. Alur penelitian disusun secara sistematis seperti ditunjukkan pada Gambar~\ref{fig:3.alur}. \par
+
+\begin{figure}[H] % Kalau menggunakan H, posisi gambar akan tepat dibawah teks
+    \centering
+    \includegraphics[width=0.5\textwidth]{figure/alur_penelitian.png}
+    \caption{Alur Penelitian}
+    \label{fig:3.alur}
+\end{figure}
+
+\section{Penjabaran Langkah Penelitian} \label{III.Jabar Alur}
+Adapun uraian tiap tahapan dalam alur penelitian pada gambar \ref{fig:3.alur} adalah sebagai berikut:\par
+
+\subsection{Langkah 1: Studi Literatur dan Analisis Kebutuhan} \label{III.Langkah1}
+Pada tahap awal dilakukan studi literatur terhadap referensi yang relevan dengan sistem teleskop robotik, algoritma Kalman Filter, sensor IMU, dan sistem koordinat langit (alt-azimuth dan ekuatorial). Selain itu, dilakukan analisis kebutuhan perangkat keras dan lunak yang akan dikembangkan berdasarkan tujuan penelitian. \par
+
+\subsection{Perancangan Sistem Teleskop Robotik} \label{III.Langkah2}
+Tahap ini melibatkan perancangan optik teleskop reflektor, dudukan mekanik dua sumbu Alt-Azimuth, dan sistem aktuator berbasis motor stepper. Perancangan dilakukan menggunakan perangkat lunak CAD untuk memastikan presisi dan kompatibilitas antar komponen. \par
+
+
+\subsection{Perancangan Elektronik dan Integrasi Sensor} \label{III.Langkah4}
+Perancangan sistem elektronik mencakup pemilihan mikrokontroler (seperti ESP32), perancangan driver motor, serta integrasi sensor IMU (MPU6050 atau BNO055). Desain sistem juga memperhitungkan kebutuhan catu daya dan konektivitas dengan aplikasi kontrol. \par
+
+\subsection{Perancangan Sistem Kendali Teleskop} \label{III.Langkah3}
+Menyusun algoritma kendali motor untuk menggerakkan sumbu altitudo dan azimut secara tepat berdasarkan input sudut target dari aplikasi maupun hasil estimasi sudut orientasi. Dalam tahap ini juga dirancang desain dari aplikasi kontrol yang akan digunakan \par
+
+
+\subsection{Perakitan Sistem dan Pengujian Awal} \label{III.Langkah5}
+Setelah semua komponen tersedia, dilakukan perakitan sistem teleskop secara menyeluruh. Pengujian awal mencakup pengendalian motor secara manual dan pembacaan data sensor untuk memastikan seluruh sistem terhubung dan berfungsi dengan baik. \par
+
+\subsection{Implementasi Kalman Filter} \label{III.Langkah6}
+Data sensor IMU yang diperoleh digunakan sebagai input Kalman Filter untuk mengestimasi sudut orientasi secara optimal. Algoritma Kalman Filter diimplementasikan pada mikrokontroler dengan parameter disesuaikan berdasarkan karakteristik noise sensor. \par
+
+\subsection{Pengembangan Aplikasi Kontrol Teleskop} \label{III.Langkah7}
+Aplikasi berbasis antarmuka pengguna dikembangkan untuk mengatur arah teleskop secara manual maupun otomatis. Aplikasi ini terhubung dengan mikrokontroler menggunakan komunikasi serial, Bluetooth, atau Wi-Fi, serta menampilkan data orientasi secara real-time. \par
+
+\subsection{Pengujian dan Validasi Sistem} \label{III.Langkah8}
+Pengujian sistem dilakukan dengan membandingkan akurasi orientasi teleskop antara data mentah sensor dan hasil estimasi Kalman Filter. Selain itu, performa aplikasi diuji untuk memastikan perintah dapat diterima dan dieksekusi dengan responsif. \par
+
+\subsection{Analisis dan Evaluasi Kinerja} \label{III.Langkah9}
+Dilakukan analisis terhadap data hasil pengujian untuk mengukur efektivitas Kalman Filter serta keandalan sistem kontrol dan aplikasi. Evaluasi mencakup akurasi sudut, waktu respon sistem, serta stabilitas pelacakan arah. \par
+
+\subsection{Dokumentasi dan Penyusunan Laporan} \label{III.Langkah10}
+Seluruh hasil dari tahapan-tahapan sebelumnya didokumentasikan dalam bentuk laporan akhir yang sistematis dan komprehensif, disertai data pengujian, diagram sistem, serta ilustrasi implementasi perangkat keras dan lunak. \par
+
+
+\section{Alat dan Bahan Tugas Akhir} \label{III.Alat dan Bahan}
+Berisi alat-alat dan bahan-bahan yang digunakan dalam penelitian. \par
+
+\subsection{Alat} \label{III.Alat}
+Penelitian ini memerlukan berbagai alat dan bahan untuk menunjang proses perancangan, implementasi, dan pengujian sistem teleskop robotik. Alat dan bahan dibagi menjadi 2 kelompok utama, yaitu perangkat keras (hardware) dan perangkat lunak (software).\par
+\subsubsection{Perangkat Keras} \label{III.Alat.Keras}
+\begin{enumerate}[noitemsep]
+	\item Laptop dengan sistem operasi Linux, processor Intel I3-1115G4 @ 2 core/4,1GHz, RAM 12GB DDR4 dual channel, grafis NVIDIA MX 350 2GB, SSD 256 GB.
+	\item Smartphone dengan spesifikasi OS Android 12, CPU Snapdragon 865, Memori 128GB, RAM 8GB.	
+	\item 3D Printer Flashforge
+	\item Obeng
+	\item Solder
+	\item Tang potong
+\end{enumerate}
+\subsubsection{Perangkat Lunak} \label{III.Alat.Lunak}
+\begin{enumerate}[noitemsep]
+	\item Flashforge Print
+	\item Visual Studio Code
+	\item Arduino IDE
+	\item Proteus 8
+	\item Autodesk Fussion
+	\item FreeCad
+	\item Figma
+	\item Stellarium
+	\item Platform 
+	\item Flutter SDK
+\end{enumerate}
+
+\subsection{Bahan} \label{III.Bahan}
+Bahan-bahan berikut digunakan dalam proses pembuatan struktur mekanik, instalasi sistem elektronik, serta perakitan komponen teleskop robotik:\par
+\begin{enumerate}[noitemsep]
+	\item Mikrokontroller ESP32  DevKit V1
+	\item Stepper Motor Nema 17 17HS3401 x 2
+	\item A4988 Motor Driver x 2
+	\item Stepper Motor 5V 4-fasa
+	\item Driver Motor ULN2003
+	\item Kabel USB Tipe C
+	\item MPU9250
+	\item MPU6050
+	\item Mur dan Baut
+	\item Rod
+	\item Bearing
+	\item Filament PLA+ 2.0
+\end{enumerate}
+
+\section{Metode Pengembangan} \label{III.Metode}
+Metode pengembangan yang digunakan dalam penelitian ini adalah pendekatan \textit{prototyping}, yang bertujuan untuk membangun sistem secara bertahap dari perancangan hingga produk fungsional, disertai proses iteratif berupa pengujian dan penyempurnaan. Pendekatan ini dinilai tepat karena memungkinkan fleksibilitas dalam eksplorasi desain perangkat keras, algoritma perangkat lunak, serta interaksi pengguna.
+
+Tahapan metode pengembangan ini terdiri dari:
+
+\subsection{Analisis Kebutuhan} \label{III.Metode.Analisis}
+Tahap awal dilakukan identifikasi kebutuhan sistem baik secara fungsional maupun non-fungsional. Hal ini mencakup spesifikasi perangkat keras (mekanik, elektronik, dan optik) serta perangkat lunak (aplikasi kontrol dan estimasi sudut). Kebutuhan diturunkan berdasarkan studi literatur dan karakteristik sistem teleskop robotik berbasis Alt-Azimuth.
+
+\subsection{Perancangan Sistem} \label{III.Metode.Perancangan}
+Pada tahap ini dilakukan perancangan secara menyeluruh terhadap tiga aspek utama:
+\begin{itemize}
+	\item \textbf{Perancangan Mekanik:} Desain dudukan teleskop dua sumbu (Alt-Azimuth) dan struktur teleskop reflektor menggunakan perangkat lunak CAD seperti Autodesk Fusion 360 dan FreeCAD.
+	\item \textbf{Perancangan Elektronik:} Skema sistem elektronik yang mencakup mikrokontroler (ESP32), sensor IMU, dan driver motor stepper.
+	\item \textbf{Perancangan Aplikasi:} Desain antarmuka pengguna dan fitur kontrol arah teleskop menggunakan Flutter SDK.
+\end{itemize}
+
+\subsection{Pengembangan Prototipe} \label{III.Metode.Prototipe}
+Komponen mekanik dicetak dengan 3D printer, dan sistem elektronik dirakit sesuai rancangan. Selanjutnya perangkat lunak ditanamkan ke dalam mikrokontroler dan aplikasi mobile dikembangkan untuk terhubung dengan sistem teleskop. Prototipe awal digunakan sebagai dasar pengujian dan validasi sistem.
+\subsection{Pengembangan Teleskop Robotik} \label{III.Metode.Teleskop}
+Teleskop dikembangkan dari awal meliputi pembuatan desain 3D, pemilihan komponen optik dan mekanik, pencetakan rangka dengan 3D printing, serta integrasi aktuator dan dudukan dua sumbu. Desain dilakukan menggunakan perangkat lunak CAD dan diproduksi sesuai hasil simulasi.
+\subsection{Implementasi Kalman Filter} \label{III.Metode.Kalman}
+Kalman Filter diintegrasikan ke dalam sistem sebagai metode optimasi untuk memperbaiki data orientasi dari sensor IMU. Parameter Kalman Filter disesuaikan berdasarkan karakteristik sensor, dan algoritma dijalankan secara real-time pada mikrokontroler.
+
+\subsection{Pengembangan Aplikasi Kontrol} \label{III.Metode.Aplikasi}
+Aplikasi kontrol dirancang untuk menghubungkan pengguna dengan sistem teleskop secara interaktif. Aplikasi dikembangkan menggunakan \textit{Flutter}, mendukung input manual, serta menerima data sensor orientasi secara real-time melalui WebSocket atau komunikasi serial.
+
+
+\subsection{Pengujian dan Evaluasi} \label{III.Metode.Uji}
+Prototipe diuji secara menyeluruh untuk memastikan semua subsistem berfungsi sesuai harapan. Pengujian mencakup:
+\begin{itemize}
+	\item Validasi estimasi sudut dari Kalman Filter dibandingkan dengan data mentah sensor.
+	\item Responsivitas dan akurasi aplikasi kontrol dalam mengarahkan teleskop.
+	\item Konsistensi pelacakan objek langit berdasarkan koordinat alt-azimuth.
+	\item Uji koreksi ketika teleskop dipindah atau digeser
+\end{itemize}
+Hasil evaluasi digunakan sebagai dasar penyempurnaan sistem.
+
+\subsection{Dokumentasi dan Penyusunan Laporan} \label{III.Metode.Laporan}
+Setelah seluruh sistem selesai dan berfungsi, dilakukan dokumentasi secara sistematis. Laporan akhir disusun mencakup rancangan, implementasi, pengujian, dan hasil penelitian untuk memenuhi syarat tugas akhir dan sebagai kontribusi terhadap pengembangan sistem teleskop robotik berbasis lokal.
+
+\section{Desain Sistem} \label{III.DesainSistem}
+Desain sistem merupakan tahap penting dalam pembangunan teleskop robotik berbasis Alt-Azimuth. Desain ini mencakup perancangan arsitektur sistem, struktur mekanik teleskop dalam bentuk 3D, skema rangkaian elektronika, serta desain antarmuka aplikasi kontrol. Masing-masing komponen saling terintegrasi untuk membentuk sistem kendali yang bekerja secara otomatis dan real-time.
+\subsection{Flowchart Sistem} \label{III.Desain.Flowchart}
+Flowchart sistem menggambarkan alur logika dan proses kerja sistem teleskop robotik dari awal hingga akhir. Diagram ini membantu memahami bagaimana data dikirimkan dari aplikasi kontrol, diproses oleh mikrokontroler, kemudian menghasilkan aksi berupa gerakan motor pengarah teleskop. \par
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.85\textwidth]{figure/flowchart_sistem.png}
+	\caption{Flowchart sistem kontrol teleskop robotik}
+	\label{fig:3.flowchart}
+\end{figure}
+
+\subsection{Desain Arsitektur Sistem} \label{III.Desain.Arsitektur}
+Arsitektur sistem secara umum terdiri dari mikrokontroler sebagai unit kendali utama, motor stepper untuk menggerakkan sumbu Altitudo dan Azimuth, sensor IMU untuk mendeteksi orientasi teleskop, serta aplikasi kontrol berbasis Android yang terhubung melalui koneksi nirkabel. Desain arsitektur dapat dilihat pada Gambar \ref{fig:3.arsitektur}.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.9\textwidth]{figure/arsitektur_sistem.png}
+	\caption{Arsitektur sistem teleskop robotik}
+	\label{fig:3.arsitektur}
+\end{figure}
+
+\subsection{Desain 3D Teleskop} \label{III.Desain.3D}
+Perancangan mekanik teleskop dilakukan menggunakan perangkat lunak CAD (Computer Aided Design) seperti FreeCAD dan Fusion 360. Sistem mekanik dirancang berbasis dudukan dua sumbu (Alt-Azimuth) yang dapat dicetak menggunakan teknologi 3D printing. Desain lengkap dapat dilihat pada Gambar~\ref{fig:3.desain3d}.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.85\textwidth]{figure/desain_perangkat.png}
+	\caption{Desain 3D teleskop robotik}
+	\label{fig:3.desain3d}
+\end{figure}
+
+\subsection{Desain Elektronika} \label{III.Desain.Elektronika}
+Desain elektronika melibatkan koneksi antara ESP32, driver motor (A4988 dan ULN2003), serta sensor IMU (MPU6050/MPU9250). Sistem dirancang untuk mendukung pengendalian dua motor stepper serta pembacaan data orientasi secara terus-menerus. Rangkaian dibuat menggunakan software Proteus dan ditunjukkan pada Gambar \ref{fig:3.rangkaian}.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{figure/schematics.png}
+	\caption{Rangkaian elektronika sistem teleskop}
+	\label{fig:3.rangkaian}
+\end{figure}
+
+\subsection{Desain Aplikasi Kontrol} \label{III.Desain.Aplikasi}
+Aplikasi kontrol dikembangkan menggunakan Flutter SDK untuk Android. Aplikasi ini berfungsi mengatur pergerakan teleskop secara manual, otomatis, dan juga menampilkan data sudut orientasi. Komunikasi antara aplikasi dan mikrokontroler dilakukan menggunakan WebSocket melalui koneksi Wi-Fi. Antarmuka aplikasi ditunjukkan pada Gambar \ref{fig:3.aplikasi}.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.6\textwidth]{figure/desain_aplikasi.png}
+	\caption{Tampilan antarmuka aplikasi kontrol teleskop}
+	\label{fig:3.aplikasi}
+\end{figure}
+
+
+\section{Ilustrasi Perhitungan Metode} \label{III.Ilustrasi}
+
+Ilustrasi perhitungan dalam penelitian ini dibagi menjadi dua bagian utama, yaitu:
+
+\subsection{1. Estimasi Sudut Menggunakan Kalman Filter}
+Berikut contoh perhitungan estimasi sudut pitch berdasarkan sensor IMU (gabungan akselerometer dan gyroscope). Diasumsikan:
+\begin{itemize}
+	\item Gyroscope ($\omega = 0.02$ rad/s)
+	\item Akselerometer menghasilkan estimasi pitch $z_k = 5^\circ$
+	\item Estimasi sebelumnya: $\hat{x}_{k-1|k-1} = 4^\circ$
+	\item Waktu sampling: $\Delta t = 0.1$ s
+	\item Error kovariansi sebelumnya: $P_{k-1|k-1} = 0.8$
+	\item Variansi proses: $Q = 0.01$
+	\item Variansi pengukuran: $R = 0.5$
+\end{itemize}
+
+Langkah pertama adalah prediksi:
+\begin{equationcaptioned}[eq:3.kalman_prediksi]{
+		\hat{x}_{k|k-1} = \hat{x}_{k-1|k-1} + \omega \cdot \Delta t = 4 + 0.02 \cdot 0.1 = 4.002
+	}{
+		Prediksi estimasi sudut pitch
+	}
+\end{equationcaptioned}
+
+\begin{equationcaptioned}[eq:3.kalman_P]{
+		P_{k|k-1} = P_{k-1|k-1} + Q = 0.8 + 0.01 = 0.81
+	}{
+		Prediksi kovariansi error
+	}
+\end{equationcaptioned}
+
+Kalman gain dihitung:
+\begin{equationcaptioned}[eq:3.kalman_gain]{
+		K_k = \frac{P_{k|k-1}}{P_{k|k-1} + R} = \frac{0.81}{0.81 + 0.5} = 0.618
+	}{
+		Kalman Gain
+	}
+\end{equationcaptioned}
+
+Update estimasi:
+\begin{equationcaptioned}[eq:3.kalman_update]{
+		\hat{x}_{k|k} = \hat{x}_{k|k-1} + K_k (z_k - \hat{x}_{k|k-1}) = 4.002 + 0.618 (5 - 4.002) \approx 4.618
+	}{
+		Update hasil estimasi Kalman Filter
+	}
+\end{equationcaptioned}
+
+\subsection{2. Perhitungan Posisi Benda Langit (Transformasi Koordinat)}
+Untuk mengarahkan teleskop ke objek langit, sistem mengubah koordinat ekuatorial (RA, Dec) menjadi koordinat alt-azimuth berdasarkan lokasi dan waktu pengamatan. Sebagai ilustrasi, diasumsikan:
+
+\begin{itemize}[noitemsep]
+	\item RA: $18^h = 270^\circ$
+	\item Deklinasi: $-25^\circ$
+	\item Lokasi: Bandar Lampung ($\phi = -5.38^\circ$, $\lambda = 105.3^\circ$ BT)
+	\item Waktu: 30 Juli 2025, pukul 20:00 WIB
+\end{itemize}
+
+Langkah pertama adalah menghitung Hour Angle (H):
+\begin{equationcaptioned}[eq:3.hourangle]{
+		H = LST - RA = 295^\circ - 270^\circ = 25^\circ
+	}{
+		Perhitungan Hour Angle
+	}
+\end{equationcaptioned}
+
+Dilanjutkan dengan menghitung altitudo:
+\begin{equationcaptioned}[eq:3.altitude]{
+		\sin a = \sin \phi \sin \delta + \cos \phi \cos \delta \cos H
+	}{
+		Transformasi ke Altitude
+	}
+\end{equationcaptioned}
+Hasil: $a \approx 43.5^\circ$
+
+Kemudian azimuth:
+\begin{equationcaptioned}[eq:3.azimuth]{
+		\tan A = \frac{\sin H}{\cos H \sin \phi - \tan \delta \cos \phi}
+	}{
+		Transformasi ke Azimuth
+	}
+\end{equationcaptioned}
+Hasil: $A \approx 232^\circ$
+
+Untuk mengarahkan teleskop ke objek langit, sistem mengubah koordinat ekuatorial (RA, Dec) menjadi koordinat alt-azimuth berdasarkan lokasi dan waktu pengamatan. Sebagai ilustrasi, diasumsikan:
+
+\begin{itemize}[noitemsep]
+	\item RA: $18^h = 270^\circ$
+	\item Deklinasi: $-25^\circ$
+	\item Lokasi: Bandar Lampung ($\phi = -5.38^\circ$, $\lambda = 105.3^\circ$ BT)
+	\item Waktu: 30 Juli 2025, pukul 20:00 WIB
+\end{itemize}
+
+Langkah pertama adalah menghitung Hour Angle (H):
+\begin{equationcaptioned}[eq:3.hourangle]{
+		H = LST - RA = 295^\circ - 270^\circ = 25^\circ
+	}{
+		Perhitungan Hour Angle
+	}
+\end{equationcaptioned}
+
+Dilanjutkan dengan menghitung altitudo:
+\begin{equationcaptioned}[eq:3.altitude]{
+		\sin a = \sin \phi \sin \delta + \cos \phi \cos \delta \cos H
+	}{
+		Transformasi ke Altitude
+	}
+\end{equationcaptioned}
+Hasil: $a \approx 43.5^\circ$
+
+Kemudian azimuth:
+\begin{equationcaptioned}[eq:3.azimuth]{
+		\tan A = \frac{\sin H}{\cos H \sin \phi - \tan \delta \cos \phi}
+	}{
+		Transformasi ke Azimuth
+	}
+\end{equationcaptioned}
+Hasil: $A \approx 232^\circ$
+
+\subsection{Konversi Sudut ke Langkah Motor Stepper} \label{III.SudutStepper}
+
+Setelah koordinat altitudo ($a$) dan azimuth ($A$) dari objek langit berhasil dihitung, nilai sudut tersebut perlu dikonversikan menjadi jumlah langkah motor stepper yang digunakan untuk menggerakkan sumbu teleskop. Motor stepper yang digunakan memiliki spesifikasi sebagai berikut:
+
+\begin{itemize}[noitemsep]
+	\item Resolusi dasar: $1.8^\circ$ per langkah (200 langkah/putaran)
+	\item Mode mikrolangkah: $1/16$ (microstepping)
+\end{itemize}
+
+Dengan mikrolangkah $1/16$, jumlah langkah per satu putaran penuh ($360^\circ$) menjadi:
+
+\begin{equationcaptioned}[eq:3.langkahPutaran]{
+		\text{Langkah per putaran} = 200 \times 16 = 3200\ \text{langkah}
+	}{
+		Perhitungan jumlah langkah per putaran stepper motor (1.8° dengan 1/16 step)
+	}
+\end{equationcaptioned}
+
+Maka, jumlah langkah yang dibutuhkan untuk mencapai sudut Altitudo dan Azimuth dapat dihitung dengan rumus:
+
+\begin{equationcaptioned}[eq:3.stepperAlt]{
+		\text{Steps}_{alt} = \frac{a}{360^\circ} \times 3200
+	}{
+		Konversi sudut Altitudo ke langkah stepper
+	}
+\end{equationcaptioned}
+
+\begin{equationcaptioned}[eq:3.stepperAz]{
+		\text{Steps}_{az} = \frac{A}{360^\circ} \times 3200
+	}{
+		Konversi sudut Azimuth ke langkah stepper
+	}
+\end{equationcaptioned}
+
+Dengan nilai sudut hasil transformasi koordinat:
+\begin{equationcaptioned}[eq:3.input_sudut]{
+		\begin{aligned}
+			a &= 43.5^\circ \\
+			A &= 232^\circ
+		\end{aligned}
+	}{
+		Sudut Altitudo dan Azimuth target
+	}
+\end{equationcaptioned}
+
+
+Substitusi ke dalam rumus:
+\begin{equationcaptioned}[eq:3.stepsAlt]{
+		\text{Steps}_{alt} = \frac{43.5}{360} \times 3200 \approx 387\ \text{langkah}
+	}{
+		Perhitungan langkah stepper motor pada sumbu Altitudo
+	}
+\end{equationcaptioned}
+
+\begin{equationcaptioned}[eq:3.stepsAz]{
+		\text{Steps}_{az} = \frac{232}{360} \times 3200 \approx 2064\ \text{langkah}
+	}{
+		Perhitungan langkah stepper motor pada sumbu Azimuth
+	}
+\end{equationcaptioned}
+
+Langkah-langkah ini kemudian dikirim sebagai perintah kendali ke mikrokontroler untuk menggerakkan motor stepper pada sumbu Altitudo dan Azimuth secara presisi menuju posisi target benda langit.
+
+
+\section{Rancangan Pengujian} \label{III.Rancang_Uji}
+
+Rancangan pengujian dibagi menjadi tiga bagian utama:
+
+\subsection{1. Pengujian Perangkat Keras}
+\begin{itemize}
+	\item Uji koneksi dan respons motor stepper terhadap sinyal PWM dan kendali arah.
+	\item Pengujian IMU untuk pembacaan data akselerasi dan gyro secara kontinu.
+	\item Uji fungsi sensor dan driver motor secara integratif pada sistem prototipe.
+\end{itemize}
+
+\subsection{2. Pengujian Estimasi Kalman Filter}
+\begin{itemize}
+	\item Pengambilan data IMU mentah selama 30 detik.
+	\item Bandingkan hasil estimasi Kalman dengan data mentah akselerometer.
+	\item Evaluasi kestabilan hasil (drift, fluktuasi, dan latency).
+	\item Visualisasi kurva orientasi menggunakan grafik pitch dan roll.
+\end{itemize}
+
+\subsection{3. Pengujian Perhitungan Posisi Benda Langit}
+\begin{itemize}
+	\item Verifikasi perhitungan Alt-Azimuth menggunakan objek bintang atau planet.
+	\item Bandingkan hasil arah teleskop dengan simulasi Stellarium.
+	\item Evaluasi error sudut maksimal arah terhadap target (target error $<$ 0.5°).
+\end{itemize}
+
+\subsection{Hipotesis Penelitian}
+\begin{itemize}
+	\item Estimasi Kalman Filter meningkatkan akurasi minimal 30\% dibandingkan sensor mentah.
+	\item Transformasi posisi langit ke koordinat Alt-Azimuth dapat diarahkan ke teleskop dengan error sudut maksimal 0.5°.
+	\item Sistem teleskop responsif dan dapat melacak arah target dalam waktu $<$ 1 detik.
+\end{itemize}
+

@@ -1,0 +1,65 @@
+
+
+\counterwithin{table}{section}
+\section{Hasil Wawancara}
+\begin{longtable}{| b{0.05\textwidth} | p{0.3\textwidth} | p{0.35\textwidth} | p{0.25\textwidth} |}
+	\caption{Ringkasan Hasil Wawancara dengan Pengamat di OAIL}
+	\label{lampiran:wwc}\\
+	\hline
+	\textbf{No.} & \textbf{Pertanyaan} & \textbf{Jawaban} & \textbf{Catatan} \\
+	\hline
+	\endfirsthead
+	
+	\hline
+	\textbf{No.} & \textbf{Pertanyaan} & \textbf{Jawaban} & \textbf{Catatan} \\
+	\hline
+	\endhead
+	
+	1. & Apa kesulitan utama dalam menggunakan teleskop manual? &
+	Kesulitan utama adalah dalam proses penyelarasan (alignment) terhadap objek langit, terutama ketika melakukan observasi pertama kali di malam hari. Pengamat harus melakukan orientasi berdasarkan bintang acuan yang kadang tidak mudah dikenali. &
+	Membutuhkan pengalaman tinggi; alasan utama perlunya sistem otomatis untuk alignment awal. \\
+	\hline
+	
+	2. & Apa tantangan dalam mempertahankan objek tetap terlihat di bidang pandang teleskop? &
+	Rotasi bumi menyebabkan objek cepat berpindah dari bidang pandang, sehingga teleskop harus digerakkan secara manual secara terus-menerus. Hal ini melelahkan dan menurunkan efisiensi observasi. &
+	Mendukung kebutuhan fitur tracking otomatis berbasis koordinat alt-azimuth. \\
+	\hline
+	
+	3. & Bagaimana efisiensi teleskop manual dalam pelacakan satelit atau fenomena transit? &
+	Pelacakan objek bergerak cepat seperti satelit atau fenomena transit hampir tidak mungkin dilakukan secara manual. Reaksi manusia terlalu lambat untuk menyesuaikan pergerakan teleskop dengan kecepatan objek. &
+	Sistem otomatis dengan motor stepper dan kontrol real-time diperlukan. \\
+	\hline
+	
+	4. & Bagaimana tingkat akurasi teleskop manual dalam menunjuk posisi bintang redup? &
+	Untuk bintang terang seperti Vega atau Sirius masih dapat dilakukan, namun untuk bintang redup atau nebula sulit karena tidak ada referensi visual yang jelas. &
+	Penting adanya katalog bintang digital dan transformasi koordinat ekuatorial–azimuth. \\
+	\hline
+	
+	5. & Apa kendala yang sering dialami saat menggunakan teleskop di lapangan? &
+	Kendala umum adalah waktu setup yang lama, kalibrasi sensor manual, kesulitan menjaga kestabilan dudukan, serta keterbatasan cahaya di lapangan. &
+	Perlu sistem teleskop yang ringan, cepat dikonfigurasi, dan memiliki kalibrasi otomatis. \\
+	
+	6. & Apa pendapat Anda mengenai penggunaan aplikasi Android untuk kendali teleskop? &
+	Sangat positif, karena memudahkan pengamat untuk mengatur posisi teleskop tanpa perlu menyentuh perangkat secara langsung. Kontrol berbasis antarmuka visual juga lebih intuitif bagi pengguna baru. &
+	Menjadi justifikasi integrasi sistem kontrol berbasis Flutter dengan koneksi WebSocket. \\
+	\hline
+	
+	7. & Apa harapan terhadap pengembangan teleskop otomatis berbasis iot? &
+	Diharapkan sistemnya lebih mudah dirakit, biaya rendah, serta kompatibel dengan kebutuhan edukasi dan riset mahasiswa. Pengamat juga berharap agar sistem tetap bisa dioperasikan secara manual bila diperlukan. &
+	Mendukung pengembangan teleskop robotik dengan fleksibilitas mode manual–otomatis. \\
+	\hline
+	
+	8. & Bagaimana respon pengamat terhadap penggunaan filter estimasi seperti Kalman atau Mahony Filter? &
+	Menurut pengamat, stabilitas sudut saat pelacakan menjadi jauh lebih penting daripada hanya kecepatan pergerakan. Penggunaan filter estimasi sangat berguna untuk mengoreksi error dari sensor IMU. &
+	Relevan dengan topik optimasi estimasi sudut dalam penelitian ini. \\
+	\hline
+	
+	9. & Apakah sistem teleskop otomatis seperti ini layak diterapkan di OAIL untuk kegiatan observasi mahasiswa? &
+	Sangat layak, terutama untuk kegiatan praktikum atau penelitian mahasiswa tingkat akhir. Sistem otomatis dapat mempercepat proses observasi dan mengurangi kesalahan akibat faktor manusia. &
+	Dapat menjadi dasar implementasi sistem pada observatorium pendidikan seperti OAIL ITERA. \\
+	\hline
+	
+\end{longtable}
+
+
+\section{Rincian Kasus Uji}

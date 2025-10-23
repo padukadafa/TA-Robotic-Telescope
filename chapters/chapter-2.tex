@@ -1,0 +1,325 @@
+\newpage
+\chapter{TINJAUAN PUSTAKA} \label{Bab II}
+
+\section{Tinjauan Pustaka} \label{II.Tinjauan}
+Penelitian terkait teleskop robotik dan \textit{Mahony Filter} telah dilakukan oleh berbagai peneliti dengan pendekatan dan tujuan yang beragam. Beberapa studi fokus pada pengembangan perangkat keras, sistem kontrol otomatis, serta integrasi perangkat lunak untuk observasi langit secara efisien dan akurat. Tabel~\ref{table:2.literasi} merangkum beberapa penelitian yang relevan dan menjadi dasar dalam pengembangan sistem pada tugas akhir ini. \par
+\begin{longtable}{| b{0.05\textwidth}|p{0.2\textwidth}|p{0.2\textwidth}|p{0.2\textwidth}|p{0.2\textwidth}|} % Longtable berguna agar tabel dapat terpotong di halaman baru
+	\caption{Literasi Penelitian Terdahulu}
+	\label{table:2.literasi}\\
+	\hline
+	\textbf{No.} & \textbf{Judul} & \textbf{Masalah} & \textbf{Metode} & \textbf{Hasil} \\
+	\hline
+	\endfirsthead % Header tabel untuk halaman pertama
+	\hline
+	\textbf{No.} & \textbf{Judul} & \textbf{Masalah} & \textbf{Metode} & \textbf{Hasil} \\
+	\hline
+	\endhead % Header tabel untuk halaman selanjutnya (repeat header row)
+	1.  & RUKYATUL HILAL INSTRUMENT DESIGN BASED ON ARDUINO  & Keterbatasan instrumen tradisional dalam pengamatan Hilal serta penempatan bulan yang tidak konsisten & \textit{Reasearch \& Development} (R\&D) & Hasil penelitian menunjukkan bahwa instrumen berbasis Arduino berhasil menunjukkan dan lebih tepat posisi Bulan. \cite{Hadi2022}.\\ 
+	\hline
+	2. & Design and Development of Real-Time Controller Based on ARM Cortex-M Processor
+	for Automated Altitude-Azimuth Telescope Mount & Observasi astronomi manual menghadapi beberapa tantangan signifikan seperti mengarahkan teleskop secara manual dan kondisi cuaca yang tidak menentu & Nested Vectored Interrupt Controller (NVIC) terintegrasi, dan Digital Signal Processing (DSP) engine & Hasil penelitian menunjukkan bahwa pengontrol STM32F407VGT6 berbasis mikrokontroler berhasil dikembangkan dan diuji, memenuhi persyaratan yang ditetapkan \cite{Rangana2022}.\\ 
+	\hline
+	3. & Characterization of the Small Robotic Telescope Instrument and Implementation at ITERA Lampung Astronomical Observatory & keterbatasan metode manual, kesulitan dalam mengarahkan teleskop secara presisi, dan masalah kontras untuk objek redup seperti bulan tetap, serta artefak noise pada kamera & In-situ test observations & OZT-ALTS berhasil melakukan pengamatan bulan tetap dengan kontras yang lebih baik dan mampu mendeteksi exoplanet yang transit \cite{Malasan2025}.\\ 
+%Teleskop robotik 36~cm dengan kamera sCMOS dan software berbasis ZeroMQ serta PSO untuk penjadwalan otomatis.
+	\hline
+	4. & Sistem Pelacak Otomatis Gerakan Benda Langit Pada Teleskop Refraktor Berbasis Mikrokontroler & Saat ini teleskop yang tersedia sebagian besar hanya dapat melakukan pelacakan gerak bintang saja. & Reasearch \& Development (R\&D) & Hasil penelitian menunjukkan bahwa sistem yang
+	dibangun dapat melakukan pelacakan secara otomatis pergerakan benda-benda langit dengan akurat. \cite{Burhanuddin2014}.\\
+	\hline
+	5. & Indirect tuning of a complementary orientation filter using velocity data and a genetic algorithm & bagaimana meningkatkan akurasi pelacakan posisi menggunakan IMU berbiaya rendah di lingkungan tanpa GNSS & \textit{Popular Baseline Filter} \& \textit{Time Agnostic Velocity Error} & Metode \textit{Mahony Filter} menunjukkan kinerja lebih baik dibandingkan \textit{Madgwick Filter} dan Q-EKF, dengan nilai kesalahan kecepatan (\textit{MSVE} dan \textit{WRVE}) yang lebih rendah \cite{Maton2024}.\\ 
+	\hline
+\end{longtable}
+Dari  penelitian yang ditinjau dari Table~\ref{table:2.literasi}, terlihat adanya perkembangan signifikan pada instrumen astronomi, mulai dari desain berbasis Arduino untuk rukyatul hilal, sistem kontrol real-time berbasis \textit{ARM Cortex-M}, hingga teleskop robotik kecil yang mampu mendeteksi eksoplanet. Penelitian-penelitian tersebut menunjukkan arah pengembangan menuju otomatisasi dan peningkatan akurasi pengamatan benda langit.
+
+Namun, terdapat beberapa kesenjangan penelitian (\textit{research gap}), yaitu:
+
+\begin{enumerate}[noitemsep]
+	\item Sebagian besar penelitian masih berfokus pada pengendalian teleskop atau peningkatan kualitas pengamatan, tetapi belum banyak yang mengintegrasikan metode optimasi sensor IMU untuk estimasi orientasi dan posisi.
+	
+	\item Tantangan terkait akurasinya sensor berbiaya rendah.
+	
+	\item Penerapan algoritma cerdas seperti \textit{Genetic Algorithm} (GA) dan \textit{Fuzzy Inference System} (FIS) pada filter komplementer masih relatif baru dan menunjukkan potensi besar untuk meningkatkan performa sistem teleskop robotik.
+	
+\end{enumerate}
+
+Dengan demikian, penelitian ini menjadi relevan karena menawarkan pendekatan penyempurnaan estimasi sudut teleskop berbasis IMU yang dioptimalkan dengan \textit{Mahony Filter} guna meningkatkan estimasi sudut dan posisi, sehingga diharapkan dapat mengatasi keterbatasan pada penelitian sebelumnya dan meningkatkan presisi teleskop \textit{Alt-Azimuth} otomatis.
+
+\section{Dasar Teori} \label{II.Teori}
+Pada bagian ini akan dibahas teori-teori dasar yang menjadi landasan dalam perancangan dan pengembangan sistem teleskop robotik \textit{Alt-Azimuth} dengan estimasi sudut menggunakan \textit{Mahony Filter}. Pembahasan mencakup konsep dasar teleskop robotik, sistem koordinat \textit{Alt-Azimuth}, sensor inersial, serta algoritma \textit{Mahony Filter} sebagai metode optimasi estimasi sudut. Teori-teori ini menjadi acuan dalam proses perancangan perangkat keras dan perangkat lunak pada penelitian ini. \par
+\subsection{Teleskop} \label{II.Teori1}
+Teleskop adalah alat optik yang digunakan untuk mengamati objek yang sangat jauh, seperti Bintang, planet dan benda-benda Antariksa lainnya\cite{Bradley2014}. Alat ini bekerja dengan cara mengumpulkan dan memfokuskan cahaya sehingga menghasilkan citra yang tampak lebih besar \cite{Bradley2014} \cite{HannuKarttunen2017} \cite{Roy2018}. \par
+
+Dalam perkembangannya, teleskop kini banyak dikembangkan menjadi sistem otomatis atau robotik yang dapat beroperasi tanpa campur tangan manusia \cite{Dyer2020}. Teleskop robotik mampu mengikuti pergerakan benda langit secara kontinu, memudahkan pengamatan jangka panjang, pelacakan objek cepat, serta memungkinkan pengendalian jarak jauh melalui jaringan internet atau lokal. \par
+
+\subsubsection{Teleskop Reflektor} \label{II.Teori1.1}
+Teleskop reflektor adalah jenis teleskop yang menggunakan cermin sebagai elemen utama untuk mengumpulkan dan memfokuskan cahaya \cite{HannuKarttunen2017}. Tidak seperti teleskop refraktor yang menggunakan lensa, teleskop reflektor memanfaatkan cermin cekung (umumnya paraboloid) untuk memfokuskan cahaya ke satu titik fokus. Keunggulan utama dari desain ini adalah kemampuannya untuk menghindari aberasi kromatik yang sering terjadi pada teleskop lensa \cite{Roy2018}.\par
+
+\begin{figure}[H] % Kalau menggunakan H, posisi gambar akan tepat dibawah teks
+	\centering
+	\includegraphics[width=0.6\textwidth]{figure/teleskop_reflektor_2.png}
+	\caption{Teleskop reflektor}
+	\label{fig:2.1}
+	{\footnotesize Sumber: \textit{Fundamental Astronomy}} % Untuk memberikan sumber
+\end{figure}
+
+
+Desain teleskop reflektor yang paling umum adalah Newtonian Reflector seperti yang ditunjukan pada gambar \ref{fig:2.1}. Sistem ini menggunakan cermin utama cekung dan cermin sekunder datar yang memantulkan cahaya ke arah lensa okuler di samping tabung teleskop. Konfigurasi ini relatif sederhana dan banyak digunakan oleh astronom amatir karena biayanya yang lebih rendah serta kemudahan dalam perakitan.\par
+
+Teleskop reflektor memiliki beberapa keunggulan \cite{Ryden2010}, di antaranya:
+
+\begin{enumerate}[noitemsep]
+	\item Dapat dibuat dengan ukuran yang jauh lebih besar.
+	
+	\item Bebas aberasi kromatik, karena cahaya dipantulkan, bukan dibiaskan.
+	
+	\item Cocok untuk pengamatan objek redup, seperti nebula atau galaksi.
+\end{enumerate}
+
+Namun demikian, kelemahan dari teleskop reflektor adalah lebih rentan terhadap penyimpangan optik akibat kesalahan kolimasi (penyelarasan cermin), serta permukaan cermin yang memerlukan perawatan khusus agar tetap bersih dan reflektif. \par
+
+
+\subsubsection{Perbesaran Teleskop} \label{II.Teori1.2}
+Perbesaran sebuah teleskop bergantung pada titik fokus kedua lensanya, yaitu panjang fokus lensa obyektif dan lensa okuler. Perbesarannya  dapat dihitung dengan membandingkan kedua fokus lensa tersebut seperti yang ditunjukkan pada \ref{eq:2.perbesaranTeleskop} \cite{Ryden2010} \par
+\begin{equationcaptioned}[eq:2.perbesaranTeleskop]{
+	M=\frac{f_{obyektif}}{f_{okuler}}
+}{
+	Perbesaran Teleskop
+}	
+\end{equationcaptioned}
+Dengan M merupakan perbesaran teleskop, $f_{obyektif}$ adalah panjang fokus lensa obyektif, $f_{okuler}$ adalah panjang fokus lensa okuler.
+\subsection{Trigonometri Bola} \label{II.Teori2}
+
+
+Ketika kita menghubungkan 3 buah lingkaran pada sebuah bola kita akan menemukan segitiga yang terbentuk dari lingkaran yang berpotongan tersebut seperti yang ditunjukin pada Gambar~\ref{fig:2.2}, Segitiga ini dinamakan segitiga bola\cite{Roy2018}. 
+\begin{figure}[H] % Kalau menggunakan H, posisi gambar akan tepat dibawah teks
+	\centering
+	\includegraphics[width=0.6\textwidth]{figure/segitiga_bola.png}
+	\caption{Segitiga Bola}
+	\label{fig:2.2}
+	{\footnotesize Sumber: Astronomy Principles and Practice} % Untuk memberikan sumber
+\end{figure}
+Trigonometri bidang atau trigonometri pada umumnya dapat digunakan untuk menghitung / merumuskan persamaan yang dapat digunakan untuk menghitung sejumlah properti yang ada di segitiga bola. Ada banyak persamaan yang dihasilkan, akan tetapi 4 rumus khusus yang lebih sering digunakan dari pada rumus lainnya yang ditunjukan oleh \ref{eq:2.formulaSinus} hingga \ref{eq:2.formulaEmpatBagian} \cite{Roy2018}.
+\begin{enumerate}[noitemsep]
+	\item Formula sinus
+	\begin{equationcaptioned}[eq:2.formulaSinus]{
+			\frac{\sin{A}}{\sin{a}} = \frac{\sin{B}}{\sin{b}} = \frac{\sin{C}}{\sin{c}}
+		} {
+		Formula sinus trigonometri bola
+		}
+	\end{equationcaptioned}
+	\item Formula cosinus
+	\begin{equationcaptioned}[eq:2.formulaCosinus]{
+			\begin{split}
+				\cos{a} = \cos{b} \cos{c} + \sin{b} \sin{c} \cos{A}\\
+				\cos{b} = \cos{a} \cos{c} + \sin{a} \sin{c} \cos{B}\\
+				\cos{c} = \cos{a} \cos{b} + \sin{a} \sin{b} \cos{C}
+			\end{split}
+		} {
+			Formula cosinus trigonometri bola
+		}
+	\end{equationcaptioned}
+	\item Formula analogi cosinus
+	\begin{equationcaptioned}[eq:2.formulaAnalogiCosinus]{
+			\sin{a}\sin{B} = \cos{b}\sin{c} - \sin{b}\cos{c}\cos{A}
+		} {
+			Formula analogin cosinus
+		}
+	\end{equationcaptioned}
+	\item Formula 4 bagian
+	\begin{equationcaptioned}[eq:2.formulaEmpatBagian]{
+			\cos{a}\cos{C} = \sin{a}\cot{b} - \sin{C}\cot{B}
+		} {
+			Formula 4 bagian
+		}
+	\end{equationcaptioned}
+\end{enumerate}
+\subsection{\textit{Julian Date}} \label{II.Teori3}
+\textit{Julian Date} (JD) merupakan sistem penanggalan yang digunakan secara luas dalam astronomi untuk menyatakan waktu dalam bentuk bilangan real yang menyatakan jumlah hari (dan pecahannya) sejak tengah hari (12:00 UT) pada tanggal 1 Januari 4713 SM dalam kalender Julian. Sistem ini diperkenalkan untuk menghindari kompleksitas kalender masehi seperti tahun kabisat dan perbedaan bulan, serta untuk menyederhanakan perhitungan selisih waktu antara dua peristiwa astronomis\cite{HannuKarttunen2017}. Julian date pada tanggal tertentu dapat dihitung dengan \ref{eq:2.julianDate} \cite{HannuKarttunen2017}
+\begin{equationcaptioned}[eq:2.julianDate]{
+		J = 367y - \left\lfloor \frac{7(y + \frac{m + 9}{12})}{4} \right\rfloor - \left\lfloor \frac{3 \left( \left\lfloor \frac{y + \frac{m - 9}{7}}{100} \right\rfloor + 1 \right)}{4} \right\rfloor + \left\lfloor \frac{275m}{9} \right\rfloor + d + 1721029 + \frac{h + \frac{m}{60} + \frac{s}{3600}}{24}
+	}{
+		Julian Date
+	}
+\end{equationcaptioned}
+Dengan:
+\begin{description}[noitemsep]
+	\item[$J$] = Nilai \textit{Julian Date}.
+	\item[$y$] = Tahun (\textit{year}).
+	\item[$m$] = Bulan (\textit{month}).
+	\item[$d$] = Hari (\textit{day}).
+	\item[$h$] = Jam dalam format 24 jam (\textit{hour}).
+	\item[$M$] = Menit (\textit{minute}).
+	\item[$s$] = Detik (\textit{second}).
+	\item[$\lfloor \cdot \rfloor$] Fungsi lantai (\textit{floor}), yaitu pembulatan ke bawah.
+\end{description}
+
+
+\subsection{Tata Koordinat Langit} \label{II.Teori4}
+Tata koordinat langit adalah sistem referensi dua dimensi yang digunakan untuk menentukan posisi benda langit di bola langit, yaitu proyeksi imajiner langit malam sebagai bola yang mengelilingi Bumi \cite{Roy2018} \cite{HannuKarttunen2017} \cite{Bradley2014}. Sistem ini analog dengan sistem koordinat geografis di Bumi (lintang dan bujur), namun diproyeksikan ke langit. Tata koordinat langit dibagi menjadi beberapa sistem utama yang digunakan tergantung pada kebutuhan dan titik referensinya.
+\subsubsection{Tata Koordinat Azimuth} \label{II.Teori4.1}
+
+
+Tata Koordinat Azitmuth merupakan tata koordinat paling primitif dan merupakan yang paling mudah untuk dibayangkan. Tata koordinat ini memanfaatkan sudut azimuth (A) yang dihitung dari utara kearah timur dengan rentang sudut 0° sampai 360° dan altitude (a) yang dihitung dari horizon ke zenith pengamat dengan rentang sudut -90° sampai 90°\cite{Roy2018} seperti yang ditunjukkan pada Gambar~\ref{fig:2.3}. 
+\begin{figure}[H] % Kalau menggunakan H, posisi gambar akan tepat dibawah teks
+	\centering
+	\includegraphics[width=0.6\textwidth]{figure/tata_koordinat_azimuth.png}
+	\caption{Tata koordinat azimuth}
+	\label{fig:2.3}
+	{\footnotesize Sumber: Astronomy Principles and Practice} % Untuk memberikan sumber
+\end{figure}
+Ada beberapa titik istimewa di tata koordinat azimuth. Seperti Zenith merupakan titik yang berada tepat di atas kepala pengamat dan Nadir yang merupakan titik berada di bawah pengamat. Kekurangan dari tata koordinat ini adalah koordinat yang bergantung dengan lokasi pengamat sehingga tidak cocok digunakan sebagai acuan katalog.
+
+\subsubsection{Tata Koordinat Ekuatorial} \label{II.Teori4.2}
+
+Tata koordinat ekuator adalah sistem koordinat langit yang digunakan untuk menentukan posisi benda-benda langit secara global dan tidak bergantung pada lokasi atau waktu pengamatan di Bumi \cite{Roy2018}. 
+\begin{figure}[H] % Kalau menggunakan H, posisi gambar akan tepat dibawah teks
+	\centering
+	\includegraphics[width=0.6\textwidth]{figure/tata_koordinat_ekuatorial.png}
+	\caption{Tata koordinat ekuatorial}
+	\label{fig:2.4}
+	{\footnotesize Sumber: Astronomy Principles and Practice} % Untuk memberikan sumber
+\end{figure}
+Berdasarkan Gambar~\ref{fig:2.4}, Sistem ini menggunakan dua parameter utama: Right Ascension ($\alpha$), dihitung dari titik $\Upsilon$ sampai titik B dan dinyatakan dalam satuan jam (0h hingga 24h), serta Declination ($\delta$), yang setara dengan garis lintang dan dinyatakan dalam derajat (-90° hingga +90°) relatif terhadap ekuator langit\cite{Roy2018} seperti yang ditunjukin pada Gambar~\ref{fig:2.4}. Karena posisinya tetap terhadap bintang-bintang jauh, sistem ini sangat ideal untuk katalog astronomi dan digunakan secara luas dalam pengoperasian teleskop otomatis.
+\subsubsection{Transformasi Tata Koordinat Equatorial ke Azimuth} \label{II.Teori4.3}
+\begin{figure}[H] % Kalau menggunakan H, posisi gambar akan tepat dibawah teks
+	\centering
+	\includegraphics[width=0.6\textwidth]{figure/tata_koordinat_ekuatorial.png}
+	\caption{Tata koordinat ekuatorial}
+	\label{fig:2.5}
+	{\footnotesize Sumber: Astronomy Principles and Practice} % Untuk memberikan sumber
+\end{figure}
+Transformasi koordinat dari sistem ekuator (Right Ascension dan Declination) ke sistem alt-azimuth (Azimuth dan Altitude) diperlukan agar teleskop dapat mengarahkan diri ke posisi objek langit berdasarkan lokasi dan waktu pengamatan\cite{Roy2018}. Berdasarkan gambar \ref{fig:2.5} dapat kita rumuskan.
+\begin{equationcaptioned}[eq:2.transformasiDeklinasi]{
+			\sin{\delta} = \sin{\phi}\sin{a} + \cos{\phi}\cos{a}\cos{A}
+	} {
+		Transformasi koordinat nilai deklinasi
+	}
+\end{equationcaptioned}
+\begin{equationcaptioned}[eq:2.transformasiAltitudo]{
+		\sin{a} = \sin{\phi}\sin{\delta} + \cos{\phi}\cos{\delta}\cos{H}
+	} {
+		Transformasi koordinat nilai altitudo
+	}
+\end{equationcaptioned}
+\begin{equationcaptioned}[eq:2.transformasiHA1]{
+		\cos{H} = \frac{\sin{a}-\sin{\phi}\sin{\delta}}{\cos{\phi}\cos{\delta}}
+	} {
+		Transformasi koordinat Hour Angle 1
+	}
+\end{equationcaptioned}
+	\begin{equationcaptioned}[eq:2.transformasiHA2]{
+			\tan{H} = \frac{\sin{A}}{\sin{\phi}\cos{A}-\cos{\phi}\tan{a}}
+		} {
+			Transformasi koordinat Hour Angle 2
+		}
+	\end{equationcaptioned}
+Dengan:
+\begin{description}[noitemsep]
+	\item[$\delta$] = Deklinasi objek.
+	\item[$\phi$] = Lintang pengamat.
+	\item[$a$] = \textit{Altitude} (ketinggian) objek.
+	\item[$A$] = \textit{Azimuth} objek.
+	\item[$H$] = \textit{Hour Angle} atau sudut jam yang dihitung dari horizon pengamat ke zenit.
+
+\end{description}
+
+\subsection{\textit{Mahony Filter}} \label{II.Teori5}
+\textit{Mahony filter} adalah sebuah filter fusi sensor (sensor fusion) yang termasuk dalam jenis filter komplementer (\textit{complementary filter}) \cite{Maton2024}. Algoritma ini mengoreksi vektor rotasi dari giroskop (S$\omega$) berdasarkan sebuah controller Proporsional Integral (PI) pada vektor koreksi \cite{MinhLongHoang2022}. Secara umum, filter ini menggabungkan data dari berbagai sensor, seperti akselerometer dan giroskop, untuk menghasilkan estimasi sikap (roll, pitch, yaw) yang lebih akurat dan minim noise \cite{MinhLongHoang2022}.
+
+Perhitungan dalam Mahony filter dilakukan melalui beberapa langkah utama, di mana Kp adalah gain proporsional dan Ki adalah gain integral yang dapat disesuaikan \cite{MinhLongHoang2022}. Berikut adalah langkah-langkah perhitungannya:
+\begin{enumerate}
+	\item Estimasi Vektor Gravitasi (d) dari Kuaternion
+	Langkah pertama adalah mengestimasi arah vektor gravitasi berdasarkan orientasi quaternion yang diestimasi saat ini (q)
+	\begin{equationcaptioned}[eq:2.estimasiVektorGravitasi]{
+			\mathbf{d} = 2
+			\left(
+			\begin{array}{c}
+				q_{1} q_{3} - q_{0} q_{2} \\
+				q_{0} q_{1} + q_{2} q_{3} \\
+				q_{0}^{2} + q_{3}^{2} - \tfrac{1}{2}
+			\end{array}
+			\right)
+		}{
+			Estimasi Vektor Gravitasi dari Kuarternion
+		}
+	\end{equationcaptioned}
+
+	\item Perhitungan Vektor Kesalahan (e)
+	Selanjutnya, vektor galat dihitung sebagai cross product antara vektor akselerometer yang diukur (a) dan estimasi arah gravitasi (d) dari langkah sebelumnya
+	\begin{equationcaptioned}[eq:2.perhitunganVektorKesalahan]{
+			e = a \times d
+		} {
+			Perhitungan Vektor Kesalahan
+		}
+	\end{equationcaptioned}
+	\item Perhitungan Vektor Integral ($I_n$)
+	Komponen integral dari PI controller dihitung dengan mengintegrasikan vektor galat (e) dari waktu ke waktu
+	\begin{equationcaptioned}[eq:2.perhitunganVektorIntegrasi]{
+			I_n = I_{n-1} + eKi \Delta t
+		} {
+			Perhitungan Vektor Integrasi
+		}
+	Dengan:
+	\begin{itemize}
+		\item[$I_n$] = nilai integral.
+		\item[$I_{n-1}$] = nilai integral dari langkah sebelumnya.
+		\item[$\Delta t$] = interval waktu sampling
+	\end{itemize}
+	\end{equationcaptioned}
+	\item Vektor Proporsional
+	Kecepatan sudut ($\omega$) dari giroskop dikoreksi dengan menambahkan komponen proporsional (Kp) dan komponen integral ($I_n$)
+	\begin{equationcaptioned}[eq:2.perhitunganVektorIntegrasi]{
+			\omega' = \omega + K_p + I_n
+		} {
+			Perhitungan Vektor Integral
+		}
+	\end{equationcaptioned}
+	\item Integrasi laju perubahan kuaternion
+	kuaternion orientasi yang baru ($q_n$) dihitung dengan mengintegrasikan kecepatan sudut yang telah dikoreksi ($\omega '$) dari kuaternion sebelumnya ($q_{n-1}$)
+	\begin{equationcaptioned}[eq:2.integrasiLajuPerubahanKuaternion]{
+			q_{n} = q_{n-1} + \frac{1}{2}\, q_{n-1} \circledtimes \omega' \, \Delta t
+		}{
+			Integrasi laju perubahan kuaternion
+		}
+	\end{equationcaptioned}
+	
+	\begin{equationcaptioned}[eq:2.integrasiLajuPerubahanKuaternionMatrix]{
+			q_{n} = q_{n-1} + \frac{1}{2}
+			\begin{pmatrix}
+				-q_{1}\omega'_{x} - q_{2}\omega'_{y} - q_{3}\omega'_{z} \\
+				q_{0}\omega'_{x} + q_{2}\omega'_{z} - q_{3}\omega'_{y} \\
+				q_{0}\omega'_{y} - q_{1}\omega'_{z} + q_{3}\omega'_{x} \\
+				q_{0}\omega'_{z} + q_{1}\omega'_{y} - q_{2}\omega'_{x}
+			\end{pmatrix}
+		}{
+			Integrasi laju perubahan kuaternion dalam bentuk matriks
+		}
+	\end{equationcaptioned}
+
+
+	
+\end{enumerate}
+
+
+
+\subsection{Websocket} \label{II.Teori6}
+WebSocket adalah protokol komunikasi yang memungkinkan pertukaran data secara dua arah (full-duplex) antara klien dan server melalui satu koneksi yang terus-menerus terbuka. Protokol ini sangat cocok digunakan dalam aplikasi yang memerlukan komunikasi waktu nyata dengan latensi rendah. WebSocket memiliki keunggulan dalam efisiensi dan kecepatan dibandingkan metode konvensional seperti polling HTTP karena hanya memerlukan satu kali proses handshake dan selanjutnya dapat mempertahankan koneksi terbuka untuk komunikasi berkelanjutan\cite{Soewito2019}. Dalam implementasi sistem berbasis IoT, seperti smart home atau sistem kendali teleskop, penggunaan WebSocket sangat efektif dalam menjaga responsivitas dan kestabilan komunikasi antara aplikasi pengguna dan perangkat keras secara real-time. \par
+
+\subsection{Standar Deviasi} \label{II.Teori7}
+Standar deviasi adalah sebuah angka yang mengatur seberapa jauh nilai-nilai dalam sebuah data tersebar dari rata-ratanya. Standar deviasi yang kecil menunjukkan bahwa data terkonsentrasi di dekat rata-rata dengan sedikit variasi, sedangkan standar deviasi yang besar menandakan bahwa nilai-nilai data lebih tersebar. Perhitungannya didasarkan pada varians, yang merupakan rata-rata dari kuadrat deviasi (selisih setiap data dari rata-rata), dan standar deviasi adalah akar kuadrat dari varians tersebut seperti ditunjukan pada \ref{eq:2.standarDeviasi}
+\begin{equationcaptioned}[eq:2.standarDeviasi]{
+		s = \sqrt{\frac{\sum(x - \bar{x})^2}{n-1}}
+	}{
+		Standar Deviasi
+	}
+\end{equationcaptioned}
+Dengan:
+
+\begin{itemize}
+	\item[$s =$] standar deviasi sampel
+	\item[$x =$] nilai dari setiap data
+	\item[$\bar{x} =$] rata-rata sampel
+	\item[$n =$] jumlah data dalam sampel
+\end{itemize}
+Standar deviasi digunakan dalam penelitian ini untuk mengukur tingkat penyebaran atau variasi data hasil pengukuran sudut dan estimasi orientasi teleskop. Nilai standar deviasi yang kecil menunjukkan bahwa sistem memiliki kestabilan tinggi dan error pembacaan sensor yang relatif rendah. \par
+
+
