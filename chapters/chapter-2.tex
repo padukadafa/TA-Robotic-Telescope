@@ -221,14 +221,14 @@ Dengan:
 	\item[$H$] = \textit{Hour Angle} atau sudut jam yang dihitung dari horizon pengamat ke zenit.
 
 \end{description}
-
 \subsection{\textit{Mahony Filter}} \label{II.Teori5}
-\textit{Mahony filter} adalah sebuah filter fusi sensor (sensor fusion) yang termasuk dalam jenis filter komplementer (\textit{complementary filter}) \cite{Maton2024}. Algoritma ini mengoreksi vektor rotasi dari giroskop (S$\omega$) berdasarkan sebuah controller Proporsional Integral (PI) pada vektor koreksi \cite{MinhLongHoang2022}. Secara umum, filter ini menggabungkan data dari berbagai sensor, seperti akselerometer dan giroskop, untuk menghasilkan estimasi sikap (roll, pitch, yaw) yang lebih akurat dan minim noise \cite{MinhLongHoang2022}.
+\textit{Mahony filter} adalah sebuah filter fusi sensor (\textit{sensor fusion}) yang termasuk dalam jenis filter komplementer (\textit{complementary filter}) \cite{Maton2024}. Algoritma ini mengoreksi vektor rotasi dari giroskop ($\omega$) berdasarkan pengendali \textit{Proporsional Integral (PI Controller)} pada vektor koreksi \cite{MinhLongHoang2022}. Secara umum, filter ini menggabungkan data dari berbagai sensor seperti akselerometer dan giroskop untuk menghasilkan estimasi sikap (roll, pitch, yaw) yang lebih akurat dan minim \textit{noise} \cite{MinhLongHoang2022}.
 
-Perhitungan dalam Mahony filter dilakukan melalui beberapa langkah utama, di mana Kp adalah gain proporsional dan Ki adalah gain integral yang dapat disesuaikan \cite{MinhLongHoang2022}. Berikut adalah langkah-langkah perhitungannya:
+Perhitungan dalam \textit{Mahony Filter} dilakukan melalui beberapa langkah utama, di mana $K_p$ adalah \textit{gain proporsional} dan $K_i$ adalah \textit{gain integral} yang dapat disesuaikan \cite{MinhLongHoang2022}. Berikut adalah langkah-langkah perhitungannya:
+
 \begin{enumerate}
-	\item Estimasi Vektor Gravitasi (d) dari Kuaternion
-	Langkah pertama adalah mengestimasi arah vektor gravitasi berdasarkan orientasi quaternion yang diestimasi saat ini (q)
+	\item \textbf{Estimasi Vektor Gravitasi ($d$) dari Kuaternion}\\
+	Langkah pertama adalah mengestimasi arah vektor gravitasi berdasarkan orientasi kuaternion ($q$) yang diestimasi saat ini:
 	\begin{equationcaptioned}[eq:2.estimasiVektorGravitasi]{
 			\mathbf{d} = 2
 			\left(
@@ -239,49 +239,47 @@ Perhitungan dalam Mahony filter dilakukan melalui beberapa langkah utama, di man
 			\end{array}
 			\right)
 		}{
-			Estimasi Vektor Gravitasi dari Kuarternion
-		}
-	\end{equationcaptioned}
-
-	\item Perhitungan Vektor Kesalahan (e)
-	Selanjutnya, vektor galat dihitung sebagai cross product antara vektor akselerometer yang diukur (a) dan estimasi arah gravitasi (d) dari langkah sebelumnya
-	\begin{equationcaptioned}[eq:2.perhitunganVektorKesalahan]{
-			e = a \times d
-		} {
-			Perhitungan Vektor Kesalahan
-		}
-	\end{equationcaptioned}
-	\item Perhitungan Vektor Integral ($I_n$)
-	Komponen integral dari PI controller dihitung dengan mengintegrasikan vektor galat (e) dari waktu ke waktu
-	\begin{equationcaptioned}[eq:2.perhitunganVektorIntegrasi]{
-			I_n = I_{n-1} + eKi \Delta t
-		} {
-			Perhitungan Vektor Integrasi
-		}
-	Dengan:
-	\begin{itemize}
-		\item[$I_n$] = nilai integral.
-		\item[$I_{n-1}$] = nilai integral dari langkah sebelumnya.
-		\item[$\Delta t$] = interval waktu sampling
-	\end{itemize}
-	\end{equationcaptioned}
-	\item Vektor Proporsional
-	Kecepatan sudut ($\omega$) dari giroskop dikoreksi dengan menambahkan komponen proporsional (Kp) dan komponen integral ($I_n$)
-	\begin{equationcaptioned}[eq:2.perhitunganVektorIntegrasi]{
-			\omega' = \omega + K_p + I_n
-		} {
-			Perhitungan Vektor Integral
-		}
-	\end{equationcaptioned}
-	\item Integrasi laju perubahan kuaternion
-	kuaternion orientasi yang baru ($q_n$) dihitung dengan mengintegrasikan kecepatan sudut yang telah dikoreksi ($\omega '$) dari kuaternion sebelumnya ($q_{n-1}$)
-	\begin{equationcaptioned}[eq:2.integrasiLajuPerubahanKuaternion]{
-			q_{n} = q_{n-1} + \frac{1}{2}\, q_{n-1} \circledtimes \omega' \, \Delta t
-		}{
-			Integrasi laju perubahan kuaternion
+			Estimasi vektor gravitasi dari kuaternion orientasi \cite{MinhLongHoang2022}
 		}
 	\end{equationcaptioned}
 	
+	\item \textbf{Perhitungan Vektor Galat ($e$)}\\
+	Vektor galat dihitung sebagai hasil perkalian silang antara vektor akselerometer ($a$) yang diukur dan estimasi arah gravitasi ($d$):
+	\begin{equationcaptioned}[eq:2.perhitunganVektorKesalahan]{
+			e = a \times d
+		}{
+			Perhitungan vektor galat orientasi \cite{MinhLongHoang2022}
+		}
+	\end{equationcaptioned}
+	
+	\item \textbf{Perhitungan Komponen Integral ($I_n$)}\\
+	Komponen integral dari PI Controller dihitung dengan mengintegrasikan vektor galat ($e$) terhadap waktu:
+	\begin{equationcaptioned}[eq:2.perhitunganVektorIntegrasi]{
+			I_n = I_{n-1} + K_i e \Delta t
+		}{
+			Perhitungan komponen integral dari PI Controller \cite{MinhLongHoang2022}
+		}
+	\end{equationcaptioned}
+	
+	\item \textbf{Koreksi Kecepatan Sudut dengan PI Controller}\\
+	Kecepatan sudut giroskop ($\omega$) kemudian dikoreksi dengan menambahkan komponen proporsional ($K_p$) dan integral ($I_n$):
+	\begin{equationcaptioned}[eq:2.koreksiPiController]{
+			\omega' = \omega + K_p + I_n
+		}{
+			Koreksi kecepatan sudut giroskop dengan PI Controller \cite{MinhLongHoang2022}
+		}
+	\end{equationcaptioned}
+	
+	\item \textbf{Integrasi Laju Perubahan Kuaternion}\\
+	Kuaternion orientasi baru ($q_n$) dihitung dengan mengintegrasikan kecepatan sudut hasil koreksi ($\omega'$) dari kuaternion sebelumnya ($q_{n-1}$):
+	\begin{equationcaptioned}[eq:2.integrasiLajuPerubahanKuaternion]{
+			q_{n} = q_{n-1} + \frac{1}{2}\, q_{n-1} \circledtimes \omega' \, \Delta t
+		}{
+			Integrasi laju perubahan kuaternion \cite{MinhLongHoang2022}
+		}
+	\end{equationcaptioned}
+	
+	Bentuk matriks dari persamaan di atas dapat dituliskan sebagai berikut:
 	\begin{equationcaptioned}[eq:2.integrasiLajuPerubahanKuaternionMatrix]{
 			q_{n} = q_{n-1} + \frac{1}{2}
 			\begin{pmatrix}
@@ -291,20 +289,20 @@ Perhitungan dalam Mahony filter dilakukan melalui beberapa langkah utama, di man
 				q_{0}\omega'_{z} + q_{1}\omega'_{y} - q_{2}\omega'_{x}
 			\end{pmatrix}
 		}{
-			Integrasi laju perubahan kuaternion dalam bentuk matriks
+			Integrasi laju perubahan kuaternion dalam bentuk matriks \cite{MinhLongHoang2022}
 		}
 	\end{equationcaptioned}
-
-
-	
 \end{enumerate}
 
+Dengan adanya pengendali PI pada tahap koreksi, \textit{Mahony Filter} mampu mengurangi efek \textit{drift} pada giroskop, menstabilkan estimasi orientasi, serta menghasilkan data sikap yang lebih akurat dan halus dibandingkan penggunaan sensor tunggal \cite{MinhLongHoang2022}.
 
 
-\subsection{Websocket} \label{II.Teori6}
+
+
+\subsection{Websocket} \label{II.Teori7}
 WebSocket adalah protokol komunikasi yang memungkinkan pertukaran data secara dua arah (full-duplex) antara klien dan server melalui satu koneksi yang terus-menerus terbuka. Protokol ini sangat cocok digunakan dalam aplikasi yang memerlukan komunikasi waktu nyata dengan latensi rendah. WebSocket memiliki keunggulan dalam efisiensi dan kecepatan dibandingkan metode konvensional seperti polling HTTP karena hanya memerlukan satu kali proses handshake dan selanjutnya dapat mempertahankan koneksi terbuka untuk komunikasi berkelanjutan\cite{Soewito2019}. Dalam implementasi sistem berbasis IoT, seperti smart home atau sistem kendali teleskop, penggunaan WebSocket sangat efektif dalam menjaga responsivitas dan kestabilan komunikasi antara aplikasi pengguna dan perangkat keras secara real-time. \par
 
-\subsection{Standar Deviasi} \label{II.Teori7}
+\subsection{Standar Deviasi} \label{II.Teori8}
 Standar deviasi adalah sebuah angka yang mengatur seberapa jauh nilai-nilai dalam sebuah data tersebar dari rata-ratanya. Standar deviasi yang kecil menunjukkan bahwa data terkonsentrasi di dekat rata-rata dengan sedikit variasi, sedangkan standar deviasi yang besar menandakan bahwa nilai-nilai data lebih tersebar. Perhitungannya didasarkan pada varians, yang merupakan rata-rata dari kuadrat deviasi (selisih setiap data dari rata-rata), dan standar deviasi adalah akar kuadrat dari varians tersebut seperti ditunjukan pada \ref{eq:2.standarDeviasi}
 \begin{equationcaptioned}[eq:2.standarDeviasi]{
 		s = \sqrt{\frac{\sum(x - \bar{x})^2}{n-1}}
