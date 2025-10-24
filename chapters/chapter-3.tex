@@ -13,28 +13,82 @@ Penelitian ini dilaksanakan melalui beberapa tahapan yang saling terintegrasi un
 \section{Penjabaran Langkah Penelitian} \label{III.Jabar Alur}
 Adapun uraian tiap tahapan dalam alur penelitian pada gambar \ref{fig:3.alur} adalah sebagai berikut:\par
 
-\subsection{Langkah 1: Studi Literatur dan Analisis Kebutuhan} \label{III.Langkah1}
+\subsection{Langkah 1: Studi Literatur} \label{III.Langkah1}
 
-Tahap pertama penelitian ini adalah melakukan studi literatur secara komprehensif terhadap teori dan penelitian terdahulu yang relevan dengan sistem teleskop robotik \textit{Alt-Azimuth}, sensor inersial (IMU), serta algoritma estimasi orientasi berbasis \textit{Mahony Filter}. Studi literatur ini bertujuan untuk memperoleh pemahaman mendalam mengenai prinsip kerja teleskop reflektor, sistem koordinat langit, serta metode fusi sensor yang digunakan dalam estimasi sudut orientasi.  
+Tahap pertama dalam penelitian ini adalah melakukan studi literatur secara komprehensif terhadap teori dan penelitian terdahulu yang relevan dengan pengembangan sistem teleskop robotik berbasis dua sumbu \textit{Alt-Azimuth}, penggunaan sensor inersial (IMU), serta algoritma estimasi orientasi berbasis \textit{Mahony Filter}. Kegiatan ini bertujuan untuk memperoleh landasan teoretis yang kuat dalam memahami prinsip kerja teleskop reflektor, sistem koordinat langit, serta metode fusi sensor yang digunakan dalam penentuan sudut orientasi secara real-time.  
 
-Kajian pustaka dilakukan berdasarkan sumber-sumber pada Bab~\ref{Bab II}, meliputi:
-\begin{enumerate}
+Kajian pustaka dilakukan dengan merujuk pada teori-teori dasar dan hasil penelitian yang telah dijabarkan pada Bab~\ref{Bab II}, meliputi:
+\begin{enumerate}[noitemsep]
 	\item konsep dasar teleskop reflektor dan karakteristik optiknya (lihat Subbab~\ref{II.Teori1}),  
-	\item sistem koordinat langit yang menjadi acuan arah teleskop (lihat Subbab~\ref{II.Teori4})  
-	\item algoritma \textit{Mahony Filter} sebagai metode estimasi sudut yang menggabungkan data akselerometer dan giroskop secara komplementer (lihat Subbab~\ref{II.Teori5}; \cite{Maton2024}; \cite{MinhLongHoang2022}).  
+	\item sistem koordinat langit yang menjadi acuan arah teleskop (lihat Subbab~\ref{II.Teori4}), dan  
+	\item algoritma \textit{Mahony Filter} sebagai metode estimasi sudut yang menggabungkan data akselerometer dan giroskop melalui pendekatan \textit{Proportional-Integral Controller} untuk menghasilkan estimasi orientasi yang stabil dan akurat (lihat Subbab~\ref{II.Teori5}) \cite{Maton2024}\cite{MinhLongHoang2022}.  
 \end{enumerate}
 
+Melalui studi literatur ini, diperoleh pemahaman yang menyeluruh mengenai teori pendukung, penelitian terkait, serta pendekatan teknis yang akan dijadikan acuan dalam proses perancangan dan implementasi sistem pada tahap selanjutnya. \par
 
-Selain itu, dilakukan analisis kebutuhan sistem untuk menentukan spesifikasi perangkat keras dan perangkat lunak yang akan digunakan. Analisis ini mencakup identifikasi kebutuhan fungsional seperti pengendalian dua sumbu (altitude dan azimuth), estimasi orientasi dengan IMU, komunikasi data real-time menggunakan \textit{WebSocket} (lihat Subbab~\ref{II.Teori6}), serta antarmuka pengguna untuk pemantauan arah teleskop. Kebutuhan non-fungsional juga dipertimbangkan, seperti tingkat akurasi pembacaan sensor, stabilitas sistem kendali, dan efisiensi penggunaan daya.  
+\subsection{Analisis Kebutuhan Sistem} \label{III.AnalisisKebutuhan}
 
-Hasil dari tahap ini adalah dokumen kebutuhan sistem (\textit{System Requirement Specification}) yang menjadi dasar dalam proses perancangan dan implementasi sistem teleskop robotik pada tahap berikutnya.
+Analisis kebutuhan sistem teleskop robotik dilakukan melalui kombinasi studi literatur, kajian penelitian terdahulu (Bab~\ref{Bab II}), dan wawancara dengan peneliti di OAIL. Data wawancara digunakan untuk memperoleh informasi praktis mengenai kebutuhan fungsional dan non-fungsional yang diinginkan oleh pengguna, serta kendala operasional yang mungkin dihadapi. Hasil wawancara dirangkum dalam Tabel~\ref{lampiran:wawancaraOAIL}.
 
-\subsection{Perancangan Sistem Teleskop Robotik} \label{III.Langkah2}
-Tahap ini melibatkan perancangan optik teleskop reflektor, dudukan mekanik dua sumbu Alt-Azimuth, dan sistem aktuator berbasis motor stepper. Perancangan dilakukan menggunakan perangkat lunak CAD untuk memastikan presisi dan kompatibilitas antar komponen. \par
+\subsubsection{Sumber Analisis Kebutuhan}
+Kebutuhan sistem diperoleh dari tiga sumber utama:
+\begin{enumerate}[noitemsep]
+	\item Studi literatur: Teori dasar mengenai teleskop reflektor, sistem koordinat langit, serta algoritma \textit{Mahony Filter} memberikan landasan teoretis dalam menentukan kemampuan dan spesifikasi sistem \cite{Bradley2014,Ryden2010,Maton2024,MinhLongHoang2022}.
+	\item Penelitian terdahulu: Hasil penelitian sebelumnya terkait teleskop robotik otomatis, kontrol berbasis mikrokontroler, dan optimasi sensor IMU dijadikan acuan untuk menentukan fitur, batasan, dan performa sistem \cite{Hadi2022,Rangana2022,Malasan2025,Burhanuddin2014}.
+	\item Wawancara dengan pengamat OAIL: Informasi praktis mengenai kendala lapangan, akurasi pengamatan, serta kebutuhan pengguna memberikan masukan penting untuk kebutuhan non-fungsional dan fitur aplikasi kontrol.
+\end{enumerate}
+
+\subsubsection{Metode Analisis Kebutuhan}
+Tahap analisis dilakukan melalui beberapa langkah berikut:
+\begin{enumerate}[noitemsep]
+	\item Identifikasi kebutuhan: Mengumpulkan seluruh kebutuhan yang muncul dari literatur, penelitian terdahulu, dan wawancara.
+	\item Klasifikasi kebutuhan: Kebutuhan kemudian diklasifikasikan menjadi \textit{fungsional} (apa yang sistem harus lakukan) dan \textit{non-fungsional} (batasan kualitas, performa, dan kriteria evaluasi sistem).
+	\item Validasi kebutuhan: Setiap kebutuhan divalidasi dengan mengacu pada tujuan penelitian, masukan pengamat, dan kemampuan komponen yang tersedia.
+	\item Dokumentasi kebutuhan: Kebutuhan yang telah dianalisis kemudian dirangkum dalam tabel untuk memudahkan referensi pada tahap perancangan dan implementasi.
+\end{enumerate}
+
+\subsubsection{Hasil Analisis Kebutuhan}
+Hasil dari analisis ini adalah daftar kebutuhan fungsional dan non-fungsional yang menjadi acuan perancangan sistem. Kebutuhan tersebut dirangkum dalam Tabel~\ref{table:3.kebutuhanF} (fungsional) dan Tabel~\ref{table:3.kebutuhanNF} (non-fungsional).
+
+\noindent Dengan analisis kebutuhan ini, setiap tahap perancangan dan implementasi dapat dilakukan secara sistematis, terukur, dan sesuai dengan tujuan penelitian.
 
 
-\subsection{Perancangan Elektronik dan Integrasi Sensor} \label{III.Langkah4}
-Perancangan sistem elektronik mencakup pemilihan mikrokontroler (seperti ESP32), perancangan driver motor, serta integrasi sensor IMU (MPU6050 atau BNO055). Desain sistem juga memperhitungkan kebutuhan catu daya dan konektivitas dengan aplikasi kontrol. \par
+\subsection{Perancangan Elektronik dan Integrasi Sensor} \label{III.Langkah2}
+
+Tahap ini bertujuan untuk merancang sistem elektronik teleskop robotik serta mengintegrasikan sensor inersial yang menjadi sumber data estimasi orientasi. Beberapa langkah utama dalam tahap ini adalah sebagai berikut:
+
+\begin{enumerate}[noitemsep]
+	\item \textbf{Pemilihan Sensor dan Modul Elektronik}
+	\begin{itemize}[noitemsep]
+		\item Sensor Inersial (IMU) digunakan untuk mengukur percepatan linier dan kecepatan sudut pada sumbu X, Y, dan Z, sebagai input untuk Mahony Filter.
+		\item Motor stepper dan driver motor dipilih berdasarkan kebutuhan pergerakan sumbu Alt-Azimuth, memperhatikan torsi dan presisi langkah.
+		\item Mikrokontroler (misal STM32 atau Arduino) bertanggung jawab mengendalikan motor, membaca data sensor, dan melakukan perhitungan awal sebelum data dikirim ke aplikasi kontrol.
+	\end{itemize}
+	
+	\item \textbf{Perancangan Skema Elektronik}
+	\begin{itemize}[noitemsep]
+		\item Sensor IMU dihubungkan ke mikrokontroler melalui protokol komunikasi I2C atau SPI.
+		\item Driver motor dikendalikan menggunakan sinyal PWM atau step/direction dari mikrokontroler.
+		\item Sistem catu daya dirancang agar stabil, mendukung semua modul elektronik, dan meminimalkan noise yang mempengaruhi sensor.
+	\end{itemize}
+	
+	\item \textbf{Integrasi Sensor dan Kalibrasi Awal}
+	\begin{itemize}[noitemsep]
+		\item Sensor IMU dipasang pada tabung teleskop dengan posisi stabil dan bebas getaran.
+		\item Kalibrasi awal dilakukan untuk mengurangi bias dan error pada akselerometer, giroskop, dan magnetometer.
+		\item Proses integrasi memastikan data sensor dapat dibaca secara real-time oleh mikrokontroler dan kompatibel dengan algoritma Mahony Filter.
+	\end{itemize}
+	
+	\item \textbf{Pengujian Fungsi Dasar Sensor}
+	\begin{itemize}[noitemsep]
+		\item Setiap sensor diuji secara terpisah untuk memastikan keluaran sesuai spesifikasi.
+		\item Motor stepper diuji pergerakannya pada langkah kecil untuk memastikan presisi pergerakan sumbu.
+		\item Kestabilan sistem diuji untuk memastikan tidak ada interferensi elektronik antara sensor dan aktuator.
+	\end{itemize}
+\end{enumerate}
+
+Tahap ini menjadi fondasi bagi sistem kontrol teleskop, karena hasil integrasi sensor dan kestabilan elektronik menentukan akurasi estimasi sudut yang akan digunakan oleh Mahony Filter serta performa pengendalian motor stepper pada sumbu Alt-Azimuth.
+
 
 \subsection{Perancangan Sistem Kendali Teleskop} \label{III.Langkah3}
 Menyusun algoritma kendali motor untuk menggerakkan sumbu altitudo dan azimut secara tepat berdasarkan input sudut target dari aplikasi maupun hasil estimasi sudut orientasi. Dalam tahap ini juga dirancang desain dari aplikasi kontrol yang akan digunakan \par

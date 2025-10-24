@@ -15,19 +15,19 @@
 \contentsline {myequations}{\numberline {Rumus~2.15} Integrasi laju perubahan kuaternion \blx@tocontentsinit {0}\cite {MinhLongHoang2022} }{17}{equation.2.2.15}%
 \contentsline {myequations}{\numberline {Rumus~2.16} Integrasi laju perubahan kuaternion dalam bentuk matriks \blx@tocontentsinit {0}\cite {MinhLongHoang2022} }{17}{equation.2.2.16}%
 \contentsline {myequations}{\numberline {Rumus~2.17} Standar Deviasi }{18}{equation.2.2.17}%
-\contentsline {myequations}{\numberline {Rumus~3.1} Prediksi estimasi sudut pitch }{33}{equation.3.5.1}%
-\contentsline {myequations}{\numberline {Rumus~3.2} Prediksi kovariansi error }{33}{equation.3.5.2}%
-\contentsline {myequations}{\numberline {Rumus~3.3} Kalman Gain }{34}{equation.3.5.3}%
-\contentsline {myequations}{\numberline {Rumus~3.4} Update hasil estimasi Kalman Filter }{34}{equation.3.5.4}%
-\contentsline {myequations}{\numberline {Rumus~3.5} Perhitungan Hour Angle }{34}{equation.3.5.5}%
-\contentsline {myequations}{\numberline {Rumus~3.6} Transformasi ke Altitude }{34}{equation.3.5.6}%
-\contentsline {myequations}{\numberline {Rumus~3.7} Transformasi ke Azimuth }{34}{equation.3.5.7}%
-\contentsline {myequations}{\numberline {Rumus~3.8} Perhitungan Hour Angle }{35}{equation.3.5.8}%
-\contentsline {myequations}{\numberline {Rumus~3.9} Transformasi ke Altitude }{35}{equation.3.5.9}%
-\contentsline {myequations}{\numberline {Rumus~3.10} Transformasi ke Azimuth }{35}{equation.3.5.10}%
-\contentsline {myequations}{\numberline {Rumus~3.11} Perhitungan jumlah langkah per putaran stepper motor (1.8° dengan 1/16 step) }{35}{equation.3.5.11}%
-\contentsline {myequations}{\numberline {Rumus~3.12} Konversi sudut Altitudo ke langkah stepper }{35}{equation.3.5.12}%
-\contentsline {myequations}{\numberline {Rumus~3.13} Konversi sudut Azimuth ke langkah stepper }{36}{equation.3.5.13}%
-\contentsline {myequations}{\numberline {Rumus~3.14} Sudut Altitudo dan Azimuth target }{36}{equation.3.5.14}%
-\contentsline {myequations}{\numberline {Rumus~3.15} Perhitungan langkah stepper motor pada sumbu Altitudo }{36}{equation.3.5.15}%
-\contentsline {myequations}{\numberline {Rumus~3.16} Perhitungan langkah stepper motor pada sumbu Azimuth }{36}{equation.3.5.16}%
+\contentsline {myequations}{\numberline {Rumus~3.1} Prediksi estimasi sudut pitch }{36}{equation.3.5.1}%
+\contentsline {myequations}{\numberline {Rumus~3.2} Prediksi kovariansi error }{36}{equation.3.5.2}%
+\contentsline {myequations}{\numberline {Rumus~3.3} Kalman Gain }{37}{equation.3.5.3}%
+\contentsline {myequations}{\numberline {Rumus~3.4} Update hasil estimasi Kalman Filter }{37}{equation.3.5.4}%
+\contentsline {myequations}{\numberline {Rumus~3.5} Perhitungan Hour Angle }{37}{equation.3.5.5}%
+\contentsline {myequations}{\numberline {Rumus~3.6} Transformasi ke Altitude }{37}{equation.3.5.6}%
+\contentsline {myequations}{\numberline {Rumus~3.7} Transformasi ke Azimuth }{37}{equation.3.5.7}%
+\contentsline {myequations}{\numberline {Rumus~3.8} Perhitungan Hour Angle }{38}{equation.3.5.8}%
+\contentsline {myequations}{\numberline {Rumus~3.9} Transformasi ke Altitude }{38}{equation.3.5.9}%
+\contentsline {myequations}{\numberline {Rumus~3.10} Transformasi ke Azimuth }{38}{equation.3.5.10}%
+\contentsline {myequations}{\numberline {Rumus~3.11} Perhitungan jumlah langkah per putaran stepper motor (1.8° dengan 1/16 step) }{38}{equation.3.5.11}%
+\contentsline {myequations}{\numberline {Rumus~3.12} Konversi sudut Altitudo ke langkah stepper }{38}{equation.3.5.12}%
+\contentsline {myequations}{\numberline {Rumus~3.13} Konversi sudut Azimuth ke langkah stepper }{39}{equation.3.5.13}%
+\contentsline {myequations}{\numberline {Rumus~3.14} Sudut Altitudo dan Azimuth target }{39}{equation.3.5.14}%
+\contentsline {myequations}{\numberline {Rumus~3.15} Perhitungan langkah stepper motor pada sumbu Altitudo }{39}{equation.3.5.15}%
+\contentsline {myequations}{\numberline {Rumus~3.16} Perhitungan langkah stepper motor pada sumbu Azimuth }{39}{equation.3.5.16}%
