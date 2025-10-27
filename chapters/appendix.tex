@@ -58,6 +58,59 @@
 	Sangat layak, terutama untuk kegiatan praktikum atau penelitian mahasiswa tingkat akhir. Sistem otomatis dapat mempercepat proses observasi dan mengurangi kesalahan akibat faktor manusia. &
 	Dapat menjadi dasar implementasi sistem pada observatorium pendidikan seperti OAIL ITERA. \\
 	\hline
+	10. & Apakah kondisi lingkungan di sekitar OAIL (seperti angin, suhu, atau pencahayaan) memengaruhi hasil observasi teleskop? &
+	Iya, terutama angin dan perubahan suhu yang dapat memengaruhi stabilitas teleskop serta fokus optik. Kondisi pencahayaan dari lampu sekitar juga bisa mengganggu observasi objek redup. &
+	Perlu rancangan mekanik yang stabil dan sistem pendinginan pasif untuk menjaga fokus teleskop. \\
+	\hline
+	
+	11. & Bagaimana kebutuhan sistem kalibrasi sensor dalam teleskop otomatis? &
+	Kalibrasi sebaiknya dilakukan otomatis dengan memanfaatkan sensor IMU dan kompas digital untuk mengurangi kesalahan orientasi awal. &
+	Mendukung implementasi sistem \textit{auto-calibration} pada modul elektronik teleskop. \\
+	\hline
+	
+	12. & Apa faktor yang perlu diperhatikan dalam pemilihan motor untuk sistem penggerak teleskop? &
+	Motor harus memiliki torsi cukup tinggi dengan resolusi langkah kecil agar pergerakan lembut dan akurat. Penggunaan motor stepper dengan mikrokontrol cocok untuk sistem alt-azimuth. &
+	Mendukung pemilihan motor NEMA17 dengan \textit{driver microstepping}. \\
+	\hline
+	
+	13. & Bagaimana pandangan Anda terhadap integrasi sensor IMU dalam sistem teleskop? &
+	Sensor IMU sangat membantu dalam menjaga stabilitas orientasi, namun data mentahnya harus difilter karena adanya drift dan noise. &
+	Menjadi dasar penerapan \textit{Mahony Filter} untuk estimasi orientasi yang lebih stabil. \\
+	\hline
+	
+	14. & Seberapa penting sistem komunikasi real-time dalam kontrol teleskop otomatis? &
+	Sangat penting, terutama untuk sinkronisasi antara perintah dari aplikasi dan respons motor. Komunikasi yang lambat dapat menyebabkan lag dan kesalahan posisi. &
+	Mendukung penggunaan protokol WebSocket untuk komunikasi real-time. \\
+	\hline
+	
+	15. & Bagaimana cara yang tepat untuk menguji akurasi pelacakan teleskop otomatis? &
+	Uji dilakukan dengan membandingkan posisi target yang dituju (berdasarkan koordinat azimuth dan altitudo) dengan posisi aktual objek di bidang pandang teleskop. &
+	Perlu pengujian dengan objek tetap seperti Polaris untuk validasi perhitungan koordinat. \\
+	\hline
+	
+	16. & Apa parameter utama yang digunakan untuk menilai kinerja sistem teleskop otomatis? &
+	Kecepatan respon motor, stabilitas sudut orientasi, serta deviasi kesalahan posisi (error tracking) adalah tiga parameter utama. &
+	Mendukung perancangan pengujian berbasis waktu respon dan error sudut rata-rata. \\
+	\hline
+	
+	17. & Bagaimana Anda menilai stabilitas sistem kendali saat teleskop bergerak cepat ke target baru? &
+	Stabilitas bergantung pada algoritma kendali dan kehalusan sinyal kontrol. Jika terlalu agresif, dapat menyebabkan osilasi atau getaran. &
+	Menjadi dasar pengaturan PID atau tuning parameter filter Mahony. \\
+	\hline
+	
+	18. & Seberapa penting dokumentasi data observasi secara otomatis oleh sistem teleskop? &
+	Sangat penting, karena data observasi (waktu, koordinat, objek, dan status sensor) dapat digunakan untuk analisis ulang serta pembelajaran mahasiswa. &
+	Justifikasi pengembangan fitur \textit{data logging} otomatis pada aplikasi kontrol. \\
+	
+	19. & Bagaimana pendapat Anda terhadap peluang pengembangan sistem teleskop ini ke versi portabel? &
+	Teleskop portabel dengan sistem otomatis sangat berguna untuk kegiatan lapangan. Tantangan utamanya adalah efisiensi daya dan kestabilan dudukan. &
+	Dapat dijadikan topik pengembangan lanjutan untuk penelitian tahap berikutnya. \\
+	\hline
+	
+	20. & Apa pendapat Anda tentang potensi pengembangan teleskop berbasis IoT untuk kegiatan edukasi? &
+	Sangat potensial, karena dapat digunakan untuk pembelajaran astronomi interaktif jarak jauh dan kontrol daring dari berbagai lokasi. &
+	Mendukung konsep teleskop robotik berbasis IoT untuk edukasi astronomi digital. \\
+	\hline
 	
 \end{longtable}
 
