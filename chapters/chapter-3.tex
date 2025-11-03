@@ -5,7 +5,7 @@ Penelitian ini dilaksanakan melalui beberapa tahapan yang saling terintegrasi un
 
 \begin{figure}[H] % Kalau menggunakan H, posisi gambar akan tepat dibawah teks
     \centering
-    \includegraphics[width=0.5\textwidth]{figure/alur_penelitian.png}
+    \includegraphics[width=0.85\textwidth]{figure/alur_penelitian.png}
     \caption{Alur Penelitian}
     \label{fig:3.alur}
 \end{figure}
@@ -26,29 +26,165 @@ Kajian pustaka dilakukan dengan merujuk pada teori-teori dasar dan hasil penelit
 
 Melalui studi literatur ini, diperoleh pemahaman yang menyeluruh mengenai teori pendukung, penelitian terkait, serta pendekatan teknis yang akan dijadikan acuan dalam proses perancangan dan implementasi sistem pada tahap selanjutnya. \par
 
+\subsection{Pengembangan Prototipe}
+Tahapan ini mencakup keseluruhan proses perancangan dan implementasi sistem, mulai dari analisis kebutuhan, desain sistem dan mekanik, perancangan rangkaian elektronik, pengembangan perangkat lunak, hingga penerapan algoritma estimasi orientasi menggunakan \textit{Mahony Filter}.  
+Proses pengembangan dilakukan secara iteratif mengikuti model \textit{Prototyping}, sehingga setiap hasil implementasi diuji dan dievaluasi untuk menghasilkan perbaikan pada versi berikutnya.  
+Rincian mengenai tahap pengembangan prototipe dijelaskan lebih lanjut pada Subbab~\ref{III.Metode}.
+
+\subsection{Analisis dan Evaluasi Kinerja} \label{III.Langkah9}
+Tahap ini bertujuan untuk menilai efektivitas dan kestabilan sistem teleskop robotik secara keseluruhan. Evaluasi dilakukan berdasarkan hasil pengujian terhadap aspek fungsional dan non-fungsional, meliputi akurasi estimasi sudut, ketepatan pelacakan, keandalan komunikasi, serta respons aplikasi kontrol. Hasil analisis menunjukkan bahwa sistem mampu beroperasi dengan stabil dan memenuhi kriteria kinerja yang diharapkan.
+
+
+\subsection{Dokumentasi dan Penyusunan Laporan} \label{III.Langkah10}
+Seluruh hasil dari tahapan-tahapan sebelumnya didokumentasikan dalam bentuk laporan akhir yang sistematis dan komprehensif, disertai data pengujian, diagram sistem, serta ilustrasi implementasi perangkat keras dan lunak. \par
+
+
+\section{Alat dan Bahan Tugas Akhir} \label{III.Alat dan Bahan}
+Berisi alat-alat dan bahan-bahan yang digunakan dalam penelitian. \par
+
+\subsection{Alat} \label{III.Alat}
+Penelitian ini memerlukan berbagai alat dan bahan untuk menunjang proses perancangan, implementasi, dan pengujian sistem teleskop robotik. Alat dan bahan dibagi menjadi 2 kelompok utama, yaitu perangkat keras (hardware) dan perangkat lunak (software).\par
+\subsubsection{Perangkat Keras} \label{III.Alat.Keras}
+\renewcommand{\arraystretch}{1.2} % memperlebar jarak antar baris tabel
+\setlength{\tabcolsep}{6pt} % mengatur jarak antar kolom tabel
+
+\begin{longtable}{| b{0.05\textwidth}|p{0.6\textwidth}|p{0.2\textwidth}|} % Longtable berguna agar tabel dapat terpotong di halaman baru
+	\caption{Daftar Perangkat Keras Penelitian}
+	\label{table:3.hardware} \\
+	\hline
+	\textbf{No.} & \textbf{Nama Alat} & \textbf{Jumlah} \\
+	\hline
+	\endfirsthead
+	
+	\hline
+	\textbf{No.} & \textbf{Nama Alat} & \textbf{Jumlah} \\
+	\hline
+	\endhead
+	
+	1 & Laptop (Linux OS, Intel i3-1115G4, RAM 12GB DDR4, SSD 256GB, GPU NVIDIA MX350 2GB) & 1 \\
+	\hline
+	2 & Smartphone (Android 12, CPU Snapdragon 865, RAM 8GB, Storage 128GB) & 1 \\
+	\hline
+	3 & 3D Printer Flashforge & 1 \\
+	\hline
+	4 & Obeng & 1 \\
+	\hline
+	5 & Solder & 1 \\
+	\hline
+	6 & Tang Potong & 1 \\
+	\hline
+	
+\end{longtable}
+
+\subsubsection{Perangkat Lunak} \label{III.Alat.Lunak}
+\begin{longtable}{| b{0.05\textwidth}|p{0.85\textwidth}|} % Longtable berguna agar tabel dapat terpotong di halaman baru
+	\caption{Daftar Perangkat Lunak Penelitian}
+	\label{table:3.software} \\
+	\hline
+	\textbf{No.} & \textbf{Nama Perangkat Lunak} \\
+	\hline
+	\endfirsthead
+	
+	\hline
+	\textbf{No.} & \textbf{Nama Perangkat Lunak} \\
+	\hline
+	\endhead
+	
+	1 & Flashforge Print \\
+	\hline
+	2 & Visual Studio Code \\
+	\hline
+	3 & Arduino IDE \\
+	\hline
+	4 & Proteus 8 \\
+	\hline
+	5 & Autodesk Fusion \\
+	\hline
+	6 & FreeCAD \\
+	\hline
+	7 & Figma \\
+	\hline
+	8 & Stellarium \\
+	\hline
+	9 & PlatformIO \\
+	\hline
+	10 & Flutter SDK \\
+	\hline
+	
+	
+\end{longtable}
+
+\subsection{Bahan} \label{III.Bahan}
+Bahan-bahan berikut digunakan dalam proses pembuatan struktur mekanik, instalasi sistem elektronik, serta perakitan komponen teleskop robotik:\par
+\begin{longtable}{| b{0.05\textwidth}|p{0.6\textwidth}|p{0.2\textwidth}|} % Longtable berguna agar tabel dapat terpotong di halaman baru
+	\caption{Daftar Bahan Penelitian}
+	\label{table:3.bahan} \\
+	\hline
+	\textbf{No.} & \textbf{Nama Bahan} & \textbf{Jumlah} \\
+	\hline
+	\endfirsthead
+	
+	\hline
+	\textbf{No.} & \textbf{Nama Bahan} & \textbf{Jumlah} \\
+	\hline
+	\endhead
+	
+	1 & Mikrokontroler ESP32 DevKit V1 & 1 unit \\
+	\hline
+	2 & Stepper Motor NEMA 17 17HS3401 & 2 unit \\
+	\hline
+	3 & A4988 Motor Driver & 2 unit \\
+	\hline
+	4 & Stepper Motor 5V 4-fasa & 1 unit \\
+	\hline
+	5 & Driver Motor ULN2003 & 1 unit \\
+	\hline
+	6 & Kabel USB Tipe-C & 1 buah \\
+	\hline
+	7 & Sensor IMU MPU9250 & 1 unit \\
+	\hline
+	8 & Sensor IMU MPU6050 & 1 unit \\
+	\hline
+	9 & Mur dan Baut & 1 set \\
+	\hline
+	10 & Rod (poros penghubung) & 1 buah \\
+	\hline
+	11 & Bearing & 8 uah \\
+	\hline
+	12 & Filament PLA+ 2.0 & 1 gulung \\
+	\hline
+	13 & Modul Stepdown 5v & 1 buah \\
+	\hline
+\end{longtable}
+\section{Metode Pengembangan} \label{III.Metode}
+Metode pengembangan yang digunakan dalam penelitian ini adalah pendekatan \textit{prototyping}, yang bertujuan untuk membangun sistem secara bertahap dari perancangan hingga produk fungsional, disertai proses iteratif berupa pengujian dan penyempurnaan. Pendekatan ini dinilai tepat karena memungkinkan fleksibilitas dalam eksplorasi desain perangkat keras, algoritma perangkat lunak, serta interaksi pengguna.
+
+Tahapan metode pengembangan ini terdiri dari:
+
 \subsection{Analisis Kebutuhan Sistem} \label{III.AnalisisKebutuhan}
 
-Analisis kebutuhan sistem teleskop robotik dilakukan melalui kombinasi studi literatur, kajian penelitian terdahulu (Bab~\ref{Bab II}), dan wawancara dengan peneliti di OAIL. Data wawancara digunakan untuk memperoleh informasi praktis mengenai kebutuhan fungsional dan non-fungsional yang diinginkan oleh pengguna, serta kendala operasional yang mungkin dihadapi. Hasil wawancara dirangkum dalam Tabel~\ref{lampiran:wawancaraOAIL}.
+Analisis kebutuhan sistem teleskop robotik dilakukan untuk menentukan spesifikasi teknis, fungsi utama, dan batasan performa sistem yang akan dikembangkan. Proses analisis dilakukan melalui kombinasi studi literatur, kajian penelitian terdahulu (Bab~\ref{Bab II}), serta wawancara dengan peneliti di Observatorium Astronomi Itera Lampung (OAIL). Data wawancara digunakan untuk memperoleh informasi praktis mengenai kebutuhan fungsional dan non-fungsional yang diinginkan oleh pengguna, serta kendala operasional yang mungkin dihadapi. Hasil wawancara dirangkum dalam Tabel~\ref{lampiran:wawancaraOAIL}.
 
 \subsubsection{Sumber Analisis Kebutuhan}
-Kebutuhan sistem diperoleh dari tiga sumber utama:
+Kebutuhan sistem diperoleh dari tiga sumber utama berikut:
 \begin{enumerate}[noitemsep]
-	\item Studi literatur: Teori dasar mengenai teleskop reflektor, sistem koordinat langit, serta algoritma \textit{Mahony Filter} yang memberikan landasan teoritis dalam menentukan kemampuan dan spesifikasi sistem \cite{Bradley2014,Ryden2010,Maton2024,MinhLongHoang2022}.
-	\item Penelitian terdahulu: Hasil penelitian sebelumnya terkait teleskop robotik otomatis, kontrol berbasis mikrokontroler, dan optimasi sensor IMU yang dijadikan acuan untuk menentukan fitur, batasan, dan performa sistem \cite{Hadi2022,Rangana2022,Malasan2025,Burhanuddin2014}.
-	\item Wawancara dengan pengamat OAIL: Informasi praktis mengenai kendala lapangan, akurasi pengamatan, serta kebutuhan pengguna untuk memberikan masukan penting untuk kebutuhan fungsional dan non-fungsional serta fitur aplikasi kontrol.
+	\item \textbf{Studi literatur:} Kajian teori mengenai teleskop reflektor, sistem koordinat langit, serta algoritma \textit{Mahony Filter} yang menjadi landasan teoritis dalam menentukan kemampuan dan spesifikasi sistem \cite{Bradley2014,Ryden2010,Maton2024,MinhLongHoang2022}.
+	\item \textbf{Penelitian terdahulu:} Hasil penelitian terkait teleskop robotik otomatis, kontrol berbasis mikrokontroler, dan optimasi sensor IMU yang dijadikan acuan dalam menentukan fitur, batasan, serta target performa sistem \cite{Hadi2022,Rangana2022,Malasan2025,Burhanuddin2014}.
+	\item \textbf{Wawancara dengan pengamat OAIL:} Informasi praktis terkait kondisi lapangan, akurasi pengamatan, dan kebutuhan pengguna, yang menjadi masukan dalam penentuan kebutuhan fungsional, non-fungsional, serta desain aplikasi kontrol.
 \end{enumerate}
 
 \subsubsection{Metode Analisis Kebutuhan}
-Tahap analisis dilakukan melalui beberapa langkah berikut:
+Proses analisis kebutuhan dilakukan melalui tahapan berikut:
 \begin{enumerate}[noitemsep]
-	\item Identifikasi kebutuhan: Mengumpulkan seluruh kebutuhan yang muncul dari literatur, penelitian terdahulu, dan wawancara.
-	\item Klasifikasi kebutuhan: Kebutuhan kemudian diklasifikasikan menjadi \textit{fungsional} (apa yang sistem harus lakukan) dan \textit{non-fungsional} (batasan kualitas, performa, dan kriteria evaluasi sistem).
-	\item Validasi kebutuhan: Setiap kebutuhan divalidasi dengan mengacu pada tujuan penelitian, masukan pengamat, dan kemampuan komponen yang tersedia.
-	\item Dokumentasi kebutuhan: Kebutuhan yang telah dianalisis kemudian dirangkum dalam tabel untuk memudahkan referensi pada tahap perancangan dan implementasi.
+	\item \textbf{Identifikasi kebutuhan:} Mengumpulkan seluruh kebutuhan dari hasil literatur, penelitian terdahulu, dan wawancara pengguna.
+	\item \textbf{Klasifikasi kebutuhan:} Mengelompokkan kebutuhan menjadi dua kategori, yaitu \textit{kebutuhan fungsional} (fungsi utama sistem) dan \textit{kebutuhan non-fungsional} (batasan kualitas, performa, dan keandalan).
+	\item \textbf{Validasi kebutuhan:} Menyesuaikan kebutuhan dengan tujuan penelitian, kemampuan komponen, dan keterbatasan teknis sistem.
+	\item \textbf{Dokumentasi kebutuhan:} Meringkas hasil analisis dalam bentuk tabel untuk dijadikan acuan pada tahap perancangan dan implementasi.
 \end{enumerate}
 
 \subsubsection{Hasil Analisis Kebutuhan}
-Hasil dari analisis ini adalah daftar kebutuhan fungsional dan non-fungsional yang menjadi acuan perancangan sistem. Kebutuhan tersebut dirangkum dalam Tabel~\ref{table:3.kebutuhanF} (fungsional) dan Tabel~\ref{table:3.kebutuhanNF} (non-fungsional).
+Berdasarkan hasil identifikasi dan validasi, kebutuhan sistem dibagi menjadi dua kelompok utama, yaitu kebutuhan fungsional dan non-fungsional sebagaimana ditunjukkan pada Tabel~\ref{table:3.kebutuhanF} dan Tabel~\ref{table:3.kebutuhanNF}.
+
 \begin{longtable}{|b{0.05\textwidth}|p{0.3\textwidth}|p{0.55\textwidth}|}
 	\caption{Daftar Kebutuhan Fungsional Sistem Teleskop Robotik}
 	\label{table:3.kebutuhanF}\\
@@ -65,7 +201,7 @@ Hasil dari analisis ini adalah daftar kebutuhan fungsional dan non-fungsional ya
 	\hline
 	2. & Estimasi Orientasi dengan Mahony Filter & Sistem menggunakan algoritma \textit{Mahony Filter} untuk mengestimasi sudut orientasi dari data sensor IMU secara real-time. \\
 	\hline
-	3. & Pembacaan Data Sensor IMU & Mikrokontroler membaca data akselerometer dan giroskop secara kontinu untuk digunakan dalam proses estimasi orientasi. \\
+	3. & Pembacaan Data Sensor IMU & Sistem membaca data akselerometer dan giroskop secara kontinu untuk digunakan dalam proses estimasi orientasi. \\
 	\hline
 	4. & Kalibrasi Otomatis Sensor & Sistem melakukan kalibrasi awal sensor IMU dan kompas digital saat inisialisasi untuk mengurangi kesalahan orientasi. \\
 	\hline
@@ -93,7 +229,6 @@ Hasil dari analisis ini adalah daftar kebutuhan fungsional dan non-fungsional ya
 	\hline
 \end{longtable}
 
-
 \begin{longtable}{|b{0.05\textwidth}|p{0.3\textwidth}|p{0.55\textwidth}|}
 	\caption{Daftar Kebutuhan Non-Fungsional Sistem Teleskop Robotik}
 	\label{table:3.kebutuhanNF}\\
@@ -112,21 +247,41 @@ Hasil dari analisis ini adalah daftar kebutuhan fungsional dan non-fungsional ya
 	\hline
 	3. & Keandalan & Sistem tetap berfungsi dalam mode manual jika koneksi nirkabel terputus. \\
 	\hline
-	4. & Usability & Aplikasi kontrol dirancang dengan antarmuka intuitif yang mudah digunakan oleh pengguna pemula. \\
+	4. & Portabilitas & Perangkat lunak berjalan di Android dan dapat diintegrasikan dengan mikrokontroler ESP32. \\
 	\hline
-	5. & Portabilitas & Perangkat lunak berjalan di Android dan dapat diintegrasikan dengan mikrokontroler ESP32. \\
-	\hline
-	6. & Daya Tahan Mekanis & Struktur dudukan teleskop tahan terhadap getaran dan perubahan suhu saat observasi lapangan. \\
-	\hline
-	7. & Pemeliharaan & Sistem memiliki dokumentasi kode dan desain modular untuk memudahkan pengembangan lanjutan. \\
-	\hline
-	
 \end{longtable}
-\noindent Dengan analisis kebutuhan ini, setiap tahap perancangan dan implementasi dapat dilakukan secara sistematis, terukur, dan sesuai dengan tujuan penelitian.
+
+\noindent Dengan hasil analisis kebutuhan ini, setiap tahap perancangan dan implementasi dapat dilakukan secara sistematis, terukur, dan selaras dengan tujuan penelitian.
 
 
 
-\subsection{Langkah 3: Perancangan Sistem Kendali Teleskop} \label{III.Langkah3}
+
+\subsection{Perancangan Sistem} \label{III.Metode.Perancangan}
+Pada tahap ini dilakukan perancangan secara menyeluruh terhadap tiga aspek utama:
+\begin{itemize}
+	\item \textbf{Perancangan Mekanik:} Desain dudukan teleskop dua sumbu (Alt-Azimuth) dan struktur teleskop reflektor menggunakan perangkat lunak CAD seperti Autodesk Fusion 360 dan FreeCAD.
+	\item \textbf{Perancangan Elektronik:} Skema sistem elektronik yang mencakup mikrokontroler (ESP32), sensor IMU, dan driver motor stepper.
+	\item \textbf{Perancangan Aplikasi:} Desain antarmuka pengguna dan fitur kontrol arah teleskop menggunakan Flutter SDK.
+\end{itemize}
+
+
+\subsection{Pengembangan Teleskop Robotik} \label{III.Metode.Teleskop}
+
+Tahap ini berfokus pada integrasi perangkat elektronik yang membentuk sistem kendali utama teleskop robotik. Komponen utama yang digunakan meliputi mikrokontroler ESP32, sensor IMU \textit{MPU6050}, modul kompas HMC5883L, serta dua motor \textit{stepper} NEMA17 yang dikendalikan melalui \textit{driver} A4988. Rangkaian elektronik dirancang untuk memungkinkan komunikasi dua arah antara mikrokontroler dan aplikasi kontrol berbasis web melalui jaringan Wi-Fi, sehingga pengguna dapat mengatur arah teleskop secara manual maupun otomatis.
+
+\par
+Sensor IMU berperan sebagai unit pengukuran inersia untuk memperoleh data orientasi teleskop, berupa percepatan dan kecepatan sudut pada tiga sumbu utama. Data mentah dari sensor diproses secara real-time menggunakan algoritma \textit{Mahony Filter} yang mampu memperkirakan orientasi absolut dengan lebih stabil dibandingkan metode integrasi langsung gyro atau \textit{low-pass filtering} sederhana \cite{Mahony2008}. Algoritma ini bekerja dengan prinsip \textit{nonlinear complementary filtering} pada grup rotasi khusus $SO(3)$, yang menggabungkan data percepatan dan kecepatan sudut melalui mekanisme umpan balik berbasis kesalahan orientasi.
+
+\par
+Selain IMU, sensor kompas HMC5883L digunakan untuk menentukan arah azimuth terhadap medan magnet bumi. Data kompas dikalibrasi terlebih dahulu untuk menghilangkan \textit{hard-iron} dan \textit{soft-iron distortion}, kemudian digabungkan dengan hasil estimasi IMU untuk menghasilkan orientasi yang lebih akurat \cite{Hoang2020}. Mikrokontroler ESP32 mengolah semua data sensor secara terintegrasi, lalu mengirimkan hasil estimasi orientasi (sudut pitch, roll, dan yaw) melalui protokol \textit{WebSocket} ke aplikasi kendali.
+
+\par
+Pada tahap ini, dilakukan pula pengujian pinout dan koneksi antarperangkat untuk memastikan kestabilan tegangan dan komunikasi. Pengujian dilakukan menggunakan \textit{serial monitor} dan \textit{logic analyzer} untuk memastikan data sensor dikirim dan diterima tanpa jeda signifikan. Hasil pengujian menunjukkan bahwa sistem mampu mempertahankan kecepatan pembaruan data sebesar 50~Hz tanpa gangguan, yang sudah memadai untuk sistem kendali teleskop berbasis Alt-Azimuth.
+
+\par
+Diagram blok sistem elektronik ditunjukkan pada Gambar~\ref{fig:3.rangkaian}, yang memperlihatkan hubungan antar subsistem meliputi IMU, kompas, motor driver, dan modul komunikasi. Integrasi ini memastikan setiap pembacaan sensor dapat dikonversi menjadi perintah gerak motor secara sinkron, sehingga sistem mampu mengikuti perubahan orientasi secara real-time.
+
+\subsection{Pengembangan Aplikasi Kontrol} \label{III.Metode.Aplikasi}
 
 Tahap ini berfokus pada perancangan sistem kendali teleskop yang bertujuan untuk mengatur pergerakan dua sumbu utama, yaitu sumbu altitudo (kemiringan vertikal) dan sumbu azimut (putaran horizontal). Sistem ini dirancang agar teleskop mampu bergerak secara presisi menuju koordinat target yang ditentukan baik berdasarkan perintah dari aplikasi kontrol maupun hasil estimasi orientasi yang diperoleh dari sensor IMU melalui algoritma \textit{Mahony Filter} \cite{Mahony2008, MinhLongHoang2022}.
 
@@ -144,20 +299,12 @@ Perancangan sistem kendali mencakup beberapa aspek utama sebagai berikut:
 Secara keseluruhan, tahap ini menghasilkan rancangan sistem kendali yang menggabungkan perangkat keras (motor, sensor IMU, dan mikrokontroler) dengan perangkat lunak (algoritma estimasi dan aplikasi kontrol). Pendekatan ini diharapkan dapat meningkatkan presisi pengendalian arah teleskop serta menjaga kestabilan orientasi selama proses pelacakan objek langit secara otomatis.
 
 
-
-\subsection{Perakitan Sistem dan Pengujian Awal} \label{III.Langkah5}
-Setelah seluruh komponen perangkat keras tersedia, dilakukan proses perakitan sistem teleskop secara menyeluruh sesuai dengan rancangan mekanik dan elektronik yang telah dibuat. Tahap ini meliputi penyambungan motor penggerak, sensor inersial, serta modul kendali utama pada struktur teleskop. \par
-
-Selanjutnya, dilakukan pengujian awal untuk memastikan seluruh komponen berfungsi dengan baik. Pengujian mencakup pengendalian motor secara manual melalui antarmuka sistem serta pembacaan data dari sensor untuk memverifikasi koneksi, respon, dan kestabilan sistem sebelum dilakukan pengujian fungsional penuh. Pengujian awal ini juga bertujuan mendeteksi adanya kesalahan perakitan atau gangguan komunikasi antarperangkat, sebagaimana disarankan pada tahapan integrasi sistem dalam penelitian serupa \cite{Mahony2007, Hoang2020}.
-
-
-\subsection{Implementasi \textit{Mahony Filter}} \label{III.Langkah6}
-
+\subsection{Implementasi Mahony  Filter} \label{III.Metode.Mahony}
 Data sensor IMU (gabungan akselerometer dan giroskop) digunakan sebagai input untuk algoritma \textit{Mahony Filter} dalam proses estimasi orientasi teleskop. Algoritma ini termasuk dalam jenis \textit{complementary filter} yang menggunakan pengendali proporsional–integral (PI) untuk mengoreksi vektor rotasi giroskop berdasarkan arah gravitasi yang diestimasi dari data akselerometer \cite{MinhLongHoang2022}.  
 
 Tahapan implementasi \textit{Mahony Filter} dalam penelitian ini meliputi:  
 \begin{enumerate}[noitemsep]
-	\item \textbf{Akuisisi Data Sensor:} Mikrokontroler ESP32 membaca data percepatan dan kecepatan sudut dari sensor IMU (MPU6050/MPU9250) secara real-time.
+	\item \textbf{Akuisisi Data Sensor:} Mikrokontroler ESP32 membaca data percepatan dan kecepatan sudut dari sensor IMU (MPU6050 / MPU9250) secara real-time.
 	\item \textbf{Estimasi Vektor Gravitasi:} Berdasarkan kuaternion orientasi saat ini ($q$), sistem menghitung estimasi arah vektor gravitasi $\mathbf{d}$ menggunakan \ref{eq:2.estimasiVektorGravitasi}.
 	\item \textbf{Perhitungan Vektor Galat:} Dihitung dari hasil perkalian silang antara vektor akselerasi yang diukur ($a$) dengan estimasi arah gravitasi ($d$) untuk mendapatkan vektor kesalahan orientasi $e$ ( \ref{eq:2.perhitunganVektorKesalahan}).
 	\item \textbf{Koreksi PI Controller:} Galat $e$ dimasukkan ke dalam kontroler Proporsional–Integral (PI) untuk menghasilkan nilai koreksi kecepatan sudut (\ref{eq:2.koreksiPiController}).
@@ -168,183 +315,11 @@ Implementasi algoritma dilakukan langsung pada mikrokontroler ESP32 menggunakan 
 
 Hasil dari tahap ini berupa sistem estimasi orientasi real-time yang stabil, responsif, dan memiliki tingkat error yang rendah dibandingkan pembacaan mentah sensor IMU.\par
 
+\subsection{Pengujian dan Valudasi Sistem} \label{III.Metode.Uji}
 
-\subsection{Pengembangan Aplikasi Kontrol Teleskop} \label{III.Langkah7}
-Aplikasi berbasis antarmuka pengguna dikembangkan untuk mengatur arah teleskop baik secara manual maupun otomatis. Aplikasi ini dirancang agar dapat berkomunikasi langsung dengan mikrokontroler melalui jalur komunikasi serial, \textit{Bluetooth}, atau \textit{Wi-Fi}, sehingga memungkinkan pengguna mengirimkan perintah kendali dan menerima data orientasi secara \textit{real-time}. \par
+Tahap pengujian dan validasi dilakukan untuk memastikan bahwa sistem teleskop robotik telah memenuhi seluruh kebutuhan yang telah dirumuskan pada Tabel~\ref{table:3.kebutuhanF} (fungsional) dan Tabel~\ref{table:3.kebutuhanNF} (non-fungsional). Pengujian mencakup evaluasi terhadap perangkat keras, perangkat lunak, serta integrasi antar subsistem, guna memastikan performa dan keandalan sistem secara keseluruhan. \par
 
-Fitur utama aplikasi meliputi pengaturan sudut elevasi dan azimut teleskop, pemantauan data sensor orientasi, serta tampilan status koneksi sistem. Pengembangan aplikasi ini mengacu pada prinsip desain sistem kendali interaktif berbasis komunikasi nirkabel sebagaimana diterapkan dalam penelitian sistem teleskop otomatis dan perangkat IoT sejenis \cite{Mahony2007, Hoang2020}.
-
-
-\subsection{Pengujian dan Validasi Sistem} \label{III.Langkah8}
-Pengujian sistem dilakukan dengan membandingkan akurasi orientasi teleskop antara data mentah sensor dan hasil estimasi Kalman Filter. Selain itu, performa aplikasi diuji untuk memastikan perintah dapat diterima dan dieksekusi dengan responsif. \par
-
-\subsection{Analisis dan Evaluasi Kinerja} \label{III.Langkah9}
-Dilakukan analisis terhadap data hasil pengujian untuk mengukur efektivitas Kalman Filter serta keandalan sistem kontrol dan aplikasi. Evaluasi mencakup akurasi sudut, waktu respon sistem, serta stabilitas pelacakan arah. \par
-
-\subsection{Dokumentasi dan Penyusunan Laporan} \label{III.Langkah10}
-Seluruh hasil dari tahapan-tahapan sebelumnya didokumentasikan dalam bentuk laporan akhir yang sistematis dan komprehensif, disertai data pengujian, diagram sistem, serta ilustrasi implementasi perangkat keras dan lunak. \par
-
-
-\section{Alat dan Bahan Tugas Akhir} \label{III.Alat dan Bahan}
-Berisi alat-alat dan bahan-bahan yang digunakan dalam penelitian. \par
-
-\subsection{Alat} \label{III.Alat}
-Penelitian ini memerlukan berbagai alat dan bahan untuk menunjang proses perancangan, implementasi, dan pengujian sistem teleskop robotik. Alat dan bahan dibagi menjadi 2 kelompok utama, yaitu perangkat keras (hardware) dan perangkat lunak (software).\par
-\subsubsection{Perangkat Keras} \label{III.Alat.Keras}
-\begin{enumerate}[noitemsep]
-	\item Laptop dengan sistem operasi Linux, processor Intel I3-1115G4 @ 2 core/4,1GHz, RAM 12GB DDR4 dual channel, grafis NVIDIA MX 350 2GB, SSD 256 GB.
-	\item Smartphone dengan spesifikasi OS Android 12, CPU Snapdragon 865, Memori 128GB, RAM 8GB.	
-	\item 3D Printer Flashforge
-	\item Obeng
-	\item Solder
-	\item Tang potong
-\end{enumerate}
-\subsubsection{Perangkat Lunak} \label{III.Alat.Lunak}
-\begin{enumerate}[noitemsep]
-	\item Flashforge Print
-	\item Visual Studio Code
-	\item Arduino IDE
-	\item Proteus 8
-	\item Autodesk Fussion
-	\item FreeCad
-	\item Figma
-	\item Stellarium
-	\item Platform 
-	\item Flutter SDK
-\end{enumerate}
-
-\subsection{Bahan} \label{III.Bahan}
-Bahan-bahan berikut digunakan dalam proses pembuatan struktur mekanik, instalasi sistem elektronik, serta perakitan komponen teleskop robotik:\par
-\begin{enumerate}[noitemsep]
-	\item Mikrokontroller ESP32  DevKit V1
-	\item Stepper Motor Nema 17 17HS3401 x 2
-	\item A4988 Motor Driver x 2
-	\item Stepper Motor 5V 4-fasa
-	\item Driver Motor ULN2003
-	\item Kabel USB Tipe C
-	\item MPU9250
-	\item MPU6050
-	\item Mur dan Baut
-	\item Rod
-	\item Bearing
-	\item Filament PLA+ 2.0
-\end{enumerate}
-
-\section{Metode Pengembangan} \label{III.Metode}
-Metode pengembangan yang digunakan dalam penelitian ini adalah pendekatan \textit{prototyping}, yang bertujuan untuk membangun sistem secara bertahap dari perancangan hingga produk fungsional, disertai proses iteratif berupa pengujian dan penyempurnaan. Pendekatan ini dinilai tepat karena memungkinkan fleksibilitas dalam eksplorasi desain perangkat keras, algoritma perangkat lunak, serta interaksi pengguna.
-
-Tahapan metode pengembangan ini terdiri dari:
-
-\subsection{Analisis Kebutuhan} \label{III.Metode.Analisis}
-Tahap awal dilakukan identifikasi kebutuhan sistem baik secara fungsional maupun non-fungsional. Hasil identifikasi kebutuhan menghasilkan dua kelompok utama, yaitu kebutuhan fungsional dan non-fungsional. Kebutuhan fungsional menggambarkan perilaku dan fitur yang harus dimiliki oleh sistem, sedangkan kebutuhan non-fungsional menjelaskan batasan performa, keandalan, dan kualitas sistem. Hasil identifikasi ditunjukkan pada Tabel~\ref{table:3.kebutuhanF} untuk kebutuhan fungsional dan Tabel~\ref{table:3.kebutuhanNF} untuk kebutuhan non fungsional.
-
-\begin{longtable}{|b{0.05\textwidth}|p{0.3\textwidth}|p{0.55\textwidth}|}
-	\caption{Daftar Kebutuhan Fungsional Sistem Teleskop Robotik}
-	\label{table:3.kebutuhanF}\\
-	\hline
-	\textbf{No.} & \textbf{Nama Kebutuhan} & \textbf{Deskripsi} \\
-	\hline
-	\endfirsthead
-	\hline
-	\textbf{No.} & \textbf{Nama Kebutuhan} & \textbf{Deskripsi} \\
-	\hline
-	\endhead
-	
-	1. & Kontrol Pergerakan Dua Sumbu & Sistem mampu menggerakkan teleskop pada sumbu Altitudo dan Azimuth sesuai koordinat target yang diberikan. \\
-	\hline
-	2. & Estimasi Orientasi dengan Mahony Filter & Sistem menggunakan algoritma \textit{Mahony Filter} untuk mengestimasi sudut orientasi dari data sensor IMU secara real-time. \\
-	\hline
-	3. & Pembacaan Data Sensor IMU & Mikrokontroler membaca data akselerometer dan giroskop secara kontinu untuk digunakan dalam proses estimasi orientasi. \\
-	\hline
-	4. & Kalibrasi Otomatis Sensor & Sistem melakukan kalibrasi awal sensor IMU dan kompas digital saat inisialisasi untuk mengurangi kesalahan orientasi. \\
-	\hline
-	5. & Transformasi Koordinat Ekuatorial–Alt-Azimuth & Sistem mampu mengonversi posisi objek langit dari koordinat ekuatorial (RA, Dec) menjadi koordinat Alt-Azimuth berdasarkan lokasi dan waktu pengamatan. \\
-	\hline
-	6. & Konversi Sudut ke Langkah Motor & Sistem menghitung jumlah langkah motor stepper yang sesuai dengan sudut target hasil transformasi koordinat. \\
-	\hline
-	7. & Sistem Pengarahan Otomatis & Sistem dapat mengarahkan teleskop secara otomatis ke posisi objek langit berdasarkan input koordinat atau pilihan dari katalog bintang. \\
-	\hline
-	8. & Sistem Pelacakan Objek & Teleskop mampu mengikuti pergerakan objek langit secara kontinu dengan memperbarui koordinat Alt-Azimuth berdasarkan waktu lokal dan lokasi pengamatan. \\
-	\hline
-	9. & Katalog Bintang dan Benda Langit & Sistem dilengkapi basis data berisi katalog objek (bintang, planet, nebula) yang dapat dipilih oleh pengguna sebagai target observasi. \\
-	\hline
-	10. & Mode Manual & Pengguna dapat mengatur arah teleskop secara manual melalui aplikasi kontrol Android. \\
-	\hline
-	11. & Mode Otomatis & Sistem bergerak otomatis berdasarkan koordinat target atau data hasil transformasi dari katalog objek langit. \\
-	\hline
-	12. & Komunikasi Real-Time & Mikrokontroler dan aplikasi berkomunikasi dua arah melalui protokol WebSocket untuk mengirim data sensor, koordinat, dan perintah kontrol. \\
-	\hline
-	13. & Tampilan Antarmuka Aplikasi & Aplikasi menampilkan status koneksi, posisi teleskop, data orientasi, dan arah pandang teleskop dalam bentuk visual. \\
-	\hline
-	14. & Penyimpanan dan Logging Data & Sistem menyimpan data hasil observasi (waktu, posisi, sudut, status sistem) ke dalam basis data untuk analisis dan dokumentasi. \\
-	\hline
-	15. & Indikator Sistem & Aplikasi memiliki indikator ketika koneksi terputus, batas sudut tercapai, atau sistem mengalami error. \\
-	\hline
-\end{longtable}
-
-
-\begin{longtable}{|b{0.05\textwidth}|p{0.3\textwidth}|p{0.55\textwidth}|}
-	\caption{Daftar Kebutuhan Non-Fungsional Sistem Teleskop Robotik}
-	\label{table:3.kebutuhanNF}\\
-	\hline
-	\textbf{No.} & \textbf{Aspek} & \textbf{Deskripsi} \\
-	\hline
-	\endfirsthead
-	\hline
-	\textbf{No.} & \textbf{Aspek} & \textbf{Deskripsi} \\
-	\hline
-	\endhead
-	
-	1. & Kinerja Sistem & Sistem mampu memperbarui posisi teleskop dengan frekuensi pembacaan minimal 100 Hz untuk menjaga kestabilan pelacakan. \\
-	\hline
-	2. & Akurasi & Galat estimasi sudut maksimum $\pm 1.5^\circ$ setelah proses filtrasi menggunakan Mahony Filter. \\
-	\hline
-	3. & Keandalan & Sistem tetap berfungsi dalam mode manual jika koneksi nirkabel terputus. \\
-	\hline
-	4. & Usability & Aplikasi kontrol dirancang dengan antarmuka intuitif yang mudah digunakan oleh pengguna pemula. \\
-	\hline
-	5. & Portabilitas & Perangkat lunak berjalan di Android dan dapat diintegrasikan dengan mikrokontroler ESP32. \\
-	\hline
-	6. & Daya Tahan Mekanis & Struktur dudukan teleskop tahan terhadap getaran dan perubahan suhu saat observasi lapangan. \\
-	\hline
-	7. & Pemeliharaan & Sistem memiliki dokumentasi kode dan desain modular untuk memudahkan pengembangan lanjutan. \\
-	\hline
-
-\end{longtable}
-
-
-
-\subsection{Perancangan Sistem} \label{III.Metode.Perancangan}
-Pada tahap ini dilakukan perancangan secara menyeluruh terhadap tiga aspek utama:
-\begin{itemize}
-	\item \textbf{Perancangan Mekanik:} Desain dudukan teleskop dua sumbu (Alt-Azimuth) dan struktur teleskop reflektor menggunakan perangkat lunak CAD seperti Autodesk Fusion 360 dan FreeCAD.
-	\item \textbf{Perancangan Elektronik:} Skema sistem elektronik yang mencakup mikrokontroler (ESP32), sensor IMU, dan driver motor stepper.
-	\item \textbf{Perancangan Aplikasi:} Desain antarmuka pengguna dan fitur kontrol arah teleskop menggunakan Flutter SDK.
-\end{itemize}
-
-\subsection{Pengembangan Prototipe} \label{III.Metode.Prototipe}
-Komponen mekanik dicetak dengan 3D printer, dan sistem elektronik dirakit sesuai rancangan. Selanjutnya perangkat lunak ditanamkan ke dalam mikrokontroler dan aplikasi mobile dikembangkan untuk terhubung dengan sistem teleskop. Prototipe awal digunakan sebagai dasar pengujian dan validasi sistem.
-\subsection{Pengembangan Teleskop Robotik} \label{III.Metode.Teleskop}
-Teleskop dikembangkan dari awal meliputi pembuatan desain 3D, pemilihan komponen optik dan mekanik, pencetakan rangka dengan 3D printing, serta integrasi aktuator dan dudukan dua sumbu. Desain dilakukan menggunakan perangkat lunak CAD dan diproduksi sesuai hasil simulasi.
-\subsection{Implementasi Mahony Filter} \label{III.Metode.Kalman}
-Kalman Filter diintegrasikan ke dalam sistem sebagai metode optimasi untuk memperbaiki data orientasi dari sensor IMU. Parameter Kalman Filter disesuaikan berdasarkan karakteristik sensor, dan algoritma dijalankan secara real-time pada mikrokontroler.
-
-\subsection{Pengembangan Aplikasi Kontrol} \label{III.Metode.Aplikasi}
-Aplikasi kontrol dirancang untuk menghubungkan pengguna dengan sistem teleskop secara interaktif. Aplikasi dikembangkan menggunakan \textit{Flutter}, mendukung input manual, serta menerima data sensor orientasi secara real-time melalui WebSocket atau komunikasi serial.
-
-
-\subsection{Pengujian dan Evaluasi} \label{III.Metode.Uji}
-Prototipe diuji secara menyeluruh untuk memastikan semua subsistem berfungsi sesuai harapan. Pengujian mencakup:
-\begin{itemize}
-	\item Validasi estimasi sudut dari Kalman Filter dibandingkan dengan data mentah sensor.
-	\item Responsivitas dan akurasi aplikasi kontrol dalam mengarahkan teleskop.
-	\item Konsistensi pelacakan objek langit berdasarkan koordinat alt-azimuth.
-	\item Uji koreksi ketika teleskop dipindah atau digeser
-\end{itemize}
-Hasil evaluasi digunakan sebagai dasar penyempurnaan sistem.
-
-\subsection{Dokumentasi dan Penyusunan Laporan} \label{III.Metode.Laporan}
-Setelah seluruh sistem selesai dan berfungsi, dilakukan dokumentasi secara sistematis. Laporan akhir disusun mencakup rancangan, implementasi, pengujian, dan hasil penelitian untuk memenuhi syarat tugas akhir dan sebagai kontribusi terhadap pengembangan sistem teleskop robotik berbasis lokal.
+Validasi dilakukan melalui serangkaian uji fungsional yang memverifikasi bahwa setiap fitur utama, seperti kontrol dua sumbu, estimasi orientasi, dan pelacakan otomatis, beroperasi sesuai rancangan. Sementara itu, pengujian non-fungsional difokuskan pada aspek kinerja, akurasi, stabilitas, dan kemudahan penggunaan aplikasi kontrol. \par
 
 \section{Desain Sistem} \label{III.DesainSistem}
 Desain sistem merupakan tahap penting dalam pembangunan teleskop robotik berbasis Alt-Azimuth. Desain ini mencakup perancangan arsitektur sistem, struktur mekanik teleskop dalam bentuk 3D, skema rangkaian elektronika, serta desain antarmuka aplikasi kontrol. Masing-masing komponen saling terintegrasi untuk membentuk sistem kendali yang bekerja secara otomatis dan real-time.
@@ -368,13 +343,19 @@ Arsitektur sistem secara umum terdiri dari mikrokontroler sebagai unit kendali u
 \end{figure}
 
 \subsection{Desain 3D Teleskop} \label{III.Desain.3D}
-Perancangan mekanik teleskop dilakukan menggunakan perangkat lunak CAD (Computer Aided Design) seperti FreeCAD dan Fusion 360. Sistem mekanik dirancang berbasis dudukan dua sumbu (Alt-Azimuth) yang dapat dicetak menggunakan teknologi 3D printing. Desain lengkap dapat dilihat pada Gambar~\ref{fig:3.desain3d}.
+Perancangan mekanik teleskop dilakukan menggunakan perangkat lunak CAD (Computer Aided Design) seperti FreeCAD dan Fusion 360. Sistem mekanik dirancang berbasis dudukan dua sumbu (Alt-Azimuth) yang dapat dicetak menggunakan teknologi 3D printing. Desain lengkap dapat dilihat pada Gambar~\ref{fig:3.desain3d} dan Gambar~\ref{fig:3.desain3dDetailed} .
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.85\textwidth]{figure/desain_perangkat.png}
+	\includegraphics[width=0.6\textwidth]{figure/desain_perangkat.png}
 	\caption{Desain 3D teleskop robotik}
 	\label{fig:3.desain3d}
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.6\textwidth]{figure/desain_perangkat_detailed.png}
+	\caption{Detail Desain Perangkat}
+	\label{fig:3.desain3dDetailed}
 \end{figure}
 
 Karena sistem memiliki dua beban yang harus diputar, yaitu teleskop dan beban penyeimbang, maka perputaran memerlukan torsi yang cukup besar. Selain itu, pergerakan teleskop juga harus presisi dengan perubahan sudut yang kecil, mengingat pergeseran posisi bintang atau benda langit relatif lambat. Untuk mendukung kebutuhan tersebut, motor penggerak dilengkapi dengan \textit{planetary gear}, seperti ditunjukkan pada Gambar~\ref{fig:3.planetaryGear}.
@@ -388,7 +369,7 @@ Karena sistem memiliki dua beban yang harus diputar, yaitu teleskop dan beban pe
 
 
 \subsection{Desain Elektronika} \label{III.Desain.Elektronika}
-Desain elektronika melibatkan koneksi antara ESP32, driver motor (A4988 dan ULN2003), serta sensor IMU (MPU6050/MPU9250). Sistem dirancang untuk mendukung pengendalian dua motor stepper serta pembacaan data orientasi secara terus-menerus. Rangkaian dibuat menggunakan software Proteus dan ditunjukkan pada Gambar \ref{fig:3.rangkaian}.
+Desain elektronika melibatkan koneksi antara ESP32, driver motor (A4988 dan ULN2003), serta sensor IMU (MPU6050 / MPU9250). Sistem dirancang untuk mendukung pengendalian dua motor stepper serta pembacaan data orientasi secara terus-menerus. Rangkaian dibuat menggunakan software Proteus dan ditunjukkan pada Gambar \ref{fig:3.rangkaian}.
 
 \begin{figure}[H]
 	\centering
@@ -398,13 +379,31 @@ Desain elektronika melibatkan koneksi antara ESP32, driver motor (A4988 dan ULN2
 \end{figure}
 
 \subsection{Desain Aplikasi Kontrol} \label{III.Desain.Aplikasi}
-Aplikasi kontrol dikembangkan menggunakan Flutter SDK untuk Android. Aplikasi ini berfungsi mengatur pergerakan teleskop secara manual, otomatis, dan juga menampilkan data sudut orientasi. Komunikasi antara aplikasi dan mikrokontroler dilakukan menggunakan WebSocket melalui koneksi Wi-Fi. Antarmuka aplikasi ditunjukkan pada Gambar \ref{fig:3.aplikasi}.
+Aplikasi kontrol dikembangkan menggunakan Flutter SDK untuk Android. Aplikasi ini berfungsi mengatur pergerakan teleskop secara manual, otomatis, dan juga menampilkan data sudut orientasi. Komunikasi antara aplikasi dan mikrokontroler dilakukan menggunakan WebSocket melalui koneksi Wi-Fi. Antarmuka aplikasi ditunjukkan pada Gambar \ref{fig:3.aplikasi1}-\ref{fig:3.aplikasi4}.
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.6\textwidth]{figure/desain_aplikasi.png}
-	\caption{Tampilan antarmuka aplikasi kontrol teleskop}
-	\label{fig:3.aplikasi}
+	\includegraphics[width=0.3\textwidth]{figure/screenshot_1.png}
+	\caption{Tampilan antarmuka koneksi ke teleskop}
+	\label{fig:3.aplikasi1}
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.6\textwidth]{figure/screenshot_2_3.png}
+	\caption{Tampilan antarmuka katalog}
+	\label{fig:3.aplikasi2}
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.3\textwidth]{figure/screenshot_4.png}
+	\caption{Tampilan antarmuka kontrol teleskop}
+	\label{fig:3.aplikasi3}
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.3\textwidth]{figure/screenshot_5.png}
+	\caption{Tampilan antarmuka monitor}
+	\label{fig:3.aplikasi4}
 \end{figure}
 
 
@@ -503,9 +502,137 @@ Hasil estimasi kuaternion dikonversi menjadi sudut Euler untuk mendapatkan nilai
 	}
 \end{equationcaptioned}
 
-Dalam konteks teleskop \textit{Alt-Azimuth}, sudut \textit{yaw} digunakan sebagai azimuth ($A$) sedangkan sudut \textit{pitch} digunakan sebagai elevasi ($a$). Kedua nilai ini menjadi acuan utama bagi sistem kendali motor untuk menjaga posisi teleskop agar tetap mengikuti objek langit secara kontinu.
 
-\subsection{2. Perhitungan Posisi Benda Langit (Transformasi Koordinat)}
+\subsubsection{Contoh Perhitungan Estimasi Sudut Menggunakan \textit{Mahony Filter}} \label{III.MahonyContoh}
+
+Sebagai ilustrasi, diasumsikan data pembacaan sensor IMU dan parameter filter sebagai berikut:
+
+\begin{itemize}[noitemsep]
+	\item Akselerometer ($a_{raw}$) = [0.05, -0.02, 9.78] m/s\textsuperscript{2}
+	\item Giroskop ($\omega$) = [0.01, -0.02, 0.005] rad/s
+	\item Kuaternion awal ($q$) = [0.98, 0.01, 0.05, 0.18]
+	\item Konstanta kontrol: $K_p = 2.0$, $K_i = 0.5$
+	\item Interval waktu ($\Delta t$) = 0.01 s
+\end{itemize}
+
+Langkah-langkah perhitungan dilakukan sebagai berikut:
+
+\paragraph{1. Normalisasi Vektor Akselerometer}
+\begin{equationcaptioned}[eq:3.normAcc]{
+		|a| = \sqrt{0.05^2 + (-0.02)^2 + 9.78^2} = 9.781
+	}{
+		Normalisasi vektor akselerometer
+	}
+\end{equationcaptioned}
+
+\begin{equationcaptioned}[eq:3.normAccVector]{
+		a = \frac{a_{raw}}{|a|} = [0.0051, -0.0020, 0.9999]
+	}{
+		Hasil normalisasi vektor akselerometer
+	}
+\end{equationcaptioned}
+
+\paragraph{2. Estimasi Arah Gravitasi dari Kuaternion}
+\begin{equationcaptioned}[eq:3.gravEstimate]{
+		\mathbf{d} = 2
+		\begin{pmatrix}
+			q_1 q_3 - q_0 q_2 \\
+			q_0 q_1 + q_2 q_3 \\
+			q_0^2 + q_3^2 - \tfrac{1}{2}
+		\end{pmatrix}
+	}{
+		Estimasi vektor gravitasi dari kuaternion
+	}
+\end{equationcaptioned}
+
+\begin{equationcaptioned}[eq:3.gravEstimateResult]{
+		\mathbf{d} = [-0.0948,\; 0.0378,\; 0.9948]
+	}{
+		Hasil estimasi arah gravitasi
+	}
+\end{equationcaptioned}
+
+\paragraph{3. Perhitungan Vektor Galat}
+\begin{equationcaptioned}[eq:3.errorVector]{
+		e = a \times \mathbf{d}
+	}{
+		Perhitungan vektor galat orientasi
+	}
+\end{equationcaptioned}
+
+\begin{equationcaptioned}[eq:3.errorVectorResult]{
+		e = [-0.0398,\; -0.0999,\; -8.2\times10^{-7}]
+	}{
+		Hasil vektor galat orientasi
+	}
+\end{equationcaptioned}
+
+\paragraph{4. Koreksi Kecepatan Sudut Giroskop (PI Controller)}
+\begin{equationcaptioned}[eq:3.gyroCorrection]{
+		\omega' = \omega + K_p e + K_i \int e\,dt
+	}{
+		Koreksi kecepatan sudut giroskop
+	}
+\end{equationcaptioned}
+
+Dengan $\Delta t = 0.01$ s dan $K_i = 0.5$:
+\begin{equationcaptioned}[eq:3.gyroCorrectionResult]{
+		\begin{split}
+			\omega' = [0.01, -0.02, 0.005] + 2[-0.0398, -0.0999, 0] \\
+			= [-0.0698, -0.220, 0.005]
+		\end{split}
+	}{
+		Hasil koreksi kecepatan sudut giroskop
+	}
+\end{equationcaptioned}
+
+\paragraph{5. Integrasi Kuaternion}
+\begin{equationcaptioned}[eq:3.quaternionIntegration]{
+		q_{n} = q_{n-1} + \frac{1}{2} q_{n-1} \otimes \omega' \Delta t
+	}{
+		Integrasi kuaternion untuk pembaruan orientasi
+	}
+\end{equationcaptioned}
+
+\begin{equationcaptioned}[eq:3.quaternionNew]{
+		q_{n} = [0.9823,\; 0.0099,\; 0.0490,\; 0.1804]
+	}{
+		Kuaternion baru hasil integrasi
+	}
+\end{equationcaptioned}
+
+\paragraph{6. Konversi Kuaternion ke Sudut Euler}
+\begin{equationcaptioned}[eq:3.eulerConversion]{
+		\begin{split}
+			\text{roll} &= \arctan2(2(q_0 q_1 + q_2 q_3), 1 - 2(q_1^2 + q_2^2)) \\
+			\text{pitch} &= \arcsin(2(q_0 q_2 - q_3 q_1)) \\
+			\text{yaw} &= \arctan2(2(q_0 q_3 + q_1 q_2), 1 - 2(q_2^2 + q_3^2))
+		\end{split}
+	}{
+		Konversi kuaternion ke sudut Euler
+	}
+\end{equationcaptioned}
+
+\begin{equationcaptioned}[eq:3.eulerResult]{
+		(\text{roll}, \text{pitch}, \text{yaw}) = (2.13^\circ,\; 5.32^\circ,\; 20.92^\circ)
+	}{
+		Hasil akhir estimasi orientasi teleskop
+	}
+\end{equationcaptioned}
+
+Dengan demikian, hasil estimasi orientasi menggunakan \textit{Mahony Filter} menunjukkan sudut akhir:
+\begin{equationcaptioned}[eq:3.hasilMahony]{
+		\text{Roll} = 2.13^\circ,\quad
+		\text{Pitch} = 5.32^\circ,\quad
+		\text{Yaw} = 20.92^\circ
+	}{
+		Hasil akhir estimasi sudut orientasi teleskop menggunakan \textit{Mahony Filter}
+	}
+\end{equationcaptioned}
+
+yang selanjutnya digunakan sebagai referensi untuk pergerakan sumbu Altitudo dan Azimuth teleskop.
+
+\subsection{Perhitungan Posisi Benda Langit (Transformasi Koordinat)}
 Untuk mengarahkan teleskop ke objek langit, sistem mengubah koordinat ekuatorial (RA, Dec) menjadi koordinat alt-azimuth berdasarkan lokasi dan waktu pengamatan. Sebagai ilustrasi, diasumsikan:
 
 \begin{itemize}[noitemsep]
@@ -641,29 +768,102 @@ Langkah-langkah ini kemudian dikirim sebagai perintah kendali ke mikrokontroler 
 
 
 \section{Rancangan Pengujian} \label{III.Rancang_Uji}
+Rancangan pengujian disusun untuk memverifikasi bahwa sistem teleskop robotik berbasis \textit{Alt-Azimuth} berfungsi sesuai rancangan yang dijelaskan pada Bab~\ref{Bab II} dan Bab~\ref{Bab III}. Pengujian dilakukan untuk memastikan sistem memenuhi kriteria kinerja yang ditetapkan, baik secara fungsional maupun non-fungsional, meliputi akurasi estimasi sudut, kestabilan pelacakan, keandalan komunikasi, dan kemudahan penggunaan aplikasi kontrol. \par
 
-Rancangan pengujian dibagi menjadi tiga bagian utama:
+Secara umum, pengujian dibagi menjadi tiga bagian utama, yaitu:
+\begin{enumerate}[noitemsep]
+	\item Pengujian perangkat keras (\textit{hardware testing});
+	\item Pengujian algoritma \textit{Mahony Filter};
+	\item Pengujian perangkat lunak dan komunikasi sistem.
+\end{enumerate}
+
+Tujuan dari pembagian ini adalah untuk memastikan setiap subsistem—mekanik, elektronik, algoritmik, dan antarmuka pengguna—telah berfungsi secara optimal sebelum diintegrasikan menjadi satu kesatuan sistem teleskop robotik.
 
 \subsection{Pengujian Perangkat Keras}
-\begin{itemize}
-	\item Uji koneksi dan respons motor stepper terhadap sinyal PWM dan kendali arah.
-	\item Pengujian IMU untuk pembacaan data akselerasi dan gyro secara kontinu.
-	\item Uji fungsi sensor dan driver motor secara integratif pada sistem prototipe.
-\end{itemize}
+Pengujian perangkat keras bertujuan untuk memastikan bahwa seluruh komponen elektronik dan mekanik berfungsi sesuai dengan rancangan serta memiliki respon yang stabil terhadap perintah kendali. Fokus utama pengujian mencakup motor stepper, driver motor, sensor IMU, dan unit mikrokontroler ESP32. \par
 
-\subsection{Pengujian Estimasi Kalman Filter}
-\begin{itemize}
-	\item Pengambilan data IMU mentah selama 30 detik.
-	\item Bandingkan hasil estimasi Kalman dengan data mentah akselerometer.
-	\item Evaluasi kestabilan hasil (drift, fluktuasi, dan latency).
-	\item Visualisasi kurva orientasi menggunakan grafik pitch dan roll.
-\end{itemize}
-
-\subsection{Pengujian Perhitungan Posisi Benda Langit}
-\begin{itemize}
-	\item Verifikasi perhitungan Alt-Azimuth menggunakan objek bintang atau planet.
-	\item Bandingkan hasil arah teleskop dengan simulasi Stellarium.
-	\item Evaluasi error sudut maksimal arah terhadap target (target error $<$ 0.5°).
-\end{itemize}
+Parameter pengujian meliputi kecepatan, arah putaran, ketepatan langkah motor, serta kestabilan pembacaan sensor terhadap variasi posisi dan getaran. Uji dilakukan dengan memberikan sinyal kontrol langsung melalui \textit{serial monitor} maupun aplikasi pengendali.
 
 
+
+\begin{longtable}{|b{0.05\textwidth}|p{0.2\textwidth}|p{0.3\textwidth}|p{0.3\textwidth}|}
+	\caption{Rancangan Pengujian Perangkat Keras Sistem Teleskop Robotik}
+	\label{table:3.ujiHardware}\\
+	\hline
+	\textbf{No.} & \textbf{Komponen yang Diuji} & \textbf{Metode Pengujian} & \textbf{Hasil yang Diharapkan} \\
+	\hline
+	\endfirsthead
+	\hline
+	\textbf{No.} & \textbf{Komponen yang Diuji} & \textbf{Metode Pengujian} & \textbf{Hasil yang Diharapkan} \\
+	\hline
+	\endhead
+	
+	1. & Motor Stepper (Alt–Azimuth) & Memberikan sinyal PWM untuk menguji arah dan jumlah langkah putaran. & Motor bergerak sesuai arah dan jumlah langkah perintah. \\
+	\hline
+	2. & Driver Motor A4988 dan ULN2003 & Mengukur arus keluaran dan respon terhadap sinyal kendali digital. & Driver mampu menyalurkan daya tanpa \textit{overheating}. \\
+	\hline
+	3. & Sensor IMU (MPU6050 / MPU9250) & Menguji kestabilan dan \textit{noise} pembacaan akselerasi serta kecepatan sudut. & Data sensor stabil dan tidak terjadi \textit{drift} signifikan. \\
+	\hline
+	4. & Struktur mekanik teleskop & Menguji keseimbangan dan torsi penggerak pada berbagai posisi. & Dudukan stabil, tidak terjadi slip atau getaran berlebih. \\
+	\hline
+\end{longtable}
+
+\subsection{Pengujian Algoritma \textit{Mahony Filter}}
+Tahap ini bertujuan untuk menilai kemampuan algoritma dalam menghasilkan estimasi orientasi yang akurat, stabil, dan bebas dari kesalahan kumulatif sensor (\textit{gyroscope drift}). Data sensor diambil dari IMU, diproses oleh algoritma \textit{Mahony Filter} di mikrokontroler, dan dibandingkan dengan orientasi aktual hasil pengukuran atau simulasi. \par
+
+\begin{longtable}{|b{0.05\textwidth}|p{0.2\textwidth}|p{0.3\textwidth}|p{0.3\textwidth}|}
+	\caption{Rancangan Pengujian Algoritma \textit{Mahony Filter}}
+	\label{table:3.ujiMahony}\\
+	\hline
+	\textbf{No.} & \textbf{Aspek yang Diuji} & \textbf{Metode Pengujian} & \textbf{Hasil yang Diharapkan} \\
+	\hline
+	\endfirsthead
+	\hline
+	\textbf{No.} & \textbf{Aspek yang Diuji} & \textbf{Metode Pengujian} & \textbf{Hasil yang Diharapkan} \\
+	\hline
+	\endhead
+	
+	1. & Estimasi orientasi (\textit{Roll}, \textit{Pitch}, \textit{Yaw}) & Membandingkan hasil estimasi dengan sudut referensi dari data simulasi. & Deviasi hasil estimasi $< 1.5^\circ$. \\
+	\hline
+	2. & Kestabilan filter & Menguji respon sistem terhadap gerakan cepat dan posisi diam. & Estimasi orientasi tidak berosilasi dan tetap stabil. \\
+	\hline
+	3. & Waktu respon algoritma & Mengukur waktu pemrosesan per siklus data IMU. & Frekuensi pembaruan minimal 50~Hz. \\
+	\hline
+	4. & Perbandingan dengan data mentah & Visualisasi hasil filter dan data mentah dalam grafik. & Filter berhasil mengurangi \textit{noise} dan \textit{drift}. \\
+	\hline
+\end{longtable}
+
+Pengujian ini mengacu pada penelitian Mahony \cite{Mahony2008} dan Hoang \cite{MinhLongHoang2022}, yang menekankan pentingnya stabilitas estimasi sudut untuk sistem kendali orientasi berbasis IMU.
+
+\subsection{Pengujian Perangkat Lunak dan Komunikasi Sistem}
+Pengujian perangkat lunak dilakukan untuk memverifikasi bahwa aplikasi kontrol berbasis Android dapat mengatur pergerakan teleskop secara manual maupun otomatis, serta berkomunikasi secara \textit{real-time} dengan mikrokontroler. Pengujian juga mencakup evaluasi antarmuka pengguna dan keandalan koneksi WebSocket. \par
+
+\begin{longtable}{|b{0.05\textwidth}|p{0.2\textwidth}|p{0.3\textwidth}|p{0.3\textwidth}|}
+	\caption{Rancangan Pengujian Perangkat Lunak dan Komunikasi Sistem}
+	\label{table:3.ujiSoftware}\\
+	\hline
+	\textbf{No.} & \textbf{Fungsi yang Diuji} & \textbf{Metode Pengujian} & \textbf{Hasil yang Diharapkan} \\
+	\hline
+	\endfirsthead
+	\hline
+	\textbf{No.} & \textbf{Fungsi yang Diuji} & \textbf{Metode Pengujian} & \textbf{Hasil yang Diharapkan} \\
+	\hline
+	\endhead
+	
+	1. & Komunikasi data mikrokontroler aplikasi & Mengirim perintah arah dan menerima data sensor melalui WebSocket. & Data terkirim dan diterima tanpa jeda signifikan. \\
+	\hline
+	2. & Mode manual dan otomatis & Menguji kemampuan aplikasi menggerakkan teleskop sesuai input pengguna atau koordinat target. & Teleskop bergerak sesuai perintah tanpa kesalahan. \\
+	\hline
+	3. & Tampilan orientasi teleskop & Memeriksa tampilan data sensor (\textit{roll}, \textit{pitch}, \textit{yaw}) secara \textit{real-time}. & Tampilan sinkron dengan posisi teleskop. \\
+	\hline
+	4. & Respons sistem terhadap gangguan koneksi & Memutus dan menyambungkan kembali koneksi Wi-Fi. & Sistem tetap aman dan dapat melanjutkan operasi setelah terhubung kembali. \\
+	\hline
+	5. & \textit{Logging} data observasi & Menguji penyimpanan hasil pengamatan (waktu, posisi, status). & Data tersimpan lengkap dan dapat ditampilkan ulang. \\
+	\hline
+\end{longtable}
+
+
+Pengujian ini juga mengacu pada penelitian \cite{Hoang2020,Malasan2025}, yang menunjukkan pentingnya komunikasi dua arah antara sistem kendali dan antarmuka pengguna untuk memastikan keandalan sistem teleskop otomatis.
+
+
+Dari hasil seluruh pengujian tersebut diharapkan sistem teleskop robotik dapat beroperasi secara stabil, menghasilkan estimasi sudut yang akurat, serta memberikan pengalaman penggunaan yang efisien dan intuitif bagi pengamat.

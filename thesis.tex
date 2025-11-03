@@ -140,18 +140,15 @@
     	\fancyhead[]{}
     	\fancyfoot[C]{\thepage}
     }
-    % Reset penomoran halaman menjadi 1
+
     \setcounter{page}{1}
     \pagenumbering{arabic}    
     \justifying
-    % Mulai selang-seling halaman
+
     \forceoddpage
     \cleardoublepage
     \pagestyle{alternatingstyle}
-    %----------------------------------------------------------------%
-    % Daftar Bab
-    % Untuk menambahkan daftar bab, buat berkas bab misalnya `chapter-6` di direktori `chapters`, dan masukkan ke sini.
-    %----------------------------------------------------------------%
+
     \input{chapters/chapter-1}
     \input{chapters/chapter-2}
     \input{chapters/chapter-3}
@@ -163,10 +160,7 @@
     \phantomsection% 
     \addcontentsline{toc}{chapter}{DAFTAR PUSTAKA}
     \printbibliography[title={Daftar Pustaka}]
-	%----------------------------------------------------------------%
-    % Lampiran
-    %----------------------------------------------------------------%
-    % TODO: Tabel Lampiran
+
     \newpage
     \appendix
     \addcontentsline{toc}{chapter}{LAMPIRAN}

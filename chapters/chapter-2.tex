@@ -14,10 +14,10 @@ Penelitian terkait teleskop robotik dan \textit{Mahony Filter} telah dilakukan o
 	\textbf{No.} & \textbf{Judul} & \textbf{Masalah} & \textbf{Metode} & \textbf{Hasil} \\
 	\hline
 	\endhead % Header tabel untuk halaman selanjutnya (repeat header row)
-	1.  & RUKYATUL HILAL INSTRUMENT DESIGN BASED ON ARDUINO  & Keterbatasan instrumen tradisional dalam pengamatan Hilal serta penempatan bulan yang tidak konsisten & \textit{Reasearch \& Development} (R\&D) & Hasil penelitian menunjukkan bahwa instrumen berbasis Arduino berhasil menunjukkan dan lebih tepat posisi Bulan. \cite{Hadi2022}.\\ 
+	1.  & RUKYATUL HILAL INSTRUMENT DESIGN BASED ON ARDUINO  & Keterbatasan instrumen tradisional dalam pengamatan Hilal serta penempatan bulan yang tidak konsisten & \textit{Reasearch \& Development} (R\&D) & Hasil penelitian menunjukkan bahwa instrumen berbasis Arduino berhasil menunjukkan posisi lebih tepat ke Bulan. \cite{Hadi2022}.\\ 
 	\hline
 	2. & Design and Development of Real-Time Controller Based on ARM Cortex-M Processor
-	for Automated Altitude-Azimuth Telescope Mount & Observasi astronomi manual menghadapi beberapa tantangan signifikan seperti mengarahkan teleskop secara manual dan kondisi cuaca yang tidak menentu & Nested Vectored Interrupt Controller (NVIC) terintegrasi, dan Digital Signal Processing (DSP) engine & Hasil penelitian menunjukkan bahwa pengontrol STM32F407VGT6 berbasis mikrokontroler berhasil dikembangkan dan diuji, memenuhi persyaratan yang ditetapkan \cite{Rangana2022}.\\ 
+	for Automated Altitude-Azimuth Telescope Mount & Observasi astronomi manual menghadapi beberapa tantangan signifikan seperti mengarahkan teleskop secara manual dan kondisi cuaca yang tidak menentu & Nested Vectored Interrupt Controller (NVIC) terintegrasi, dan Digital Signal Processing (DSP) engine & Hasil penelitian menunjukkan bahwa pengontrol STM32 F407VGT6 berbasis mikrokontroler berhasil dikembangkan dan diuji, serta memenuhi persyaratan yang ditetapkan \cite{Rangana2022}.\\ 
 	\hline
 	3. & Characterization of the Small Robotic Telescope Instrument and Implementation at ITERA Lampung Astronomical Observatory & keterbatasan metode manual, kesulitan dalam mengarahkan teleskop secara presisi, dan masalah kontras untuk objek redup seperti bulan tetap, serta artefak noise pada kamera & In-situ test observations & OZT-ALTS berhasil melakukan pengamatan bulan tetap dengan kontras yang lebih baik dan mampu mendeteksi exoplanet yang transit \cite{Malasan2025}.\\ 
 %Teleskop robotik 36~cm dengan kamera sCMOS dan software berbasis ZeroMQ serta PSO untuk penjadwalan otomatis.
@@ -56,7 +56,7 @@ Teleskop reflektor adalah jenis teleskop yang menggunakan cermin sebagai elemen 
 \begin{figure}[H] % Kalau menggunakan H, posisi gambar akan tepat dibawah teks
 	\centering
 	\includegraphics[width=0.6\textwidth]{figure/teleskop_reflektor_2.png}
-	\caption{Teleskop reflektor}
+	\caption{Teleskop reflektor}menunjumenunjukkankkan
 	\label{fig:2.1}
 	{\footnotesize Sumber: \textit{Fundamental Astronomy}} % Untuk memberikan sumber
 \end{figure}
@@ -135,11 +135,18 @@ Trigonometri bidang atau trigonometri pada umumnya dapat digunakan untuk menghit
 \subsection{\textit{Julian Date}} \label{II.Teori3}
 \textit{Julian Date} (JD) merupakan sistem penanggalan yang digunakan secara luas dalam astronomi untuk menyatakan waktu dalam bentuk bilangan real yang menyatakan jumlah hari (dan pecahannya) sejak tengah hari (12:00 UT) pada tanggal 1 Januari 4713 SM dalam kalender Julian. Sistem ini diperkenalkan untuk menghindari kompleksitas kalender masehi seperti tahun kabisat dan perbedaan bulan, serta untuk menyederhanakan perhitungan selisih waktu antara dua peristiwa astronomis\cite{HannuKarttunen2017}. Julian date pada tanggal tertentu dapat dihitung dengan \ref{eq:2.julianDate} \cite{HannuKarttunen2017}
 \begin{equationcaptioned}[eq:2.julianDate]{
-		J = 367y - \left\lfloor \frac{7(y + \frac{m + 9}{12})}{4} \right\rfloor - \left\lfloor \frac{3 \left( \left\lfloor \frac{y + \frac{m - 9}{7}}{100} \right\rfloor + 1 \right)}{4} \right\rfloor + \left\lfloor \frac{275m}{9} \right\rfloor + d + 1721029 + \frac{h + \frac{m}{60} + \frac{s}{3600}}{24}
+		J = 367y - \left\lfloor \frac{7(y + \frac{m + 9}{12})}{4} \right\rfloor - \left\lfloor \frac{3 \left( \left\lfloor \frac{y + \frac{m - 9}{7}}{100} \right\rfloor + 1 \right)}{4} \right\rfloor + \left\lfloor \frac{275m}{9} \right\rfloor + d + s	
 	}{
 		Julian Date
 	}
 \end{equationcaptioned}
+\begin{equationcaptioned}[eq:2.julianDateKoreksi]{
+		s = 1721029 + \frac{h}{24} + \frac{m}{60} + \frac{s}{3600}	
+	}{
+		Koreksi Waktu Julian Date
+	}
+\end{equationcaptioned}
+
 Dengan:
 \begin{description}[noitemsep]
 	\item[$J$] = Nilai \textit{Julian Date}.
@@ -255,7 +262,7 @@ Perhitungan dalam \textit{Mahony Filter} dilakukan melalui beberapa langkah utam
 	\item \textbf{Perhitungan Komponen Integral ($I_n$)}\\
 	Komponen integral dari PI Controller dihitung dengan mengintegrasikan vektor galat ($e$) terhadap waktu:
 	\begin{equationcaptioned}[eq:2.perhitunganVektorIntegrasi]{
-			I_n = I_{n-1} + K_i e \Delta t
+			I_n = K_i \int e\,dt
 		}{
 			Perhitungan komponen integral dari PI Controller \cite{MinhLongHoang2022}
 		}

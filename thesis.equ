@@ -1,37 +1,51 @@
-\contentsline {myequations}{\numberline {Rumus~2.1} Perbesaran Teleskop }{11}{equation.2.2.1}%
-\contentsline {myequations}{\numberline {Rumus~2.2} Formula sinus trigonometri bola }{12}{equation.2.2.2}%
-\contentsline {myequations}{\numberline {Rumus~2.3} Formula cosinus trigonometri bola }{12}{equation.2.2.3}%
-\contentsline {myequations}{\numberline {Rumus~2.4} Formula analogin cosinus }{12}{equation.2.2.4}%
-\contentsline {myequations}{\numberline {Rumus~2.5} Formula 4 bagian }{12}{equation.2.2.5}%
+\contentsline {myequations}{\numberline {Rumus~2.1} Perbesaran Teleskop }{12}{equation.2.2.1}%
+\contentsline {myequations}{\numberline {Rumus~2.2} Formula sinus trigonometri bola }{13}{equation.2.2.2}%
+\contentsline {myequations}{\numberline {Rumus~2.3} Formula cosinus trigonometri bola }{13}{equation.2.2.3}%
+\contentsline {myequations}{\numberline {Rumus~2.4} Formula analogin cosinus }{13}{equation.2.2.4}%
+\contentsline {myequations}{\numberline {Rumus~2.5} Formula 4 bagian }{13}{equation.2.2.5}%
 \contentsline {myequations}{\numberline {Rumus~2.6} Julian Date }{13}{equation.2.2.6}%
-\contentsline {myequations}{\numberline {Rumus~2.7} Transformasi koordinat nilai deklinasi }{16}{equation.2.2.7}%
-\contentsline {myequations}{\numberline {Rumus~2.8} Transformasi koordinat nilai altitudo }{16}{equation.2.2.8}%
-\contentsline {myequations}{\numberline {Rumus~2.9} Transformasi koordinat Hour Angle 1 }{16}{equation.2.2.9}%
-\contentsline {myequations}{\numberline {Rumus~2.10} Transformasi koordinat Hour Angle 2 }{16}{equation.2.2.10}%
-\contentsline {myequations}{\numberline {Rumus~2.11} Estimasi vektor gravitasi dari kuaternion orientasi \blx@tocontentsinit {0}\cite {MinhLongHoang2022} }{17}{equation.2.2.11}%
-\contentsline {myequations}{\numberline {Rumus~2.12} Perhitungan vektor galat orientasi \blx@tocontentsinit {0}\cite {MinhLongHoang2022} }{17}{equation.2.2.12}%
-\contentsline {myequations}{\numberline {Rumus~2.13} Perhitungan komponen integral dari PI Controller \blx@tocontentsinit {0}\cite {MinhLongHoang2022} }{17}{equation.2.2.13}%
-\contentsline {myequations}{\numberline {Rumus~2.14} Koreksi kecepatan sudut giroskop dengan PI Controller \blx@tocontentsinit {0}\cite {MinhLongHoang2022} }{17}{equation.2.2.14}%
-\contentsline {myequations}{\numberline {Rumus~2.15} Integrasi laju perubahan kuaternion \blx@tocontentsinit {0}\cite {MinhLongHoang2022} }{17}{equation.2.2.15}%
-\contentsline {myequations}{\numberline {Rumus~2.16} Integrasi laju perubahan kuaternion dalam bentuk matriks \blx@tocontentsinit {0}\cite {MinhLongHoang2022} }{17}{equation.2.2.16}%
-\contentsline {myequations}{\numberline {Rumus~2.17} Standar Deviasi }{18}{equation.2.2.17}%
-\contentsline {myequations}{\numberline {Rumus~3.1} Normalisasi data sensor untuk menghilangkan pengaruh skala }{39}{equation.3.5.1}%
+\contentsline {myequations}{\numberline {Rumus~2.7} Koreksi Waktu Julian Date }{14}{equation.2.2.7}%
+\contentsline {myequations}{\numberline {Rumus~2.8} Transformasi koordinat nilai deklinasi }{16}{equation.2.2.8}%
+\contentsline {myequations}{\numberline {Rumus~2.9} Transformasi koordinat nilai altitudo }{16}{equation.2.2.9}%
+\contentsline {myequations}{\numberline {Rumus~2.10} Transformasi koordinat Hour Angle 1 }{16}{equation.2.2.10}%
+\contentsline {myequations}{\numberline {Rumus~2.11} Transformasi koordinat Hour Angle 2 }{16}{equation.2.2.11}%
+\contentsline {myequations}{\numberline {Rumus~2.12} Estimasi vektor gravitasi dari kuaternion orientasi \blx@tocontentsinit {0}\cite {MinhLongHoang2022} }{17}{equation.2.2.12}%
+\contentsline {myequations}{\numberline {Rumus~2.13} Perhitungan vektor galat orientasi \blx@tocontentsinit {0}\cite {MinhLongHoang2022} }{17}{equation.2.2.13}%
+\contentsline {myequations}{\numberline {Rumus~2.14} Perhitungan komponen integral dari PI Controller \blx@tocontentsinit {0}\cite {MinhLongHoang2022} }{18}{equation.2.2.14}%
+\contentsline {myequations}{\numberline {Rumus~2.15} Koreksi kecepatan sudut giroskop dengan PI Controller \blx@tocontentsinit {0}\cite {MinhLongHoang2022} }{18}{equation.2.2.15}%
+\contentsline {myequations}{\numberline {Rumus~2.16} Integrasi laju perubahan kuaternion \blx@tocontentsinit {0}\cite {MinhLongHoang2022} }{18}{equation.2.2.16}%
+\contentsline {myequations}{\numberline {Rumus~2.17} Integrasi laju perubahan kuaternion dalam bentuk matriks \blx@tocontentsinit {0}\cite {MinhLongHoang2022} }{18}{equation.2.2.17}%
+\contentsline {myequations}{\numberline {Rumus~2.18} Standar Deviasi }{19}{equation.2.2.18}%
+\contentsline {myequations}{\numberline {Rumus~3.1} Normalisasi data sensor untuk menghilangkan pengaruh skala }{40}{equation.3.5.1}%
 \contentsline {myequations}{\numberline {Rumus~3.2} Estimasi arah vektor gravitasi dari kuaternion orientasi }{40}{equation.3.5.2}%
 \contentsline {myequations}{\numberline {Rumus~3.3} Perhitungan vektor galat orientasi }{40}{equation.3.5.3}%
-\contentsline {myequations}{\numberline {Rumus~3.4} Perhitungan vektor galat orientasi }{40}{equation.3.5.4}%
-\contentsline {myequations}{\numberline {Rumus~3.5} Koreksi kecepatan sudut giroskop menggunakan pengendali PI }{40}{equation.3.5.5}%
-\contentsline {myequations}{\numberline {Rumus~3.6} Integrasi kuaternion untuk memperbarui orientasi }{40}{equation.3.5.6}%
-\contentsline {myequations}{\numberline {Rumus~3.7} Normalisasi kuaternion agar tetap memiliki panjang satuan }{40}{equation.3.5.7}%
+\contentsline {myequations}{\numberline {Rumus~3.4} Perhitungan vektor galat orientasi }{41}{equation.3.5.4}%
+\contentsline {myequations}{\numberline {Rumus~3.5} Koreksi kecepatan sudut giroskop menggunakan pengendali PI }{41}{equation.3.5.5}%
+\contentsline {myequations}{\numberline {Rumus~3.6} Integrasi kuaternion untuk memperbarui orientasi }{41}{equation.3.5.6}%
+\contentsline {myequations}{\numberline {Rumus~3.7} Normalisasi kuaternion agar tetap memiliki panjang satuan }{41}{equation.3.5.7}%
 \contentsline {myequations}{\numberline {Rumus~3.8} Konversi kuaternion ke sudut Euler (roll, pitch, yaw) }{41}{equation.3.5.8}%
-\contentsline {myequations}{\numberline {Rumus~3.9} Perhitungan Hour Angle }{41}{equation.3.5.9}%
-\contentsline {myequations}{\numberline {Rumus~3.10} Transformasi ke Altitude }{41}{equation.3.5.10}%
-\contentsline {myequations}{\numberline {Rumus~3.11} Transformasi ke Azimuth }{41}{equation.3.5.11}%
-\contentsline {myequations}{\numberline {Rumus~3.12} Perhitungan Hour Angle }{42}{equation.3.5.12}%
-\contentsline {myequations}{\numberline {Rumus~3.13} Transformasi ke Altitude }{42}{equation.3.5.13}%
-\contentsline {myequations}{\numberline {Rumus~3.14} Transformasi ke Azimuth }{42}{equation.3.5.14}%
-\contentsline {myequations}{\numberline {Rumus~3.15} Perhitungan jumlah langkah per putaran stepper motor (1.8° dengan 1/16 step) }{42}{equation.3.5.15}%
-\contentsline {myequations}{\numberline {Rumus~3.16} Konversi sudut Altitudo ke langkah stepper }{43}{equation.3.5.16}%
-\contentsline {myequations}{\numberline {Rumus~3.17} Konversi sudut Azimuth ke langkah stepper }{43}{equation.3.5.17}%
-\contentsline {myequations}{\numberline {Rumus~3.18} Sudut Altitudo dan Azimuth target }{43}{equation.3.5.18}%
-\contentsline {myequations}{\numberline {Rumus~3.19} Perhitungan langkah stepper motor pada sumbu Altitudo }{43}{equation.3.5.19}%
-\contentsline {myequations}{\numberline {Rumus~3.20} Perhitungan langkah stepper motor pada sumbu Azimuth }{43}{equation.3.5.20}%
+\contentsline {myequations}{\numberline {Rumus~3.9} Normalisasi vektor akselerometer }{42}{equation.3.5.9}%
+\contentsline {myequations}{\numberline {Rumus~3.10} Hasil normalisasi vektor akselerometer }{42}{equation.3.5.10}%
+\contentsline {myequations}{\numberline {Rumus~3.11} Estimasi vektor gravitasi dari kuaternion }{42}{equation.3.5.11}%
+\contentsline {myequations}{\numberline {Rumus~3.12} Hasil estimasi arah gravitasi }{42}{equation.3.5.12}%
+\contentsline {myequations}{\numberline {Rumus~3.13} Perhitungan vektor galat orientasi }{42}{equation.3.5.13}%
+\contentsline {myequations}{\numberline {Rumus~3.14} Hasil vektor galat orientasi }{42}{equation.3.5.14}%
+\contentsline {myequations}{\numberline {Rumus~3.15} Koreksi kecepatan sudut giroskop }{42}{equation.3.5.15}%
+\contentsline {myequations}{\numberline {Rumus~3.16} Hasil koreksi kecepatan sudut giroskop }{42}{equation.3.5.16}%
+\contentsline {myequations}{\numberline {Rumus~3.17} Integrasi kuaternion untuk pembaruan orientasi }{43}{equation.3.5.17}%
+\contentsline {myequations}{\numberline {Rumus~3.18} Kuaternion baru hasil integrasi }{43}{equation.3.5.18}%
+\contentsline {myequations}{\numberline {Rumus~3.19} Konversi kuaternion ke sudut Euler }{43}{equation.3.5.19}%
+\contentsline {myequations}{\numberline {Rumus~3.20} Hasil akhir estimasi orientasi teleskop }{43}{equation.3.5.20}%
+\contentsline {myequations}{\numberline {Rumus~3.21} Hasil akhir estimasi sudut orientasi teleskop menggunakan \textit {Mahony Filter} }{43}{equation.3.5.21}%
+\contentsline {myequations}{\numberline {Rumus~3.22} Perhitungan Hour Angle }{44}{equation.3.5.22}%
+\contentsline {myequations}{\numberline {Rumus~3.23} Transformasi ke Altitude }{44}{equation.3.5.23}%
+\contentsline {myequations}{\numberline {Rumus~3.24} Transformasi ke Azimuth }{44}{equation.3.5.24}%
+\contentsline {myequations}{\numberline {Rumus~3.25} Perhitungan Hour Angle }{44}{equation.3.5.25}%
+\contentsline {myequations}{\numberline {Rumus~3.26} Transformasi ke Altitude }{44}{equation.3.5.26}%
+\contentsline {myequations}{\numberline {Rumus~3.27} Transformasi ke Azimuth }{44}{equation.3.5.27}%
+\contentsline {myequations}{\numberline {Rumus~3.28} Perhitungan jumlah langkah per putaran stepper motor (1.8° dengan 1/16 step) }{45}{equation.3.5.28}%
+\contentsline {myequations}{\numberline {Rumus~3.29} Konversi sudut Altitudo ke langkah stepper }{45}{equation.3.5.29}%
+\contentsline {myequations}{\numberline {Rumus~3.30} Konversi sudut Azimuth ke langkah stepper }{45}{equation.3.5.30}%
+\contentsline {myequations}{\numberline {Rumus~3.31} Sudut Altitudo dan Azimuth target }{45}{equation.3.5.31}%
+\contentsline {myequations}{\numberline {Rumus~3.32} Perhitungan langkah stepper motor pada sumbu Altitudo }{45}{equation.3.5.32}%
+\contentsline {myequations}{\numberline {Rumus~3.33} Perhitungan langkah stepper motor pada sumbu Azimuth }{45}{equation.3.5.33}%
