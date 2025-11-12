@@ -379,7 +379,7 @@ Desain elektronika melibatkan koneksi antara ESP32, driver motor (A4988 dan ULN2
 \end{figure}
 
 \subsection{Desain Aplikasi Kontrol} \label{III.Desain.Aplikasi}
-Aplikasi kontrol dikembangkan menggunakan Flutter SDK untuk Android. Aplikasi ini berfungsi mengatur pergerakan teleskop secara manual, otomatis, dan juga menampilkan data sudut orientasi. Komunikasi antara aplikasi dan mikrokontroler dilakukan menggunakan WebSocket melalui koneksi Wi-Fi. Antarmuka aplikasi ditunjukkan pada Gambar \ref{fig:3.aplikasi1}-\ref{fig:3.aplikasi4}.
+Aplikasi kontrol dikembangkan menggunakan Flutter SDK untuk Android. Aplikasi ini berfungsi untuk mengatur pergerakan teleskop secara manual maupun otomatis, serta menampilkan data orientasi sudut secara \textit{real-time}. Komunikasi antara aplikasi dan mikrokontroler dilakukan menggunakan protokol WebSocket melalui koneksi Wi-Fi. Antarmuka aplikasi ditunjukkan pada Gambar \ref{fig:3.aplikasi1}--\ref{fig:3.aplikasi4}.
 
 \begin{figure}[H]
 	\centering
@@ -387,24 +387,35 @@ Aplikasi kontrol dikembangkan menggunakan Flutter SDK untuk Android. Aplikasi in
 	\caption{Tampilan antarmuka koneksi ke teleskop}
 	\label{fig:3.aplikasi1}
 \end{figure}
+\noindent
+Gambar \ref{fig:3.aplikasi1} menunjukkan tampilan awal aplikasi kontrol saat pengguna melakukan koneksi ke sistem teleskop robotik melalui jaringan Wi-Fi. Pada tahap ini, aplikasi berfungsi melakukan inisialisasi komunikasi menggunakan protokol WebSocket antara perangkat Android dan mikrokontroler ESP32. Informasi status koneksi seperti \textit{connected} atau \textit{disconnected} ditampilkan untuk memastikan komunikasi dua arah telah berhasil sebelum sistem dijalankan.
+
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.6\textwidth]{figure/screenshot_2_3.png}
 	\caption{Tampilan antarmuka katalog}
 	\label{fig:3.aplikasi2}
 \end{figure}
+\noindent
+Gambar \ref{fig:3.aplikasi2} menampilkan halaman katalog objek langit yang diambil dari basis data internal aplikasi. Pengguna dapat memilih target pengamatan berupa bintang, planet, atau objek astronomi lainnya berdasarkan data katalog. Setelah target dipilih, sistem akan mengonversi koordinat ekuatorial objek menjadi koordinat Alt-Azimuth agar teleskop dapat diarahkan secara otomatis ke posisi yang sesuai.
+
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.3\textwidth]{figure/screenshot_4.png}
 	\caption{Tampilan antarmuka kontrol teleskop}
 	\label{fig:3.aplikasi3}
 \end{figure}
+\noindent
+Gambar \ref{fig:3.aplikasi3} menunjukkan halaman utama kontrol teleskop yang memungkinkan pengguna mengatur arah teleskop secara manual maupun otomatis. Tombol navigasi digunakan untuk menggerakkan teleskop pada sumbu altitudo dan azimut, sedangkan mode otomatis menjalankan pergerakan berdasarkan koordinat hasil transformasi dari katalog objek. Aplikasi juga menampilkan nilai orientasi sudut terkini yang diperoleh dari sensor IMU setelah diolah menggunakan Mahony Filter.
+
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.3\textwidth]{figure/screenshot_5.png}
 	\caption{Tampilan antarmuka monitor}
 	\label{fig:3.aplikasi4}
 \end{figure}
+\noindent
+Gambar \ref{fig:3.aplikasi4} memperlihatkan halaman pemantauan data orientasi teleskop secara \textit{real-time}. Bagian ini berfungsi untuk menampilkan nilai sudut roll, pitch, dan yaw hasil estimasi dari sensor IMU, serta status sistem selama proses pelacakan objek langit berlangsung. Fitur ini membantu pengguna dalam memverifikasi kestabilan pergerakan dan akurasi posisi teleskop selama pengamatan.
 
 
 \section{Ilustrasi Perhitungan Metode} \label{III.Ilustrasi}
@@ -415,78 +426,6 @@ Ilustrasi perhitungan dalam penelitian ini dibagi menjadi dua bagian utama, yait
 
 Estimasi sudut merupakan komponen utama dalam sistem kendali teleskop robotik \textit{Alt-Azimuth}, karena posisi dan arah pandang teleskop sangat bergantung pada akurasi orientasi yang dihitung dari sensor inersial. Untuk mencapai estimasi yang stabil dan presisi, penelitian ini menggunakan metode \textit{Mahony Filter}, yaitu algoritma fusi sensor (\textit{sensor fusion}) berbasis kontrol Proporsional-Integral (PI) yang dirancang untuk menggabungkan data akselerometer dan giroskop \cite{MinhLongHoang2022}.  
 
-\subsubsection{Langkah-langkah Perhitungan}
-Secara umum, algoritma \textit{Mahony Filter} meliputi lima tahap utama \cite{MinhLongHoang2022, Maton2024}:
-
-\begin{enumerate}[noitemsep]
-	\item \textbf{Normalisasi Data Sensor}\\
-	Data akselerometer ($a$) dan giroskop ($\omega$) dinormalisasi agar memiliki satuan unit vektor:
-	\begin{equationcaptioned}[eq:3.normalisasiSensor]{
-			a = \frac{a}{|a|}, \qquad \omega = \frac{\omega}{|\omega|}
-		}{
-			Normalisasi data sensor untuk menghilangkan pengaruh skala
-		}
-	\end{equationcaptioned}
-	
-	\item \textbf{Estimasi Arah Gravitasi}\\
-	Dari kuaternion orientasi sebelumnya ($q$), dihitung estimasi arah vektor gravitasi:
-	\begin{equationcaptioned}[eq:3.estimasiGravitasi]{
-			\mathbf{d} = 2
-			\left(
-			\begin{array}{c}
-				q_{1} q_{3} - q_{0} q_{2} \\
-				q_{0} q_{1} + q_{2} q_{3} \\
-				q_{0}^{2} + q_{3}^{2} - \tfrac{1}{2}
-			\end{array}
-			\right)
-		}{
-			Estimasi arah vektor gravitasi dari kuaternion orientasi
-		}
-	\end{equationcaptioned}
-	
-	\item \textbf{Perhitungan Vektor Galat}\\
-	Vektor galat dihitung sebagai hasil perkalian silang antara vektor akselerometer aktual ($a$) dan arah gravitasi estimasi ($\mathbf{d}$):
-	\begin{equationcaptioned}[eq:3.vektorGalat]{
-			e = a \times \mathbf{d}
-		}{
-			Perhitungan vektor galat orientasi
-		}
-	\end{equationcaptioned}
-	
-	\item \textbf{Perhitungan Komponen Integral}\\
-	Komponen integral dari PI Controller dihitung dengan mengintegrasikan vektor galat ($e$) terhadap waktu:
-	\begin{equationcaptioned}[eq:3.vektorGalat]{
-			I_n = I_{n-1}+k_i e \Delta t
-		}{
-			Perhitungan vektor galat orientasi
-		}
-	\end{equationcaptioned}
-	\item \textbf{Koreksi Kecepatan Sudut}\\
-	Kecepatan sudut dikoreksi dengan menambahkan komponen proporsional ($K_p e$) dan integral ($I_n$):
-	\begin{equationcaptioned}[eq:3.koreksiKecepatanSudut]{
-			\omega' = \omega + K_p + I_n
-		}{
-			Koreksi kecepatan sudut giroskop menggunakan pengendali PI
-		}
-	\end{equationcaptioned}
-	
-	\item \textbf{Integrasi Kuaternion}\\
-	Kuaternion diperbarui dengan integrasi terhadap waktu dari $\omega'$:
-	\begin{equationcaptioned}[eq:3.integrasiKuaternion]{
-			q_{n} = q_{n-1} + \frac{1}{2} q_{n-1} \otimes \omega' \, \Delta t
-		}{
-			Integrasi kuaternion untuk memperbarui orientasi
-		}
-	\end{equationcaptioned}
-	
-	Setelah proses integrasi, kuaternion kemudian dinormalisasi:
-	\begin{equationcaptioned}[eq:3.normalisasiQuat]{
-			q_{n} = \frac{q_{n}}{|q_{n}|}
-		}{
-			Normalisasi kuaternion agar tetap memiliki panjang satuan
-		}
-	\end{equationcaptioned}
-\end{enumerate}
 
 \subsubsection{Konversi Kuaternion ke Sudut Euler}
 Hasil estimasi kuaternion dikonversi menjadi sudut Euler untuk mendapatkan nilai \textit{roll}, \textit{pitch}, dan \textit{yaw}:
@@ -518,118 +457,102 @@ Sebagai ilustrasi, diasumsikan data pembacaan sensor IMU dan parameter filter se
 Langkah-langkah perhitungan dilakukan sebagai berikut:
 
 \paragraph{1. Normalisasi Vektor Akselerometer}
-\begin{equationcaptioned}[eq:3.normAcc]{
-		|a| = \sqrt{0.05^2 + (-0.02)^2 + 9.78^2} = 9.781
-	}{
-		Normalisasi vektor akselerometer
-	}
-\end{equationcaptioned}
-
-\begin{equationcaptioned}[eq:3.normAccVector]{
-		a = \frac{a_{raw}}{|a|} = [0.0051, -0.0020, 0.9999]
-	}{
-		Hasil normalisasi vektor akselerometer
-	}
-\end{equationcaptioned}
-
+{\setlength{\abovedisplayskip}{8pt}%
+	\setlength{\belowdisplayskip}{8pt}%
+	\[
+\begin{split}
+	|a| = \sqrt{0.05^2 + (-0.02)^2 + 9.78^2} = 9.781 \\
+	a = \frac{a_{raw}}{|a|} = [0.0051, -0.0020, 0.9999]
+\end{split}
+	\]}
 \paragraph{2. Estimasi Arah Gravitasi dari Kuaternion}
-\begin{equationcaptioned}[eq:3.gravEstimate]{
-		\mathbf{d} = 2
-		\begin{pmatrix}
-			q_1 q_3 - q_0 q_2 \\
-			q_0 q_1 + q_2 q_3 \\
-			q_0^2 + q_3^2 - \tfrac{1}{2}
-		\end{pmatrix}
-	}{
-		Estimasi vektor gravitasi dari kuaternion
-	}
-\end{equationcaptioned}
+{\setlength{\abovedisplayskip}{8pt}%
+	\setlength{\belowdisplayskip}{8pt}%
+\[
+\mathbf{d} = 2
+\begin{pmatrix}
+	q_1 q_3 - q_0 q_2 \\
+	q_0 q_1 + q_2 q_3 \\
+	q_0^2 + q_3^2 - \tfrac{1}{2}
+\end{pmatrix}
+\]}
 
-\begin{equationcaptioned}[eq:3.gravEstimateResult]{
-		\mathbf{d} = [-0.0948,\; 0.0378,\; 0.9948]
-	}{
-		Hasil estimasi arah gravitasi
-	}
-\end{equationcaptioned}
-
+{\setlength{\abovedisplayskip}{8pt}%
+	\setlength{\belowdisplayskip}{8pt}%
+\[
+\mathbf{d} = [-0.0948,\; 0.0378,\; 0.9948]
+\]}
 \paragraph{3. Perhitungan Vektor Galat}
-\begin{equationcaptioned}[eq:3.errorVector]{
-		e = a \times \mathbf{d}
-	}{
-		Perhitungan vektor galat orientasi
-	}
-\end{equationcaptioned}
 
-\begin{equationcaptioned}[eq:3.errorVectorResult]{
-		e = [-0.0398,\; -0.0999,\; -8.2\times10^{-7}]
-	}{
-		Hasil vektor galat orientasi
-	}
-\end{equationcaptioned}
+{\setlength{\abovedisplayskip}{8pt}%
+	\setlength{\belowdisplayskip}{8pt}%
+	\[
+		e = a \times \mathbf{d}
+	\]}
+{\setlength{\abovedisplayskip}{8pt}%
+	\setlength{\belowdisplayskip}{8pt}%
+	\[
+	e = [-0.0398,\; -0.0999,\; -8.2\times10^{-7}]
+	\]}
 
 \paragraph{4. Koreksi Kecepatan Sudut Giroskop (PI Controller)}
-\begin{equationcaptioned}[eq:3.gyroCorrection]{
+
+{\setlength{\abovedisplayskip}{8pt}%
+	\setlength{\belowdisplayskip}{8pt}%
+	\[
 		\omega' = \omega + K_p e + K_i \int e\,dt
-	}{
-		Koreksi kecepatan sudut giroskop
-	}
-\end{equationcaptioned}
+	\]}
+
 
 Dengan $\Delta t = 0.01$ s dan $K_i = 0.5$:
-\begin{equationcaptioned}[eq:3.gyroCorrectionResult]{
+
+{\setlength{\abovedisplayskip}{8pt}%
+	\setlength{\belowdisplayskip}{8pt}%
+	\[
 		\begin{split}
-			\omega' = [0.01, -0.02, 0.005] + 2[-0.0398, -0.0999, 0] \\
-			= [-0.0698, -0.220, 0.005]
-		\end{split}
-	}{
-		Hasil koreksi kecepatan sudut giroskop
-	}
-\end{equationcaptioned}
+	\omega' = [0.01, -0.02, 0.005] + 2[-0.0398, -0.0999, 0] \\
+	= [-0.0698, -0.220, 0.005]
+\end{split}
+	\]}
 
 \paragraph{5. Integrasi Kuaternion}
-\begin{equationcaptioned}[eq:3.quaternionIntegration]{
-		q_{n} = q_{n-1} + \frac{1}{2} q_{n-1} \otimes \omega' \Delta t
-	}{
-		Integrasi kuaternion untuk pembaruan orientasi
-	}
-\end{equationcaptioned}
 
-\begin{equationcaptioned}[eq:3.quaternionNew]{
+{\setlength{\abovedisplayskip}{8pt}%
+	\setlength{\belowdisplayskip}{8pt}%
+	\[
+		q_{n} = q_{n-1} + \frac{1}{2} q_{n-1} \otimes \omega' \Delta t
+	\]}
+{\setlength{\abovedisplayskip}{8pt}%
+	\setlength{\belowdisplayskip}{8pt}%
+	\[
 		q_{n} = [0.9823,\; 0.0099,\; 0.0490,\; 0.1804]
-	}{
-		Kuaternion baru hasil integrasi
-	}
-\end{equationcaptioned}
+	\]}
 
 \paragraph{6. Konversi Kuaternion ke Sudut Euler}
-\begin{equationcaptioned}[eq:3.eulerConversion]{
-		\begin{split}
-			\text{roll} &= \arctan2(2(q_0 q_1 + q_2 q_3), 1 - 2(q_1^2 + q_2^2)) \\
-			\text{pitch} &= \arcsin(2(q_0 q_2 - q_3 q_1)) \\
-			\text{yaw} &= \arctan2(2(q_0 q_3 + q_1 q_2), 1 - 2(q_2^2 + q_3^2))
-		\end{split}
-	}{
-		Konversi kuaternion ke sudut Euler
-	}
-\end{equationcaptioned}
+{\setlength{\abovedisplayskip}{8pt}%
+	\setlength{\belowdisplayskip}{8pt}%
+	\[
+\begin{split}
+	\text{roll} &= \arctan2(2(q_0 q_1 + q_2 q_3), 1 - 2(q_1^2 + q_2^2)) \\
+	\text{pitch} &= \arcsin(2(q_0 q_2 - q_3 q_1)) \\
+	\text{yaw} &= \arctan2(2(q_0 q_3 + q_1 q_2), 1 - 2(q_2^2 + q_3^2)) \\
+	(\text{roll}, \text{pitch}, \text{yaw}) &= (2.13^\circ,\; 5.32^\circ,\; 20.92^\circ)
+\end{split}
+	\]}
 
-\begin{equationcaptioned}[eq:3.eulerResult]{
-		(\text{roll}, \text{pitch}, \text{yaw}) = (2.13^\circ,\; 5.32^\circ,\; 20.92^\circ)
-	}{
-		Hasil akhir estimasi orientasi teleskop
-	}
-\end{equationcaptioned}
 
 Dengan demikian, hasil estimasi orientasi menggunakan \textit{Mahony Filter} menunjukkan sudut akhir:
-\begin{equationcaptioned}[eq:3.hasilMahony]{
-		\text{Roll} = 2.13^\circ,\quad
-		\text{Pitch} = 5.32^\circ,\quad
-		\text{Yaw} = 20.92^\circ
-	}{
-		Hasil akhir estimasi sudut orientasi teleskop menggunakan \textit{Mahony Filter}
-	}
-\end{equationcaptioned}
 
+
+{\setlength{\abovedisplayskip}{8pt}%
+\setlength{\belowdisplayskip}{8pt}%
+\[
+\begin{split}
+	\text{Roll} &= 2.13^\circ,\quad \\
+	\text{Pitch} &= 5.32^\circ,\quad \\
+	\text{Yaw} &= 20.92^\circ \\
+\end{split}
+\]}
 yang selanjutnya digunakan sebagai referensi untuk pergerakan sumbu Altitudo dan Azimuth teleskop.
 
 \subsection{Perhitungan Posisi Benda Langit (Transformasi Koordinat)}
@@ -643,29 +566,27 @@ Untuk mengarahkan teleskop ke objek langit, sistem mengubah koordinat ekuatorial
 \end{itemize}
 
 Langkah pertama adalah menghitung Hour Angle (H):
-\begin{equationcaptioned}[eq:3.hourangle]{
-		H = LST - RA = 295^\circ - 270^\circ = 25^\circ
-	}{
-		Perhitungan Hour Angle
-	}
-\end{equationcaptioned}
+{\setlength{\abovedisplayskip}{8pt}%
+	\setlength{\belowdisplayskip}{8pt}%
+\[
+	H = LST - RA = 295^\circ - 270^\circ = 25^\circ
+\]}
 
 Dilanjutkan dengan menghitung altitudo:
-\begin{equationcaptioned}[eq:3.altitude]{
+{\setlength{\abovedisplayskip}{8pt}%
+	\setlength{\belowdisplayskip}{8pt}%
+	\[
 		\sin a = \sin \phi \sin \delta + \cos \phi \cos \delta \cos H
-	}{
-		Transformasi ke Altitude
-	}
-\end{equationcaptioned}
+	\]}
+
 Hasil: $a \approx 43.5^\circ$
 
 Kemudian azimuth:
-\begin{equationcaptioned}[eq:3.azimuth]{
+{\setlength{\abovedisplayskip}{8pt}%
+	\setlength{\belowdisplayskip}{8pt}%
+	\[
 		\tan A = \frac{\sin H}{\cos H \sin \phi - \tan \delta \cos \phi}
-	}{
-		Transformasi ke Azimuth
-	}
-\end{equationcaptioned}
+	\]}
 Hasil: $A \approx 232^\circ$
 
 Untuk mengarahkan teleskop ke objek langit, sistem mengubah koordinat ekuatorial (RA, Dec) menjadi koordinat alt-azimuth berdasarkan lokasi dan waktu pengamatan. Sebagai ilustrasi, diasumsikan:
@@ -678,34 +599,35 @@ Untuk mengarahkan teleskop ke objek langit, sistem mengubah koordinat ekuatorial
 \end{itemize}
 
 Langkah pertama adalah menghitung Hour Angle (H):
-\begin{equationcaptioned}[eq:3.hourangle]{
+{\setlength{\abovedisplayskip}{8pt}%
+	\setlength{\belowdisplayskip}{8pt}%
+	\[
 		H = LST - RA = 295^\circ - 270^\circ = 25^\circ
-	}{
-		Perhitungan Hour Angle
-	}
-\end{equationcaptioned}
+	\]}
 
 Dilanjutkan dengan menghitung altitudo:
-\begin{equationcaptioned}[eq:3.altitude]{
+{\setlength{\abovedisplayskip}{8pt}%
+	\setlength{\belowdisplayskip}{8pt}%
+	\[
 		\sin a = \sin \phi \sin \delta + \cos \phi \cos \delta \cos H
-	}{
-		Transformasi ke Altitude
-	}
-\end{equationcaptioned}
+	\]}
 Hasil: $a \approx 43.5^\circ$
 
 Kemudian azimuth:
-\begin{equationcaptioned}[eq:3.azimuth]{
-		\tan A = \frac{\sin H}{\cos H \sin \phi - \tan \delta \cos \phi}
-	}{
-		Transformasi ke Azimuth
-	}
-\end{equationcaptioned}
+
+{\setlength{\abovedisplayskip}{8pt}%
+	\setlength{\belowdisplayskip}{8pt}%
+	\[
+		\begin{split}
+			\tan A = \frac{\sin H}{\cos H \sin \phi - \tan \delta \cos \phi}
+		\end{split}
+	\]}
 Hasil: $A \approx 232^\circ$
 
 \subsection{Konversi Sudut ke Langkah Motor Stepper} \label{III.SudutStepper}
 
 Setelah koordinat altitudo ($a$) dan azimuth ($A$) dari objek langit berhasil dihitung, nilai sudut tersebut perlu dikonversikan menjadi jumlah langkah motor stepper yang digunakan untuk menggerakkan sumbu teleskop. Motor stepper yang digunakan memiliki spesifikasi sebagai berikut:
+
 
 \begin{itemize}[noitemsep]
 	\item Resolusi dasar: $1.8^\circ$ per langkah (200 langkah/putaran)
@@ -714,55 +636,46 @@ Setelah koordinat altitudo ($a$) dan azimuth ($A$) dari objek langit berhasil di
 
 Dengan mikrolangkah $1/16$, jumlah langkah per satu putaran penuh ($360^\circ$) menjadi:
 
-\begin{equationcaptioned}[eq:3.langkahPutaran]{
-		\text{Langkah per putaran} = 200 \times 16 = 3200\ \text{langkah}
-	}{
-		Perhitungan jumlah langkah per putaran stepper motor (1.8° dengan 1/16 step)
-	}
-\end{equationcaptioned}
+{\setlength{\abovedisplayskip}{8pt}%
+	\setlength{\belowdisplayskip}{8pt}%
+	\[
+		\begin{split}
+			\text{Langkah per putaran} = 200 \times 16 = 3200/\text{langkah}
+		\end{split}
+	\]}
 
 Maka, jumlah langkah yang dibutuhkan untuk mencapai sudut Altitudo dan Azimuth dapat dihitung dengan rumus:
 
-\begin{equationcaptioned}[eq:3.stepperAlt]{
-		\text{Steps}_{alt} = \frac{a}{360^\circ} \times 3200
-	}{
-		Konversi sudut Altitudo ke langkah stepper
-	}
-\end{equationcaptioned}
-
-\begin{equationcaptioned}[eq:3.stepperAz]{
+{\setlength{\abovedisplayskip}{8pt}%
+	\setlength{\belowdisplayskip}{8pt}%
+	\[
+		\begin{split}
+		\text{Steps}_{alt} = \frac{a}{360^\circ} \times 3200 \\
 		\text{Steps}_{az} = \frac{A}{360^\circ} \times 3200
-	}{
-		Konversi sudut Azimuth ke langkah stepper
-	}
-\end{equationcaptioned}
+		\end{split}
+	\]}
 
 Dengan nilai sudut hasil transformasi koordinat:
-\begin{equationcaptioned}[eq:3.input_sudut]{
-		\begin{aligned}
-			a &= 43.5^\circ \\
-			A &= 232^\circ
-		\end{aligned}
-	}{
-		Sudut Altitudo dan Azimuth target
-	}
-\end{equationcaptioned}
 
+{\setlength{\abovedisplayskip}{8pt}%
+	\setlength{\belowdisplayskip}{8pt}%
+	\[
+	\begin{aligned}
+	a &= 43.5^\circ \\
+	A &= 232^\circ
+	\end{aligned}
+	\]}
 
 Substitusi ke dalam rumus:
-\begin{equationcaptioned}[eq:3.stepsAlt]{
-		\text{Steps}_{alt} = \frac{43.5}{360} \times 3200 \approx 387\ \text{langkah}
-	}{
-		Perhitungan langkah stepper motor pada sumbu Altitudo
-	}
-\end{equationcaptioned}
 
-\begin{equationcaptioned}[eq:3.stepsAz]{
-		\text{Steps}_{az} = \frac{232}{360} \times 3200 \approx 2064\ \text{langkah}
-	}{
-		Perhitungan langkah stepper motor pada sumbu Azimuth
-	}
-\end{equationcaptioned}
+{\setlength{\abovedisplayskip}{8pt}%
+	\setlength{\belowdisplayskip}{8pt}%
+	\[
+		\begin{split}
+			\text{Steps}_{alt} = \frac{43.5}{360} \times 3200 \approx 387\ \text{langkah} \\
+			\text{Steps}_{az} = \frac{232}{360} \times 3200 \approx 2064\ \text{langkah}
+		\end{split}
+	\]}
 
 Langkah-langkah ini kemudian dikirim sebagai perintah kendali ke mikrokontroler untuk menggerakkan motor stepper pada sumbu Altitudo dan Azimuth secara presisi menuju posisi target benda langit.
 
