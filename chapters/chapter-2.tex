@@ -50,22 +50,6 @@ Teleskop adalah alat optik yang digunakan untuk mengamati objek yang sangat jauh
 
 Dalam perkembangannya, teleskop kini banyak dikembangkan menjadi sistem otomatis atau robotik yang dapat beroperasi tanpa campur tangan manusia \cite{Dyer2020}. Teleskop robotik mampu mengikuti pergerakan benda langit secara kontinu, memudahkan pengamatan jangka panjang, pelacakan objek cepat, serta memungkinkan pengendalian jarak jauh melalui jaringan internet atau lokal. \par
 
-\subsubsection{Teleskop Reflektor} \label{II.Teori1.1}
-Teleskop reflektor adalah jenis teleskop yang menggunakan cermin sebagai elemen utama untuk mengumpulkan dan memfokuskan cahaya \cite{HannuKarttunen2017}. Tidak seperti teleskop refraktor yang menggunakan lensa, teleskop reflektor memanfaatkan cermin cekung (umumnya paraboloid) untuk memfokuskan cahaya ke satu titik fokus. Keunggulan utama dari desain ini adalah kemampuannya untuk menghindari aberasi kromatik yang sering terjadi pada teleskop lensa \cite{Roy2018}.\par
-
-\begin{figure}[H] % Kalau menggunakan H, posisi gambar akan tepat dibawah teks
-	\centering
-	\includegraphics[width=0.6\textwidth]{figure/teleskop_reflektor_2.png}
-	\caption{Teleskop reflektor}
-	\label{fig:2.1}
-	{\footnotesize Sumber: \textit{Fundamental Astronomy}} % Untuk memberikan sumber
-\end{figure}
-
-
-Desain teleskop reflektor yang paling umum adalah Newtonian Reflector seperti yang ditunjukan pada gambar \ref{fig:2.1}. Sistem ini menggunakan cermin utama cekung dan cermin sekunder datar yang memantulkan cahaya ke arah lensa okuler di samping tabung teleskop. Konfigurasi ini relatif sederhana dan banyak digunakan oleh astronom amatir karena biayanya yang lebih rendah serta kemudahan dalam perakitan.\par
-
-Teleskop reflektor memiliki beberapa keunggulan \cite{Ryden2010}, di antaranya:
-
 \begin{enumerate}[noitemsep]
 	\item Dapat dibuat dengan ukuran yang jauh lebih besar.
 	
@@ -76,18 +60,7 @@ Teleskop reflektor memiliki beberapa keunggulan \cite{Ryden2010}, di antaranya:
 
 Namun demikian, kelemahan dari teleskop reflektor adalah lebih rentan terhadap penyimpangan optik akibat kesalahan kolimasi (penyelarasan cermin), serta permukaan cermin yang memerlukan perawatan khusus agar tetap bersih dan reflektif. \par
 
-
-\subsubsection{Perbesaran Teleskop} \label{II.Teori1.2}
-Perbesaran sebuah teleskop bergantung pada titik fokus kedua lensanya, yaitu panjang fokus lensa obyektif dan lensa okuler. Perbesarannya  dapat dihitung dengan membandingkan kedua fokus lensa tersebut seperti yang ditunjukkan pada \ref{eq:2.perbesaranTeleskop} \cite{Ryden2010} \par
-\begin{equationcaptioned}[eq:2.perbesaranTeleskop]{
-	M=\frac{f_{obyektif}}{f_{okuler}}
-}{
-	Perbesaran Teleskop
-}	
-\end{equationcaptioned}
-Dengan M merupakan perbesaran teleskop, $f_{obyektif}$ adalah panjang fokus lensa obyektif, $f_{okuler}$ adalah panjang fokus lensa okuler.
 \subsection{Trigonometri Bola} \label{II.Teori2}
-
 
 Ketika kita menghubungkan 3 buah lingkaran pada sebuah bola kita akan menemukan segitiga yang terbentuk dari lingkaran yang berpotongan tersebut seperti yang ditunjukin pada Gambar~\ref{fig:2.2}, Segitiga ini dinamakan segitiga bola\cite{Roy2018}. 
 \begin{figure}[H] % Kalau menggunakan H, posisi gambar akan tepat dibawah teks
@@ -159,6 +132,28 @@ Dengan:
 	\item[$\lfloor \cdot \rfloor$] Fungsi lantai (\textit{floor}), yaitu pembulatan ke bawah.
 \end{description}
 
+\subsection{\textit{Local Sidereal Time}} \label{II.TeoriLST}
+
+Waktu sideris (\textit{Sidereal Time}) merupakan ukuran waktu astronomi yang didasarkan pada rotasi Bumi relatif terhadap bintang-bintang jauh, bukan terhadap Matahari seperti pada waktu matahari rata-rata. Satu hari sideris memiliki durasi sekitar 23 jam 56 menit, sedikit lebih pendek dibandingkan satu hari matahari \cite{meeus}. 
+
+Waktu sideris lokal (\textit{Local Sidereal Time}, LST) menyatakan posisi titik vernal ($\Upsilon$) relatif terhadap meridian pengamat dan digunakan secara langsung dalam penentuan sudut jam (\textit{Hour Angle}) suatu objek langit. LST dapat dihitung dari waktu sideris Greenwich (\textit{Greenwich Sidereal Time}, GST) dengan menambahkan bujur geografis pengamat sebagai berikut \cite{meeus}:
+
+\begin{equationcaptioned}[eq:2.lst]{
+		LST = GST + \lambda
+	}{
+		Perhitungan Local Sidereal Time
+	}
+\end{equationcaptioned}
+
+dengan:
+\begin{description}[noitemsep]
+	\item[$LST$] = Waktu sideris lokal (derajat).
+	\item[$GST$] = Waktu sideris Greenwich (derajat).
+	\item[$\lambda$] = Bujur geografis pengamat (positif ke arah timur).
+\end{description}
+
+Dalam sistem teleskop robotik, nilai LST digunakan untuk mengonversi koordinat ekuatorial ke koordinat horizontal (Alt-Azimuth) secara real-time agar teleskop dapat mengikuti pergerakan objek langit akibat rotasi Bumi.
+
 
 \subsection{Tata Koordinat Langit} \label{II.Teori4}
 Tata koordinat langit adalah sistem referensi dua dimensi yang digunakan untuk menentukan posisi benda langit di bola langit, yaitu proyeksi imajiner langit malam sebagai bola yang mengelilingi Bumi \cite{Roy2018} \cite{HannuKarttunen2017} \cite{Bradley2014}. Sistem ini analog dengan sistem koordinat geografis di Bumi (lintang dan bujur), namun diproyeksikan ke langit. Tata koordinat langit dibagi menjadi beberapa sistem utama yang digunakan tergantung pada kebutuhan dan titik referensinya.
@@ -186,7 +181,21 @@ Tata koordinat ekuator adalah sistem koordinat langit yang digunakan untuk menen
 	{\footnotesize Sumber: Astronomy Principles and Practice} % Untuk memberikan sumber
 \end{figure}
 Berdasarkan Gambar~\ref{fig:2.4}, Sistem ini menggunakan dua parameter utama: Right Ascension ($\alpha$), dihitung dari titik $\Upsilon$ sampai titik B dan dinyatakan dalam satuan jam (0h hingga 24h), serta Declination ($\delta$), yang setara dengan garis lintang dan dinyatakan dalam derajat (-90° hingga +90°) relatif terhadap ekuator langit\cite{Roy2018} seperti yang ditunjukin pada Gambar~\ref{fig:2.4}. Karena posisinya tetap terhadap bintang-bintang jauh, sistem ini sangat ideal untuk katalog astronomi dan digunakan secara luas dalam pengoperasian teleskop otomatis.
-\subsubsection{Transformasi Tata Koordinat Equatorial ke Azimuth} \label{II.Teori4.3}
+\subsubsection{Tata Koordinat Ekliptika} \label{II.Teori4.3}
+
+Tata koordinat ekliptika adalah sistem koordinat langit yang beracuan pada bidang ekliptika, yaitu bidang lintasan semu Matahari terhadap bola langit akibat revolusi Bumi mengelilingi Matahari \cite{Roy2018}. Sistem koordinat ini sangat berguna dalam kajian dinamika tata surya karena posisi Matahari, planet, dan benda-benda minor banyak dinyatakan relatif terhadap bidang ekliptika. 
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.6\textwidth]{figure/tata_koordinat_ekliptika.png}
+	\caption{Tata koordinat ekliptika}
+	\label{fig:2.5}
+	{\footnotesize Sumber: Astronomy Principles and Practice}
+\end{figure}
+
+Berdasarkan Gambar~\ref{fig:2.5}, sistem koordinat ekliptika menggunakan dua parameter utama: bujur ekliptika ($\lambda$), yang diukur sepanjang bidang ekliptika dari titik vernal (titik $\Upsilon$) ke arah timur, dengan rentang 0° hingga 360°, dan lintang ekliptika ($\beta$), yaitu sudut suatu benda langit terhadap bidang ekliptika dengan rentang -90° hingga +90° \cite{Roy2018}. Karena didefinisikan terhadap bidang ekliptika, sistem koordinat ini sangat sesuai untuk menggambarkan orbit benda-benda tata surya dan analisis gerak planet serta komet.
+
+\subsubsection{Transformasi Tata Koordinat Equatorial ke Azimuth} \label{II.Teori4.32}
 \begin{figure}[H] % Kalau menggunakan H, posisi gambar akan tepat dibawah teks
 	\centering
 	\includegraphics[width=0.6\textwidth]{figure/tata_koordinat_ekuatorial.png}
@@ -228,6 +237,222 @@ Dengan:
 	\item[$H$] = \textit{Hour Angle} atau sudut jam yang dihitung dari horizon pengamat ke zenit.
 
 \end{description}
+\subsubsection{Transformasi Tata Koordinat Ekliptika ke Ekuatorial} \label{II.Teori4.33}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.6\textwidth]{figure/tata_koordinat_ekliptika.png}
+	\caption{Tata koordinat ekliptika}
+	\label{fig:2.7}
+	{\footnotesize Sumber: Astronomy Principles and Practice}
+\end{figure}
+
+Transformasi koordinat dari sistem ekliptika (bujur ekliptika $\lambda$ dan lintang ekliptika $\beta$) ke sistem ekuatorial (Right Ascension $\alpha$ dan Declination $\delta$) diperlukan karena data orbit benda-benda tata surya umumnya dinyatakan dalam koordinat ekliptika, sedangkan teleskop otomatis bekerja dalam koordinat ekuatorial \cite{Roy2018}. Transformasi ini dipengaruhi oleh sudut kemiringan Bumi terhadap bidang ekliptika yang dikenal sebagai sudut eksentrisitas ($\varepsilon$).
+
+Besarnya eksentrisitas rata-rata adalah
+{\setlength{\abovedisplayskip}{8pt}%
+	\setlength{\belowdisplayskip}{8pt}%
+	\[
+	\begin{split}
+\varepsilon \approx 23^{\circ}.44
+	\end{split}
+	\]}
+
+
+Hubungan transformasi koordinatnya dinyatakan sebagai berikut.
+
+\begin{equationcaptioned}[eq:2.transformasiDekEklKeEku]{
+		\sin{\delta} = \sin{\beta}\cos{\varepsilon} + \cos{\beta}\sin{\varepsilon}\sin{\lambda}
+	}{
+		Transformasi lintang ekliptika ke deklinasi
+	}
+\end{equationcaptioned}
+
+\begin{equationcaptioned}[eq:2.transformasiRAcos]{
+		\cos{\alpha}\cos{\delta} = \cos{\beta}\cos{\lambda}
+	}{
+		Transformasi komponen kosinus Right Ascension
+	}
+\end{equationcaptioned}
+
+\begin{equationcaptioned}[eq:2.transformasiRAsin]{
+		\sin{\alpha}\cos{\delta} = 
+		\cos{\beta}\sin{\lambda}\cos{\varepsilon} - \sin{\beta}\sin{\varepsilon}
+	}{
+		Transformasi komponen sinus Right Ascension
+	}
+\end{equationcaptioned}
+
+Right Ascension ($\alpha$) diperoleh dengan fungsi $\arctan2$ untuk menjaga kuadran sudut:
+
+\begin{equationcaptioned}[eq:2.transformasiRAakhir]{
+		\alpha = \arctan2
+		\left(
+		\cos{\beta}\sin{\lambda}\cos{\varepsilon} - \sin{\beta}\sin{\varepsilon},
+		\cos{\beta}\cos{\lambda}
+		\right)
+	}{
+		Perhitungan Right Ascension dari koordinat ekliptika
+	}
+\end{equationcaptioned}
+
+Sedangkan nilai deklinasi ($\delta$) diperoleh:
+
+\begin{equationcaptioned}[eq:2.transformasiDekFinal]{
+		\delta = \arcsin
+		\left(
+		\sin{\beta}\cos{\varepsilon} + \cos{\beta}\sin{\varepsilon}\sin{\lambda}
+		\right)
+	}{
+		Perhitungan Declination dari koordinat ekliptika
+	}
+\end{equationcaptioned}
+
+Dengan:
+\begin{description}[noitemsep]
+	\item[$\lambda$] = bujur ekliptika objek.
+	\item[$\beta$] = lintang ekliptika objek.
+	\item[$\alpha$] = Right Ascension objek.
+	\item[$\delta$] = Declination objek.
+	\item[$\varepsilon$] = sudut eksentrisitas Bumi (kemiringan sumbu Bumi).
+\end{description}
+
+Transformasi ini digunakan secara luas dalam mekanika benda langit karena posisi planet, komet, dan asteroid biasanya dinyatakan dalam sistem ekliptika, sedangkan pengamatan teleskop dan katalog bintang menggunakan sistem ekuatorial \cite{Roy2018}.
+
+\subsection{\textit{Elemen Orbit Keplerian}} \label{II.TeoriElemenOrbit}
+
+Elemen orbit Keplerian merupakan parameter-parameter yang digunakan untuk mendeskripsikan bentuk, orientasi, dan posisi benda langit pada lintasannya. Dengan enam buah elemen orbit, keadaan orbit planet atau satelit dapat ditentukan secara lengkap dalam model dua-benda \cite{meeus,vallado}.
+
+Elemen orbit Keplerian terdiri dari:
+
+\begin{enumerate}
+	\item \textbf{Sumbu semi-mayor ($a$)}\\
+	Menunjukkan ukuran orbit elips, yaitu setengah jarak sumbu mayor.
+	
+	\item \textbf{Eksentrisitas ($e$)}\\
+	Menentukan bentuk orbit. Nilai $e = 0$ menyatakan lingkaran sempurna, sedangkan $0 < e < 1$ menyatakan elips.
+	
+	\item \textbf{Inklinasi ($i$)}\\
+	Merupakan sudut antara bidang orbit dengan bidang acuan, umumnya bidang ekliptika.
+	
+	\item \textbf{Bujur node naik ($\Omega$)}\\
+	Merupakan sudut dari sumbu referensi menuju node naik (titik potong orbit saat benda bergerak dari selatan ke utara bidang acuan).
+	
+	\item \textbf{Argumen perihelion ($\omega$)}\\
+	Merupakan sudut dari node naik menuju titik perihelion sepanjang lintasan orbit.
+	
+	\item \textbf{Mean anomaly ($M$)}\\
+	Merupakan sudut fiktif yang menyatakan posisi benda langit sepanjang orbit sebagai fungsi waktu.
+\end{enumerate}
+
+Keenam elemen tersebut membentuk vektor elemen orbit sebagai berikut:
+
+\begin{equationcaptioned}[eq:2.vektorElemenOrbit]{
+		\mathbf{X} =
+		(a, e, i, \Omega, \omega, M)
+	}{
+		Vektor elemen orbit Keplerian \cite{vallado}
+	}
+\end{equationcaptioned}
+
+Elemen orbit digunakan sebagai dasar perhitungan posisi planet dalam koordinat kartesius maupun koordinat astronomis lain seperti koordinat ekliptika dan ekuatorial.
+
+\subsection{\textit{Anomali Orbit}} \label{II.TeoriAnomali}
+
+Anomali orbit adalah sudut-sudut yang digunakan untuk menyatakan posisi benda langit pada orbit elips. Terdapat tiga jenis anomali yang umum digunakan, yaitu mean anomaly, eccentric anomaly, dan true anomaly. Ketiganya saling berhubungan dan digunakan dalam perhitungan posisi orbit \cite{meeus}.
+
+\begin{enumerate}
+	\item \textbf{Mean Anomaly ($M$)}\\
+	Mean anomaly didefinisikan sebagai sudut fiktif yang bertambah secara linear terhadap waktu:
+	
+	\begin{equationcaptioned}[eq:2.meanAnomaly]{
+			M(t) = M_{0} + n(t - t_{0})
+		}{
+			Mean anomaly sebagai fungsi waktu \cite{meeus}
+		}
+	\end{equationcaptioned}
+	
+	dengan $n$ adalah \textit{mean motion} yang diberikan oleh:
+	
+	\begin{equationcaptioned}[eq:2.meanMotion]{
+			n=\sqrt{\frac{\mu}{a^{3}}}
+		}{
+			Mean motion orbit \cite{vallado}
+		}
+	\end{equationcaptioned}
+	
+	\item \textbf{Eccentric Anomaly ($E$)}\\
+	Eccentric anomaly merupakan sudut bantu pada lingkaran bantu elips yang digunakan dalam persamaan Kepler.
+	
+	\item \textbf{True Anomaly ($\nu$)}\\
+	True anomaly adalah sudut antara vektor posisi benda langit dan perihelion, diukur dari fokus elips tempat Matahari berada.
+	
+	Hubungan antara eccentric anomaly ($E$) dan true anomaly ($\nu$) diberikan oleh persamaan:
+	
+	\begin{equationcaptioned}[eq:2.trueAnomaly]{
+			\tan\left(\frac{\nu}{2}\right)
+			=
+			\sqrt{\frac{1+e}{1-e}}
+			\tan\left(\frac{E}{2}\right)
+		}{
+			Hubungan antara eccentric anomaly dan true anomaly \cite{meeus}
+		}
+	\end{equationcaptioned}
+\end{enumerate}
+
+Anomali orbit memungkinkan perubahan posisi benda langit direpresentasikan secara matematis dalam bentuk yang mudah dihitung secara numerik.
+
+
+\subsection{\textit{Persamaan Kepler}} \label{II.TeoriPersamaanKepler}
+
+Persamaan Kepler merupakan hubungan antara mean anomaly ($M$) dan eccentric anomaly ($E$) pada orbit elips. Persamaan ini menjadi inti dari perhitungan posisi benda langit terhadap waktu \cite{meeus,vallado}.
+
+Persamaan Kepler dituliskan sebagai:
+
+\begin{equationcaptioned}[eq:2.persamaanKepler]{
+		M = E - e\sin E
+	}{
+		Persamaan Kepler untuk orbit elips \cite{meeus}
+	}
+\end{equationcaptioned}
+
+Persamaan ini bersifat non-linear dan tidak memiliki solusi analitik tertutup sehingga perlu diselesaikan melalui metode numerik. Salah satu metode yang umum digunakan adalah metode Newton–Raphson, dengan formulasi iterasi sebagai berikut:
+
+\begin{equationcaptioned}[eq:2.newtonKepler]{
+		E_{k+1}
+		=
+		E_k
+		-
+		\frac{E_k - e\sin E_k - M}{1 - e\cos E_k}
+	}{
+		Metode Newton–Raphson untuk menyelesaikan persamaan Kepler \cite{vallado}
+	}
+\end{equationcaptioned}
+
+Setelah nilai $E$ diperoleh, true anomaly ($\nu$) dapat dihitung melalui  \ref{eq:2.trueAnomaly}
+
+Persamaan Kepler menjadi dasar dalam penentuan posisi planet, satelit buatan, serta sistem navigasi modern karena menghubungkan waktu dengan posisi benda langit pada orbitnya.
+
+\subsection{Perhitungan Posisi Matahari} \label{II.TeoriMatahari}
+
+Perhitungan posisi Matahari diperlukan dalam sistem teleskop robotik untuk keperluan observasi Matahari maupun pembatasan arah gerak teleskop demi keamanan instrumen. Posisi Matahari dapat ditentukan berdasarkan parameter orbit elips Bumi dengan pendekatan anomali rata-rata dan koreksi pusat (\textit{equation of center}) \cite{meeus}. 
+
+Bujur ekliptika Matahari ($\lambda$) dihitung dari bujur rata-rata dan koreksi anomali, kemudian ditransformasikan ke koordinat ekuatorial menggunakan sudut kemiringan ekliptika. Nilai Right Ascension ($\alpha$) dan Declination ($\delta$) Matahari diperoleh melalui transformasi koordinat ekliptika ke ekuatorial sebagaimana dijelaskan pada Subbab~\ref{II.Teori4.33}.
+
+Pendekatan ini menghasilkan akurasi yang memadai untuk keperluan penunjukan (\textit{pointing}) dan pelacakan (\textit{tracking}) teleskop robotik \cite{meeus}.
+\subsection{Perhitungan Posisi Planet} \label{II.TeoriPlanet}
+
+Posisi planet dihitung berdasarkan elemen orbit Keplerian dengan asumsi model dua-benda antara Matahari dan planet yang bersangkutan. Elemen orbit yang digunakan meliputi sumbu semi-mayor, eksentrisitas, inklinasi, bujur node naik, argumen perihelion, dan anomali rata-rata \cite{meeus,vallado}. 
+
+Melalui penyelesaian persamaan Kepler, diperoleh nilai anomali eksentrik dan anomali sejati yang selanjutnya digunakan untuk menentukan posisi planet dalam koordinat heliosentris. Koordinat tersebut kemudian ditransformasikan ke sistem ekliptika dan ekuatorial agar dapat digunakan oleh sistem teleskop otomatis. Pendekatan ini umum digunakan pada sistem teleskop robotik dengan kebutuhan akurasi menengah \cite{meeus}.
+
+\subsection{Perhitungan Posisi Bulan} \label{II.TeoriBulan}
+
+Posisi Bulan memiliki variasi yang lebih kompleks dibandingkan Matahari akibat pengaruh gravitasi Bumi dan Matahari serta eksentrisitas orbitnya yang relatif besar. Dalam penelitian ini, perhitungan posisi Bulan dilakukan menggunakan pendekatan orde rendah dengan mempertimbangkan bujur rata-rata Bulan, anomali Bulan, dan sudut argumen lintang \cite{meeus}. 
+
+Hasil perhitungan posisi Bulan dinyatakan dalam koordinat ekliptika yang kemudian ditransformasikan ke koordinat ekuatorial untuk memperoleh nilai Right Ascension dan Declination. Model ini memberikan akurasi yang cukup untuk keperluan observasi visual dan pengendalian teleskop robotik \cite{meeus}.
+
+
 \subsection{\textit{Mahony Filter}} \label{II.Teori5}
 \textit{Mahony filter} adalah sebuah filter fusi sensor (\textit{sensor fusion}) yang termasuk dalam jenis filter komplementer (\textit{complementary filter}) \cite{Maton2024}. Algoritma ini mengoreksi vektor rotasi dari giroskop ($\omega$) berdasarkan pengendali \textit{Proporsional Integral (PI Controller)} pada vektor koreksi \cite{MinhLongHoang2022}. Secara umum, filter ini menggabungkan data dari berbagai sensor seperti akselerometer dan giroskop untuk menghasilkan estimasi sikap (roll, pitch, yaw) yang lebih akurat dan minim \textit{noise} \cite{MinhLongHoang2022}.
 

@@ -25,6 +25,11 @@ Kajian pustaka dilakukan dengan merujuk pada teori-teori dasar dan hasil penelit
 \end{enumerate}
 
 Melalui studi literatur ini, diperoleh pemahaman yang menyeluruh mengenai teori pendukung, penelitian terkait, serta pendekatan teknis yang akan dijadikan acuan dalam proses perancangan dan implementasi sistem pada tahap selanjutnya. \par
+\subsection{Observasi Lapangan dan Wawancara Ahli (OAIL ITERA)} \label{III.Langkah2}
+
+Tahap ini dilakukan untuk memperoleh informasi langsung terkait kebutuhan pengguna, kondisi operasional lapangan, serta kendala teknis yang sering muncul pada proses pengamatan astronomi. Observasi dilakukan di Observatorium Astronomi Itera Lampung (OAIL), disertai wawancara dengan pengamat dan peneliti yang berpengalaman dalam pengoperasian teleskop.
+
+Informasi yang diperoleh meliputi kebutuhan fungsional sistem, batasan mekanis teleskop saat pengamatan, serta preferensi pengguna terkait desain antarmuka dan kontrol sistem. Hasil wawancara menjadi dasar dalam penyusunan kebutuhan sistem yang dijelaskan pada Subbab~\ref{III.AnalisisKebutuhan} dan dirangkum pada Tabel~\ref{lampiran:wawancaraOAIL}.
 
 \subsection{Pengembangan Prototipe}
 Tahapan ini mencakup keseluruhan proses perancangan dan implementasi sistem, mulai dari analisis kebutuhan, desain sistem dan mekanik, perancangan rangkaian elektronik, pengembangan perangkat lunak, hingga penerapan algoritma estimasi orientasi menggunakan \textit{Mahony Filter}.  
@@ -45,6 +50,8 @@ Berisi alat-alat dan bahan-bahan yang digunakan dalam penelitian. \par
 \subsection{Alat} \label{III.Alat}
 Penelitian ini memerlukan berbagai alat dan bahan untuk menunjang proses perancangan, implementasi, dan pengujian sistem teleskop robotik. Alat dan bahan dibagi menjadi 2 kelompok utama, yaitu perangkat keras (hardware) dan perangkat lunak (software).\par
 \subsubsection{Perangkat Keras} \label{III.Alat.Keras}
+Daftar perangkat keras yang digunakan dalam penelitian ini disajikan pada Tabel~\ref{table:3.hardware}. Tabel ini memuat seluruh peralatan fisik yang berperan dalam proses perancangan, pembuatan, dan pengujian teleskop robotik.
+
 \renewcommand{\arraystretch}{1.2} % memperlebar jarak antar baris tabel
 \setlength{\tabcolsep}{6pt} % mengatur jarak antar kolom tabel
 
@@ -75,8 +82,11 @@ Penelitian ini memerlukan berbagai alat dan bahan untuk menunjang proses peranca
 	\hline
 	
 \end{longtable}
+Sebagaimana ditunjukkan pada Tabel~\ref{table:3.hardware}, perangkat keras tersebut menjadi komponen utama dalam mendukung implementasi sistem, mulai dari pemrosesan, motor, hingga proses pencetakan komponen mekanik.
 
 \subsubsection{Perangkat Lunak} \label{III.Alat.Lunak}
+Perangkat lunak yang digunakan dalam penelitian ini dirangkum pada Tabel~\ref{table:3.software}. Seluruh aplikasi ini berfungsi dalam proses pemrograman, desain mekanik, simulasi rangkaian, serta pengembangan antarmuka pengguna.
+
 \begin{longtable}{| b{0.05\textwidth}|p{0.85\textwidth}|} % Longtable berguna agar tabel dapat terpotong di halaman baru
 	\caption{Daftar Perangkat Lunak Penelitian}
 	\label{table:3.software} \\
@@ -113,9 +123,10 @@ Penelitian ini memerlukan berbagai alat dan bahan untuk menunjang proses peranca
 	
 	
 \end{longtable}
+Tabel~\ref{table:3.software} menunjukkan bahwa perangkat lunak tersebut mendukung seluruh tahapan proses, mulai dari pemodelan mekanik hingga implementasi sistem kendali dan antarmuka.
 
 \subsection{Bahan} \label{III.Bahan}
-Bahan-bahan berikut digunakan dalam proses pembuatan struktur mekanik, instalasi sistem elektronik, serta perakitan komponen teleskop robotik:\par
+Bahan-bahan yang digunakan dalam proses perakitan dan konstruksi teleskop robotik ditunjukkan pada Tabel~\ref{table:3.bahan}. Bahan ini mencakup komponen elektronik, mekanik, serta material pencetakan 3D.
 \begin{longtable}{| b{0.05\textwidth}|p{0.6\textwidth}|p{0.2\textwidth}|} % Longtable berguna agar tabel dapat terpotong di halaman baru
 	\caption{Daftar Bahan Penelitian}
 	\label{table:3.bahan} \\
@@ -141,9 +152,11 @@ Bahan-bahan berikut digunakan dalam proses pembuatan struktur mekanik, instalasi
 	\hline
 	6 & Kabel USB Tipe-C & 1 buah \\
 	\hline
-	7 & Sensor IMU MPU9250 & 1 unit \\
+	7 & Sensor QMC5833L & 1 unit \\
 	\hline
 	8 & Sensor IMU MPU6050 & 1 unit \\
+	\hline
+	8 & AS5600 & 2 unit \\
 	\hline
 	9 & Mur dan Baut & 1 set \\
 	\hline
@@ -156,8 +169,10 @@ Bahan-bahan berikut digunakan dalam proses pembuatan struktur mekanik, instalasi
 	13 & Modul Stepdown 5v & 1 buah \\
 	\hline
 \end{longtable}
+Sebagaimana terlihat pada Tabel~\ref{table:3.bahan}, setiap bahan tersebut merupakan elemen penting dalam membangun struktur fisik teleskop serta mendukung integrasi sistem elektronik dan mekanik.
+
 \section{Metode Pengembangan} \label{III.Metode}
-Metode pengembangan yang digunakan dalam penelitian ini adalah pendekatan \textit{prototyping}, yang bertujuan untuk membangun sistem secara bertahap dari perancangan hingga produk fungsional, disertai proses iteratif berupa pengujian dan penyempurnaan. Pendekatan ini dinilai tepat karena memungkinkan fleksibilitas dalam eksplorasi desain perangkat keras, algoritma perangkat lunak, serta interaksi pengguna.
+Metode pengembangan yang digunakan dalam penelitiapeann ini adalah pendekatan \textit{prototyping}, yang bertujuan untuk membangun sistem secara bertahap dari perancangan hingga produk fungsional, disertai proses iteratif berupa pengujian dan penyempurnaan. Pendekatan ini dinilai tepat karena memungkinkan fleksibilitas dalam eksplorasi desain perangkat keras, algoritma perangkat lunak, serta interaksi pengguna.
 
 Tahapan metode pengembangan ini terdiri dari:
 
@@ -267,7 +282,7 @@ Pada tahap ini dilakukan perancangan secara menyeluruh terhadap tiga aspek utama
 
 \subsection{Pengembangan Teleskop Robotik} \label{III.Metode.Teleskop}
 
-Tahap ini berfokus pada integrasi perangkat elektronik yang membentuk sistem kendali utama teleskop robotik. Komponen utama yang digunakan meliputi mikrokontroler ESP32, sensor IMU \textit{MPU6050}, modul kompas HMC5883L, serta dua motor \textit{stepper} NEMA17 yang dikendalikan melalui \textit{driver} A4988. Rangkaian elektronik dirancang untuk memungkinkan komunikasi dua arah antara mikrokontroler dan aplikasi kontrol berbasis web melalui jaringan Wi-Fi, sehingga pengguna dapat mengatur arah teleskop secara manual maupun otomatis.
+Tahap ini berfokus pada integrasi perangkat elektronik yang membentuk sistem kendali utama teleskop robotik. Komponen utama yang digunakan meliputi mikrokontroler ESP32, sensor IMU \textit{MPU6050}, modul kompas QMC5883L, serta dua motor \textit{stepper} NEMA17 yang dikendalikan melalui \textit{driver} A4988. Rangkaian elektronik dirancang untuk memungkinkan komunikasi dua arah antara mikrokontroler dan aplikasi kontrol berbasis web melalui jaringan Wi-Fi, sehingga pengguna dapat mengatur arah teleskop secara manual maupun otomatis.
 
 \par
 Sensor IMU berperan sebagai unit pengukuran inersia untuk memperoleh data orientasi teleskop, berupa percepatan dan kecepatan sudut pada tiga sumbu utama. Data mentah dari sensor diproses secara real-time menggunakan algoritma \textit{Mahony Filter} yang mampu memperkirakan orientasi absolut dengan lebih stabil dibandingkan metode integrasi langsung gyro atau \textit{low-pass filtering} sederhana \cite{Mahony2008}. Algoritma ini bekerja dengan prinsip \textit{nonlinear complementary filtering} pada grup rotasi khusus $SO(3)$, yang menggabungkan data percepatan dan kecepatan sudut melalui mekanisme umpan balik berbasis kesalahan orientasi.
@@ -304,7 +319,7 @@ Data sensor IMU (gabungan akselerometer dan giroskop) digunakan sebagai input un
 
 Tahapan implementasi \textit{Mahony Filter} dalam penelitian ini meliputi:  
 \begin{enumerate}[noitemsep]
-	\item \textbf{Akuisisi Data Sensor:} Mikrokontroler ESP32 membaca data percepatan dan kecepatan sudut dari sensor IMU (MPU6050 / MPU9250) secara real-time.
+	\item \textbf{Akuisisi Data Sensor:} Mikrokontroler ESP32 membaca data percepatan dan kecepatan sudut dari sensor IMU (MPU6050) secara real-time.
 	\item \textbf{Estimasi Vektor Gravitasi:} Berdasarkan kuaternion orientasi saat ini ($q$), sistem menghitung estimasi arah vektor gravitasi $\mathbf{d}$ menggunakan \ref{eq:2.estimasiVektorGravitasi}.
 	\item \textbf{Perhitungan Vektor Galat:} Dihitung dari hasil perkalian silang antara vektor akselerasi yang diukur ($a$) dengan estimasi arah gravitasi ($d$) untuk mendapatkan vektor kesalahan orientasi $e$ ( \ref{eq:2.perhitunganVektorKesalahan}).
 	\item \textbf{Koreksi PI Controller:} Galat $e$ dimasukkan ke dalam kontroler Proporsional–Integral (PI) untuk menghasilkan nilai koreksi kecepatan sudut (\ref{eq:2.koreksiPiController}).
@@ -315,11 +330,24 @@ Implementasi algoritma dilakukan langsung pada mikrokontroler ESP32 menggunakan 
 
 Hasil dari tahap ini berupa sistem estimasi orientasi real-time yang stabil, responsif, dan memiliki tingkat error yang rendah dibandingkan pembacaan mentah sensor IMU.\par
 
-\subsection{Pengujian dan Valudasi Sistem} \label{III.Metode.Uji}
+\subsection{Pengujian dan Validasi Sistem} \label{III.Metode.Uji}
 
 Tahap pengujian dan validasi dilakukan untuk memastikan bahwa sistem teleskop robotik telah memenuhi seluruh kebutuhan yang telah dirumuskan pada Tabel~\ref{table:3.kebutuhanF} (fungsional) dan Tabel~\ref{table:3.kebutuhanNF} (non-fungsional). Pengujian mencakup evaluasi terhadap perangkat keras, perangkat lunak, serta integrasi antar subsistem, guna memastikan performa dan keandalan sistem secara keseluruhan. \par
 
-Validasi dilakukan melalui serangkaian uji fungsional yang memverifikasi bahwa setiap fitur utama, seperti kontrol dua sumbu, estimasi orientasi, dan pelacakan otomatis, beroperasi sesuai rancangan. Sementara itu, pengujian non-fungsional difokuskan pada aspek kinerja, akurasi, stabilitas, dan kemudahan penggunaan aplikasi kontrol. \par
+Validasi dilakukan melalui serangkaian uji fungsional yang memverifikasi bahwa setiap fitur utama, seperti kontrol dua sumbu, estimasi orientasi, dan pelacakan otomatis, beroperasi sesuai rancangan. Sementara itu, pengujian non-fungsional difokuskan pada aspek kinerja, akurasi, dan stabilitas. \par
+\subsection{Analisis Permasalahan dan Perbaikan} \label{III.Metode.Perbaikan}
+
+Apabila pada tahap pengujiJan dan validasi ditemukan ketidaksesuaian antara hasil kinerja sistem dengan kebutuhan yang telah dirumuskan, maka dilakukan dua langkah utama untuk memastikan sistem dapat mencapai performa yang diharapkan, yaitu:
+
+\begin{enumerate}[noitemsep]
+    \item Analisis Permasalahan \\
+    Tahap ini bertujuan untuk mengidentifikasi sumber masalah yang menyebabkan kegagalan, baik pada aspek mekanik, elektronik, algoritma estimasi orientasi, maupun komunikasi sistem. Analisis dilakukan melalui penelusuran log sistem, pengujian ulang komponen, serta pengamatan langsung terhadap respon perangkat. Hasil analisis digunakan untuk menentukan faktor penyebab seperti kesalahan konfigurasi, ketidaktepatan kalibrasi sensor, atau ketidaksesuaian parameter algoritma.
+
+    \item Perbaikan Sistem \\
+    Berdasarkan hasil analisis, dilakukan tindakan koreksi yang mencakup penyesuaian parameter, modifikasi rangkaian elektronik, optimasi perangkat lunak, atau perbaikan desain mekanik. Perbaikan ini diterapkan untuk menghilangkan permasalahan yang ditemukan, kemudian diuji kembali melalui tahap validasi untuk memastikan efektivitas solusinya.
+\end{enumerate}
+
+Tahapan analisis dan perbaikan ini bersifat iteratif sebagai bagian dari pendekatan \textit{prototyping}, sehingga sistem dapat disempurnakan secara bertahap hingga memenuhi seluruh kebutuhan fungsional dan non-fungsional yang telah ditetapkan.
 
 \section{Desain Sistem} \label{III.DesainSistem}
 Desain sistem merupakan tahap penting dalam pembangunan teleskop robotik berbasis Alt-Azimuth. Desain ini mencakup perancangan arsitektur sistem, struktur mekanik teleskop dalam bentuk 3D, skema rangkaian elektronika, serta desain antarmuka aplikasi kontrol. Masing-masing komponen saling terintegrasi untuk membentuk sistem kendali yang bekerja secara otomatis dan real-time.
@@ -447,11 +475,11 @@ Hasil estimasi kuaternion dikonversi menjadi sudut Euler untuk mendapatkan nilai
 Sebagai ilustrasi, diasumsikan data pembacaan sensor IMU dan parameter filter sebagai berikut:
 
 \begin{itemize}[noitemsep]
-	\item Akselerometer ($a_{raw}$) = [0.05, -0.02, 9.78] m/s\textsuperscript{2}
-	\item Giroskop ($\omega$) = [0.01, -0.02, 0.005] rad/s
-	\item Kuaternion awal ($q$) = [0.98, 0.01, 0.05, 0.18]
-	\item Konstanta kontrol: $K_p = 2.0$, $K_i = 0.5$
-	\item Interval waktu ($\Delta t$) = 0.01 s
+	\item Akselerometer ($a_{raw}$) = [0.050, -0.020, 9.780] m/s\textsuperscript{2}
+	\item Giroskop ($\omega$) = [0.010, -0.020, 0.005] rad/s
+	\item Kuaternion awal ($q$) = [0.980, 0.010, 0.050, 0.180]
+	\item Konstanta kontrol: $K_p = 2.000$, $K_i = 0.500$
+	\item Interval waktu ($\Delta t$) = 0.010 s
 \end{itemize}
 
 Langkah-langkah perhitungan dilakukan sebagai berikut:
@@ -461,8 +489,8 @@ Langkah-langkah perhitungan dilakukan sebagai berikut:
 	\setlength{\belowdisplayskip}{8pt}%
 	\[
 \begin{split}
-	|a| = \sqrt{0.05^2 + (-0.02)^2 + 9.78^2} = 9.781 \\
-	a = \frac{a_{raw}}{|a|} = [0.0051, -0.0020, 0.9999]
+	|a| = \sqrt{0.050^2 + (-0.020)^2 + 9.780^2} = 9.780 \\
+	a = \frac{a_{raw}}{|a|} = [0.005, -0.002, 0.999]
 \end{split}
 	\]}
 \paragraph{2. Estimasi Arah Gravitasi dari Kuaternion}
@@ -480,7 +508,7 @@ Langkah-langkah perhitungan dilakukan sebagai berikut:
 {\setlength{\abovedisplayskip}{8pt}%
 	\setlength{\belowdisplayskip}{8pt}%
 \[
-\mathbf{d} = [-0.0948,\; 0.0378,\; 0.9948]
+\mathbf{d} = [-0.094,\; 0.038,\; 0.986]
 \]}
 \paragraph{3. Perhitungan Vektor Galat}
 
@@ -492,7 +520,7 @@ Langkah-langkah perhitungan dilakukan sebagai berikut:
 {\setlength{\abovedisplayskip}{8pt}%
 	\setlength{\belowdisplayskip}{8pt}%
 	\[
-	e = [-0.0398,\; -0.0999,\; -8.2\times10^{-7}]
+	e = [-0.036,\; -0.099,\; 3.780\times10^{-4}]
 	\]}
 
 \paragraph{4. Koreksi Kecepatan Sudut Giroskop (PI Controller)}
@@ -502,45 +530,105 @@ Langkah-langkah perhitungan dilakukan sebagai berikut:
 	\[
 		\omega' = \omega + K_p e + K_i \int e\,dt
 	\]}
+Kita sederhanakan persamaan tersebut menjadi
+{\setlength{\abovedisplayskip}{8pt}%
+	\setlength{\belowdisplayskip}{8pt}%
+	\[
+		\omega' = \omega + K_p e + K_i e \Delta t
+	\]}
 
 
-Dengan $\Delta t = 0.01$ s dan $K_i = 0.5$:
+Dengan $\Delta t = 0.010$ s dan $K_i = 0.500$:
 
 {\setlength{\abovedisplayskip}{8pt}%
 	\setlength{\belowdisplayskip}{8pt}%
 	\[
 		\begin{split}
-	\omega' = [0.01, -0.02, 0.005] + 2[-0.0398, -0.0999, 0] \\
-	= [-0.0698, -0.220, 0.005]
+	\omega' = [0.010, -0.020, 0.005] + (2+ 0.0500 \times 0.010)[-0.036, -0.099, 3.780\times10^{-4}] = \\
+	= [-0.064, -0.224, 0.006]
 \end{split}
 	\]}
 
 \paragraph{5. Integrasi Kuaternion}
 
+Menggunakan notasi kuaternion $q = [q_0, q_1, q_2, q_3]$ (skalar di depan) dan
+$\omega' = [\omega_x',\omega_y',\omega_z']$, turunan kuaternion dituliskan sebagai
 {\setlength{\abovedisplayskip}{8pt}%
 	\setlength{\belowdisplayskip}{8pt}%
-	\[
-		q_{n} = q_{n-1} + \frac{1}{2} q_{n-1} \otimes \omega' \Delta t
-	\]}
+\[
+\dot{q} = \tfrac{1}{2}\, q \otimes [0,\;\omega'].
+\]}
+Dengan $q_{n-1} = [0.98,\; 0.01,\; 0.05,\; 0.18]$ dan $\omega' = [-0.064,\;-0.224,\;0.006]$ diperoleh
 {\setlength{\abovedisplayskip}{8pt}%
 	\setlength{\belowdisplayskip}{8pt}%
-	\[
-		q_{n} = [0.9823,\; 0.0099,\; 0.0490,\; 0.1804]
-	\]}
+\[
+q\otimes[0,\omega'] \approx
+\begin{bmatrix}
+0.010760\\
+-0.022100\\
+-0.231100\\
+0.006840
+\end{bmatrix},
+\quad
+\dot{q} = \tfrac{1}{2}
+\begin{bmatrix}
+0.010760\\
+-0.022100\\
+-0.231100\\
+0.006840
+\end{bmatrix}
+\approx
+\begin{bmatrix}
+0.005380\\
+-0.011050\\
+-0.115550\\
+0.003420
+\end{bmatrix}.
+\]}
+Integrasi maju (Euler) untuk satu langkah $\Delta t = 0.01$ s:
+{\setlength{\abovedisplayskip}{8pt}%
+	\setlength{\belowdisplayskip}{8pt}%
+\[
+q_{n} = q_{n-1} + \dot{q}\,\Delta t
+\approx
+\begin{bmatrix}
+0.9800538\\
+0.0098895\\
+0.0488445\\
+0.1800342
+\end{bmatrix}.
+\]}
+Normalisasikan $q_n$ untuk menjaga $\lVert q_n\rVert = 1$:
+{\setlength{\abovedisplayskip}{8pt}%
+	\setlength{\belowdisplayskip}{8pt}%
+\[
+q_{n} \leftarrow \frac{q_{n}}{\lVert q_{n}\rVert}
+\approx
+\begin{bmatrix}
+0.982314\\
+0.009912\\
+0.048957\\
+0.180449
+\end{bmatrix}.
+\]}
 
 \paragraph{6. Konversi Kuaternion ke Sudut Euler}
+Konversi kuaternion ke Euler (roll, pitch, yaw):
 {\setlength{\abovedisplayskip}{8pt}%
 	\setlength{\belowdisplayskip}{8pt}%
-	\[
+\[
 \begin{split}
-	\text{roll} &= \arctan2(2(q_0 q_1 + q_2 q_3), 1 - 2(q_1^2 + q_2^2)) \\
-	\text{pitch} &= \arcsin(2(q_0 q_2 - q_3 q_1)) \\
-	\text{yaw} &= \arctan2(2(q_0 q_3 + q_1 q_2), 1 - 2(q_2^2 + q_3^2)) \\
-	(\text{roll}, \text{pitch}, \text{yaw}) &= (2.13^\circ,\; 5.32^\circ,\; 20.92^\circ)
+\text{roll} &= \arctan2\big(2(q_0 q_1 + q_2 q_3),\; 1 - 2(q_1^2 + q_2^2)\big),\\[4pt]
+\text{pitch} &= \arcsin\big(2(q_0 q_2 - q_3 q_1)\big),\\[4pt]
+\text{yaw} &= \arctan2\big(2(q_0 q_3 + q_1 q_2),\; 1 - 2(q_2^2 + q_3^2)\big).
 \end{split}
-	\]}
-
-
+\]}
+Dengan kuaternion ter-normalisasi di atas didapat:
+{\setlength{\abovedisplayskip}{8pt}%
+	\setlength{\belowdisplayskip}{8pt}%
+\[
+(\text{roll},\ \text{pitch},\ \text{yaw}) \approx (2.13^\circ,\; 5.32^\circ,\; 20.95^\circ).
+\]}
 Dengan demikian, hasil estimasi orientasi menggunakan \textit{Mahony Filter} menunjukkan sudut akhir:
 
 
@@ -556,38 +644,6 @@ Dengan demikian, hasil estimasi orientasi menggunakan \textit{Mahony Filter} men
 yang selanjutnya digunakan sebagai referensi untuk pergerakan sumbu Altitudo dan Azimuth teleskop.
 
 \subsection{Perhitungan Posisi Benda Langit (Transformasi Koordinat)}
-Untuk mengarahkan teleskop ke objek langit, sistem mengubah koordinat ekuatorial (RA, Dec) menjadi koordinat alt-azimuth berdasarkan lokasi dan waktu pengamatan. Sebagai ilustrasi, diasumsikan:
-
-\begin{itemize}[noitemsep]
-	\item RA: $18^h = 270^\circ$
-	\item Deklinasi: $-25^\circ$
-	\item Lokasi: Bandar Lampung ($\phi = -5.38^\circ$, $\lambda = 105.3^\circ$ BT)
-	\item Waktu: 30 Juli 2025, pukul 20:00 WIB
-\end{itemize}
-
-Langkah pertama adalah menghitung Hour Angle (H):
-{\setlength{\abovedisplayskip}{8pt}%
-	\setlength{\belowdisplayskip}{8pt}%
-\[
-	H = LST - RA = 295^\circ - 270^\circ = 25^\circ
-\]}
-
-Dilanjutkan dengan menghitung altitudo:
-{\setlength{\abovedisplayskip}{8pt}%
-	\setlength{\belowdisplayskip}{8pt}%
-	\[
-		\sin a = \sin \phi \sin \delta + \cos \phi \cos \delta \cos H
-	\]}
-
-Hasil: $a \approx 43.5^\circ$
-
-Kemudian azimuth:
-{\setlength{\abovedisplayskip}{8pt}%
-	\setlength{\belowdisplayskip}{8pt}%
-	\[
-		\tan A = \frac{\sin H}{\cos H \sin \phi - \tan \delta \cos \phi}
-	\]}
-Hasil: $A \approx 232^\circ$
 
 Untuk mengarahkan teleskop ke objek langit, sistem mengubah koordinat ekuatorial (RA, Dec) menjadi koordinat alt-azimuth berdasarkan lokasi dan waktu pengamatan. Sebagai ilustrasi, diasumsikan:
 
@@ -623,6 +679,227 @@ Kemudian azimuth:
 		\end{split}
 	\]}
 Hasil: $A \approx 232^\circ$
+
+\subsection{Perhitungan Posisi Matahari}
+
+
+Sebagai contoh, ditentukan posisi Matahari pada tanggal 30 Juli 2025 pukul 13:00 UTC dengan asumsi nilai \textit{Julian Date} telah dihitung sebesar:
+{\setlength{\abovedisplayskip}{8pt}%
+	\setlength{\belowdisplayskip}{8pt}%
+\[
+JD = 2460545.0417
+\]
+}
+Langkah pertama adalah menghitung parameter waktu Julian abad:
+{\setlength{\abovedisplayskip}{8pt}%
+	\setlength{\belowdisplayskip}{8pt}%
+\[
+T = \frac{JD - 2451545.0}{36525} = 0.2465
+\]
+}
+Bujur rata-rata Matahari ($L_0$) dihitung sebagai:
+\begin{equationcaptioned}[eq:3.BujurRataRataMatahari]{
+		L_0 = 280.46646 + 36000.76983T + 0.0001537T^2 = 147.82^\circ
+	}{
+		Bujur rata-rata Matahari
+	}
+\end{equationcaptioned}
+
+Anomali rata-rata Matahari ($M$):
+\begin{equationcaptioned}[eq:3.anomaliRataRataMatahari]{
+M = 357.52911 + 35999.05029T - 0.0001537T^2 = 224.39^\circ
+	}{
+		Anomali rata-rata Matahari
+	}
+\end{equationcaptioned}
+
+Persamaan pusat (\textit{Equation of Center}):
+\begin{equationcaptioned}[eq:3.equationOfCenter]{
+\begin{split}
+C = (1.914602 - 0.004817T - 0.000014T^2)\sin(M)\\
++ (0.019993 - 0.000101T)\sin(2M)\\
++ 0.000289\sin(3M)\\
+\end{split}
+	}{
+		Equation Of Center 
+	}
+\end{equationcaptioned}
+
+{\setlength{\abovedisplayskip}{8pt}%
+	\setlength{\belowdisplayskip}{8pt}%
+\[
+C \approx -1.34^\circ\\
+\]
+}\\
+Bujur ekliptika Matahari:
+{\setlength{\abovedisplayskip}{8pt}%
+	\setlength{\belowdisplayskip}{8pt}%
+\[
+\lambda = L_0 + C = 146.48^\circ\\
+\]
+}
+Dengan sudut kemiringan ekliptika $\varepsilon = 23.44^\circ$, maka koordinat ekuatorial Matahari dihitung:
+{\setlength{\abovedisplayskip}{8pt}%
+	\setlength{\belowdisplayskip}{8pt}%
+\[
+\begin{split}
+\delta = \arcsin(\sin\varepsilon \sin\lambda) \approx 13.6^\circ \\
+\alpha = \arctan2(\cos\varepsilon \sin\lambda,\cos\lambda) \\
+\approx 150.2^\circ = 10.01^h
+\end{split}
+\]
+}
+Sehingga posisi Matahari diperoleh:
+{\setlength{\abovedisplayskip}{8pt}%
+	\setlength{\belowdisplayskip}{8pt}%
+\[
+\alpha = 10.01^h,\quad \delta = 13.6^\circ
+\]
+}
+\subsection{Perhitungan Posisi Bulan}
+\label{III.ContohBulan}
+
+Sebagai ilustrasi, dihitung posisi Bulan pada waktu yang sama dengan nilai Julian Date:\\
+{\setlength{\abovedisplayskip}{8pt}%
+	\setlength{\belowdisplayskip}{8pt}%
+\[
+JD = 2460545.0417
+\]
+}\\
+Parameter orbit Bulan dihitung sebagai:
+\begin{equationcaptioned}[eq:3.parameterOrbitBulan]{
+		\begin{split}
+			L = 218.32 + 481267.88T-0.00015786T^2+T^3/538841 \\-T^4/65194000 = 126.74^\circ\\
+			M = 357.53 + 35999.05T-0.0001536T^2+T^3/545868\\-T^4/113065000 = 224.39^\circ\\
+			M_m = 134.96 + 477198.87T+0.0087414T^2+T^3/69699\\-T^4/14712000 = 98.52^\circ\\
+			F = 93.27 + 483202.02-0.0036539T^2-T^3/3526000\\+T^4/863310000T = 181.03^\circ
+		\end{split}
+	}{
+		Parameter Orbit Bulan 
+	}
+\end{equationcaptioned}
+
+Bujur ekliptika Bulan diperoleh dari:
+\begin{equationcaptioned}[eq:3.bujurEkliptikaBulan]{
+	\begin{split}
+	\lambda =
+L'
++ 6.289\sin M'
++ 1.274\sin(2L' - M')\\
++ 0.658\sin(2L')
++ 0.214\sin(2M')
+- 0.186\sin M
+	\end{split}
+	}{
+		Bujur ekliptika Bulan (pendekatan orde rendah)
+	}
+\end{equationcaptioned}
+
+
+Lintang ekliptika Bulan:
+\begin{equationcaptioned}[eq:3.lintangEkliptikaBulan]{
+		\beta =
+		5.128\sin F
+		+ 0.280\sin(M' + F)
+		+ 0.277\sin(M' - F)
+	}{
+		Lintang ekliptika Bulan (pendekatan orde rendah)
+	}
+\end{equationcaptioned}
+
+
+
+
+Transformasi ke koordinat ekuatorial menghasilkan:
+{\setlength{\abovedisplayskip}{8pt}%
+	\setlength{\belowdisplayskip}{8pt}%
+\[
+\begin{split}
+\delta = \arcsin(\sin\beta\cos\varepsilon + \cos\beta\sin\varepsilon\sin\lambda)
+\approx 18.1^\circ\\
+\alpha = \arctan2(\cos\varepsilon\sin\lambda - \tan\beta\sin\varepsilon,\cos\lambda)
+\approx 136.5^\circ = 9.10^h\\
+\end{split}
+\]
+}
+Dengan demikian, posisi Bulan diperoleh:
+{\setlength{\abovedisplayskip}{8pt}%
+	\setlength{\belowdisplayskip}{8pt}%
+\[
+\alpha = 9.10^h,\quad \delta = 18.1^\circ
+\]
+}
+
+\subsection{Perhitungan Posisi Planet (Mars)}
+\label{III.ContohPlanet}
+
+Sebagai contoh, ditentukan posisi planet Mars menggunakan elemen orbit Keplerian dengan asumsi sebagai berikut:
+{\setlength{\abovedisplayskip}{8pt}%
+	\setlength{\belowdisplayskip}{8pt}%
+\[
+a = 1.5237\ \text{AU},\quad e = 0.0934
+\]
+}
+Anomali rata-rata Mars dihitung dari:
+{\setlength{\abovedisplayskip}{8pt}%
+	\setlength{\belowdisplayskip}{8pt}%
+\[
+M = L - \bar{\omega} = -4.55^\circ - (-23.94^\circ) = 19.39^\circ
+\]
+}
+Persamaan Kepler:\\
+{\setlength{\abovedisplayskip}{8pt}%
+	\setlength{\belowdisplayskip}{8pt}%
+\[
+M = E - e\sin E
+\]
+}\\
+Diselesaikan secara iteratif menggunakan metode Newton–Raphson dan diperoleh:\\
+{\setlength{\abovedisplayskip}{8pt}%
+	\setlength{\belowdisplayskip}{8pt}%
+\[
+E \approx 21.1^\circ
+\]
+}\\
+Anomali sejati ($\nu$):
+{\setlength{\abovedisplayskip}{8pt}%
+	\setlength{\belowdisplayskip}{8pt}%
+\[
+\tan\frac{\nu}{2} = \sqrt{\frac{1+e}{1-e}} \tan\frac{E}{2}
+\Rightarrow \nu \approx 23.0^\circ
+\]
+}
+Jarak heliosentris Mars:
+{\setlength{\abovedisplayskip}{8pt}%
+	\setlength{\belowdisplayskip}{8pt}%
+\[
+r = a(1 - e\cos E) \approx 1.41\ \text{AU}
+\]
+}
+Bujur ekliptika Mars:\\
+{\setlength{\abovedisplayskip}{8pt}%
+	\setlength{\belowdisplayskip}{8pt}%
+\[
+\lambda = \nu + \bar{\omega} \approx -0.94^\circ
+\]
+}\\
+Transformasi ke koordinat ekuatorial memberikan:
+{\setlength{\abovedisplayskip}{8pt}%
+	\setlength{\belowdisplayskip}{8pt}%
+\[
+\begin{split}
+\delta \approx -0.38^\circ \\
+\alpha \approx 359.1^\circ = 23.94^h
+\end{split}
+\]
+}
+Sehingga posisi planet Mars diperoleh:
+{\setlength{\abovedisplayskip}{8pt}%
+	\setlength{\belowdisplayskip}{8pt}%
+\[
+\alpha = 23.94^h,\quad \delta = -0.38^\circ
+\]
+}
 
 \subsection{Konversi Sudut ke Langkah Motor Stepper} \label{III.SudutStepper}
 
@@ -711,14 +988,21 @@ Parameter pengujian meliputi kecepatan, arah putaran, ketepatan langkah motor, s
 	\hline
 	\endhead
 	
-	1. & Motor Stepper (Alt–Azimuth) & Memberikan sinyal PWM untuk menguji arah dan jumlah langkah putaran. & Motor bergerak sesuai arah dan jumlah langkah perintah. \\
+	
+	1. & Sensor IMU (MPU6050) & Menguji kestabilan dan \textit{noise} pembacaan akselerasi serta kecepatan sudut. & Data sensor stabil dan tidak terjadi \textit{drift} signifikan dengan batas toleransi $0.2^\circ$. \\
 	\hline
-	2. & Driver Motor A4988 dan ULN2003 & Mengukur arus keluaran dan respon terhadap sinyal kendali digital. & Driver mampu menyalurkan daya tanpa \textit{overheating}. \\
+	2. & Sensor Magnetometer (QMC5883L) & Menguji akurasi arah azimuth terhadap arah mata angin referensi serta stabilitas pembacaan. & Sudut azimuth terbaca konsisten dengan kesalahan dalam batas toleransi $0.2^\circ$. \\
 	\hline
-	3. & Sensor IMU (MPU6050 / MPU9250) & Menguji kestabilan dan \textit{noise} pembacaan akselerasi serta kecepatan sudut. & Data sensor stabil dan tidak terjadi \textit{drift} signifikan. \\
+	3. & Sensor Encoder Magnetik (AS5600) & Menguji akurasi sudut absolut poros dan konsistensi pembacaan saat motor berputar. & Sudut encoder terbaca presisi dan linier terhadap pergerakan mekanik dengan maksimal error $0.2^\circ$. \\
 	\hline
-	4. & Struktur mekanik teleskop & Menguji keseimbangan dan torsi penggerak pada berbagai posisi. & Dudukan stabil, tidak terjadi slip atau getaran berlebih. \\
+	4. & Integrasi Sensor IMU dan Encoder & Menguji fusi data sudut dari IMU dan encoder menggunakan algoritma estimasi. & Estimasi sudut lebih stabil dan minim \textit{noise}. \\
 	\hline
+	5. & Sistem Kontrol Alt--Azimuth & Menguji respon sistem terhadap perintah sudut target tertentu. & Teleskop mencapai sudut target dengan kesalahan kecil dengan batas toleransi $0.2^\circ$. \\
+	\hline
+	6. & Struktur mekanik teleskop & Menguji keseimbangan dan torsi penggerak pada berbagai posisi. & Dudukan stabil, tidak terjadi slip atau getaran berlebih. \\
+	\hline
+	
+	
 \end{longtable}
 
 \subsection{Pengujian Algoritma \textit{Mahony Filter}}
@@ -740,7 +1024,7 @@ Tahap ini bertujuan untuk menilai kemampuan algoritma dalam menghasilkan estimas
 	\hline
 	2. & Kestabilan filter & Menguji respon sistem terhadap gerakan cepat dan posisi diam. & Estimasi orientasi tidak berosilasi dan tetap stabil. \\
 	\hline
-	3. & Waktu respon algoritma & Mengukur waktu pemrosesan per siklus data IMU. & Frekuensi pembaruan minimal 50~Hz. \\
+	3. & Waktu respon algoritma & Mengukur waktu pemrosesan per siklus data IMU. & Frekuensi pembaruan minimal 100~Hz. \\
 	\hline
 	4. & Perbandingan dengan data mentah & Visualisasi hasil filter dan data mentah dalam grafik. & Filter berhasil mengurangi \textit{noise} dan \textit{drift}. \\
 	\hline
@@ -763,16 +1047,13 @@ Pengujian perangkat lunak dilakukan untuk memverifikasi bahwa aplikasi kontrol b
 	\hline
 	\endhead
 	
-	1. & Komunikasi data mikrokontroler aplikasi & Mengirim perintah arah dan menerima data sensor melalui WebSocket. & Data terkirim dan diterima tanpa jeda signifikan. \\
+	1. & Perhitungan posisi benda langit & Menguji perhitungan koordinat azimuth dan elevasi dari data waktu, lokasi, dan koordinat ekuatorial objek. & Koordinat azimuth dan elevasi dihitung dengan benar. \\
 	\hline
-	2. & Mode manual dan otomatis & Menguji kemampuan aplikasi menggerakkan teleskop sesuai input pengguna atau koordinat target. & Teleskop bergerak sesuai perintah tanpa kesalahan. \\
+	2. & Pelacakan objek langit (\textit{tracking}) & Menguji kemampuan aplikasi memperbarui posisi target secara berkala. & Objek tetap berada dalam bidang pandang teleskop. \\
 	\hline
-	3. & Tampilan orientasi teleskop & Memeriksa tampilan data sensor (\textit{roll}, \textit{pitch}, \textit{yaw}) secara \textit{real-time}. & Tampilan sinkron dengan posisi teleskop. \\
+	3. & Validasi hasil pengamatan & Membandingkan arah teleskop dengan posisi objek langit aktual (1 Bintang, 1 Planet, Bulan, Matahari). & Selisih sudut berada dalam batas toleransi. \\
 	\hline
-	4. & Respons sistem terhadap gangguan koneksi & Memutus dan menyambungkan kembali koneksi Wi-Fi. & Sistem tetap aman dan dapat melanjutkan operasi setelah terhubung kembali. \\
-	\hline
-	5. & \textit{Logging} data observasi & Menguji penyimpanan hasil pengamatan (waktu, posisi, status). & Data tersimpan lengkap dan dapat ditampilkan ulang. \\
-	\hline
+
 \end{longtable}
 
 
