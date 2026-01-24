@@ -8,21 +8,108 @@ Bab ini memaparkan hasil implementasi dari perancangan sistem teleskop robotik \
 Implementasi sistem merupakan tahap realisasi dari desain yang telah dijabarkan pada Bab~\ref{III.DesainSistem}. Bagian ini dibagi menjadi implementasi perangkat keras dan perangkat lunak.
 
 \subsection{Implementasi Perangkat Keras} \label{IV.Hardware}
-Sistem mekanik dibangun menggunakan teknologi cetak 3D dengan material PLA 2+ untuk menyeimbangkan antara berat dan kekuatan. Mounting \textit{Alt-Azimuth} didesain untuk menopang Tabung Teleskop Optik (OTA) reflektor Newtonian.
+Implementasi perangkat keras teleskop robotik terdiri dari tiga komponen utama: sistem mekanik, sistem transmisi, dan sistem elektronik. Ketiga komponen ini bekerja secara terintegrasi untuk menghasilkan sistem pengarahan teleskop yang presisi dan dapat dikontrol secara otomatis.
+
+\subsubsection{Sistem Mekanik \textit{Alt-Azimuth}}
+Sistem mekanik dibangun menggunakan teknologi cetak 3D dengan material PLA 2+ untuk menyeimbangkan antara berat dan kekuatan. Mounting \textit{Alt-Azimuth} didesain untuk menopang Tabung Teleskop Optik (OTA) reflektor Newtonian dengan diameter aperture 114~mm dan panjang fokus 900~mm. Struktur mounting terdiri dari dua sumbu pergerakan independen: sumbu \textit{Azimuth} (horizontal) yang memungkinkan rotasi 360$^{\circ}$ dan sumbu \textit{Altitude} (vertikal) seperti yang ditunjukkan Gambar~\ref{fig:4.mounting_mechanical} yang memungkinkan elevasi dari horizon hingga zenith. \par
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.6\textwidth]{figure/teleskop_reflektor.jpg}
-    \caption{Implementasi Fisik Teleskop Robotik}
-    \label{fig:4.hardware_realization}
+    \includegraphics[width=0.7\textwidth]{figure/alur_penelitian.png}
+    \caption{Implementasi Fisik Sistem Mekanik Teleskop Robotik}
+    \label{fig:4.mounting_mechanical}
 \end{figure}
 
-Sistem elektronik dipusatkan pada \textit{enclosure} yang memuat:
-\begin{enumerate}[noitemsep]
-    \item \textbf{Mikrokontroler ESP32}: Sebagai otak utama pemrosesan data dan komunikasi WiFi.
-    \item \textbf{Driver Motor A4988}: Mengendalikan motor stepper NEMA 17 dengan mode \textit{microstepping} 1/16 untuk kehalusan gerakan.
-    \item \textbf{Sensor Unit}: Modul MPU6050 (IMU), QMC5883L (Magnetometer), serta dua buah encoder magnetik AS5600 untuk pembacaan sudut \textit{Altitude} dan \textit{Azimuth}.
-\end{enumerate}
+Desain mekanik memperhitungkan distribusi beban dengan menempatkan pusat massa OTA sedekat mungkin dengan titik tumpu untuk mengurangi momen gaya yang harus ditahan oleh motor stepper, disisi sebrang teleskop ditambahkan pemberat untuk mengatur titik berat supaya berada pada posisi seimbang seperti ditunjukkan pada Gambar~\ref{fig:4.mounting_balance}. Material PLA 2+ dipilih karena memiliki kekakuan yang lebih baik dibanding PLA standar dan lebih tahan terhadap deformasi akibat beban statis maupun getaran.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{figure/alur_penelitian.png}
+    \caption{Implementasi Fisik Sistem Mekanik Teleskop Robotik}
+    \label{fig:4.mounting_balance}
+\end{figure}
+
+\subsubsection{Sistem Penggerak}
+Sistem transmisi menggunakan motor stepper NEMA 17 dengan resolusi 200 langkah per revolusi (1.8$^{\circ}$ per langkah). Untuk meningkatkan kehalusan gerakan dan mengurangi getaran, Ditambahkan \textit{planetary gear} dengan 4 \textit{stack} ditunjukkan pada Gambar~\ref{fig:4.transmission_system} dan untuk setiap \textit{stack}-nya meningkatkan torsi sebesar 4 kali dan rasio perputarannya menjadi 4 kali untuk 1 putaran. Rasio transmisi menghasilkan resolusi akhir sebesar 69120 langkah untuk satu rotasi penuh sumbu teleskop (360$^{\circ}$), yang setara dengan 192 langkah per derajat atau sekitar 0.00521$^{\circ}$ per langkah. Resolusi ini memadai untuk aplikasi \textit{GoTo} dan \textit{tracking} objek langit dengan diameter sudut semu kecil seperti planet dan bintang.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.65\textwidth]{figure/alur_penelitian.png}
+    \caption{Sistem Transmisi Motor Stepper NEMA 17 dengan Belt/Gear}
+    \label{fig:4.transmission_system}
+\end{figure}
+
+\subsubsection{Mikrokontroler ESP32}
+Mikrokontroler ESP32 berfungsi sebagai unit pemrosesan pusat yang menjalankan algoritma fusi sensor, perhitungan koordinat astronomi, dan kendali motor secara real-time. ESP32 dipilih karena memiliki prosesor \textit{dual-core} Xtensa LX6 dengan kecepatan hingga 240~MHz, memori RAM 520~KB, dan dukungan komunikasi WiFi terintegrasi yang memungkinkan kendali teleskop melalui aplikasi Android tanpa memerlukan modul WiFi eksternal. \par
+
+Pada implementasi ini, ESP32 menjalankan dua \textit{task} paralel: (1) \textit{task} pembacaan sensor yang berjalan pada \textit{core} 0 dengan target frekuensi 100~Hz untuk memastikan data orientasi selalu ter-\textit{update}, dan (2) \textit{task} kendali motor dan komunikasi WebSocket yang berjalan pada \textit{core} 1 untuk menangani perintah pengguna dan eksekusi gerakan motor.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{figure/alur_penelitian.png}
+    \caption{Mikrokontroler ESP32 sebagai Unit Pemrosesan Pusat}
+    \label{fig:4.esp32_controller}
+\end{figure}
+
+\subsubsection{Driver Motor A4988}
+Driver motor A4988 merupakan \textit{stepper motor driver} yang mengendalikan dua motor NEMA 17 untuk sumbu \textit{Azimuth} dan \textit{Altitude}. Driver ini mendukung berbagai mode \textit{microstepping} (1/2, 1/4, 1/8, hingga 1/16) yang dikonfigurasi melalui pin MS1, MS2, dan MS3. Pada implementasi ini, mode 1/16 dipilih untuk menghasilkan gerakan yang lebih halus dan mengurangi \textit{resonance} motor pada kecepatan rendah. \par
+
+Driver A4988 dilengkapi dengan proteksi arus berlebih dan proteksi temperatur yang melindungi motor dari kerusakan. Arus motor diatur melalui potensiometer onboard dengan nilai referensi tegangan $V_{ref}$ yang disesuaikan dengan spesifikasi motor NEMA 17 yang digunakan (umumnya 1--1.5~A per fase).
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.55\textwidth]{figure/alur_penelitian.png}
+    \caption{Driver Motor A4988 untuk Kendali Motor Stepper}
+    \label{fig:4.motor_driver}
+\end{figure}
+
+\subsubsection{Sensor IMU MPU6050}
+MPU6050 merupakan sensor \textit{Inertial Measurement Unit} (IMU) 6-axis yang menggabungkan akselerometer 3-axis dan giroskop 3-axis dalam satu chip. Sensor ini digunakan untuk mengukur orientasi teleskop dalam bentuk sudut \textit{roll} dan \textit{pitch} yang kemudian digunakan dalam algoritma \textit{tilt compensation} untuk kompensasi kemiringan pembacaan kompas magnetik. \par
+
+MPU6050 berkomunikasi dengan ESP32 melalui protokol I$^2$C dengan alamat default 0x68. Sensor ini memiliki rentang pengukuran akselerometer yang dapat dikonfigurasi ($\pm$2g, $\pm$4g, $\pm$8g, $\pm$16g) dan rentang giroskop ($\pm$250$^{\circ}$/s, $\pm$500$^{\circ}$/s, $\pm$1000$^{\circ}$/s, $\pm$2000$^{\circ}$/s). Pada implementasi ini, akselerometer dikonfigurasi pada $\pm$2g dan giroskop pada $\pm$250$^{\circ}$/s untuk mendapatkan resolusi pembacaan maksimal sesuai dengan rentang gerakan teleskop yang relatif lambat.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{figure/alur_penelitian.png}
+    \caption{Sensor IMU MPU6050 untuk Pengukuran Orientasi}
+    \label{fig:4.mpu6050}
+\end{figure}
+
+\subsubsection{Sensor Magnetometer QMC5883L}
+QMC5883L adalah sensor magnetometer 3-axis yang digunakan untuk mengukur medan magnet bumi dan menentukan arah \textit{heading} (azimuth) absolut terhadap utara magnetik. Sensor ini menggantikan kompas mekanik tradisional dan memberikan pembacaan digital dengan resolusi tinggi melalui protokol I$^2$C (alamat default 0x0D). \par
+
+Dalam implementasi, QMC5883L digunakan pada tahap inisialisasi sistem untuk menentukan referensi arah utara. Setelah sistem mendapatkan referensi awal melalui \textit{tilt-compensated heading}, pembacaan \textit{azimuth} operasional dialihkan ke encoder AS5600 yang lebih stabil terhadap interferensi elektromagnetik dari motor stepper. Sensor ini memiliki rentang pengukuran $\pm$8 Gauss dan resolusi output 16-bit per sumbu.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{figure/alur_penelitian.png}
+    \caption{Sensor Magnetometer QMC5883L untuk Referensi Arah Utara}
+    \label{fig:4.qmc5883l}
+\end{figure}
+
+\subsubsection{Encoder Magnetik AS5600}
+AS5600 merupakan encoder magnetik 12-bit \textit{contactless} yang memberikan pembacaan posisi sudut absolut dengan resolusi 4096 langkah per rotasi (360$^{\circ}$/4096 $\approx$ 0.088$^{\circ}$ per langkah). Sistem menggunakan dua buah encoder AS5600: satu untuk sumbu \textit{Azimuth} dan satu untuk sumbu \textit{Altitude}. Encoder ini bekerja dengan mendeteksi orientasi medan magnet dari magnet diametral yang dipasang pada poros rotasi sumbu. \par
+
+Keunggulan AS5600 dibanding encoder optik adalah ketahanannya terhadap debu dan tidak memerlukan kontak mekanik, sehingga lebih awet dan bebas perawatan. Sensor ini berkomunikasi melalui I$^2$C dan dapat dikonfigurasi untuk memberikan output sudut dalam format mentah (raw angle) atau sudut yang sudah dikalibrasi. Pada implementasi, pembacaan \textit{raw angle} digunakan dan offset kalibrasi diterapkan pada \textit{firmware} untuk fleksibilitas penyesuaian.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.55\textwidth]{figure/alur_penelitian.png}
+    \caption{Encoder Magnetik AS5600 untuk Pembacaan Sudut Absolut}
+    \label{fig:4.as5600}
+\end{figure}
+
+\subsubsection{Integrasi Sistem Elektronik}
+Seluruh komponen elektronik dipusatkan pada \textit{enclosure} yang dirancang untuk melindungi rangkaian dari debu dan kelembaban. Sistem catu daya menggunakan adaptor 12V DC yang mendistribusikan tegangan ke driver motor A4988 (12V) dan regulator step-down untuk menyuplai ESP32 dan sensor-sensor (3.3V dan 5V). Jalur komunikasi I$^2$C digunakan bersama oleh MPU6050, QMC5883L, dan dua buah AS5600 dengan alamat yang berbeda atau melalui multiplexer I$^2$C jika diperlukan. \par
+
+Tata letak komponen dalam \textit{enclosure} mempertimbangkan pemisahan jalur daya motor (yang menghasilkan \textit{noise} elektromagnetik tinggi) dari jalur sinyal sensor untuk meminimalkan interferensi. Kabel sensor menggunakan kabel \textit{twisted pair} dan dijauhkan dari kabel motor. Grounding sistem dilakukan pada satu titik \textit{common ground} untuk mencegah \textit{ground loop} yang dapat menimbulkan \textit{noise} pada pembacaan sensor analog.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{figure/alur_penelitian.png}
+    \caption{Integrasi Sistem Elektronik dalam \textit{Enclosure}}
+    \label{fig:4.electronics_integration}
+\end{figure}
 
 \subsection{Implementasi Perangkat Lunak dan Algoritma} \label{IV.Software}
 Perangkat lunak (\textit{firmware}) berperan vital dalam menerjemahkan data sensor yang \textit{raw} dan \textit{noisy} menjadi informasi orientasi yang stabil. Berdasarkan implementasi program pada mikrokontroler, alur utama sistem terdiri dari dua bagian: (1) \textit{task} pembacaan sensor yang berjalan periodik, dan (2) \textit{loop} kendali motor serta komunikasi yang berjalan kontinu. \par
