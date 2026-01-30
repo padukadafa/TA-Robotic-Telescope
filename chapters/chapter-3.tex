@@ -234,13 +234,9 @@ Berdasarkan hasil identifikasi dan validasi, kebutuhan sistem dibagi menjadi dua
 	\hline
 	11. & Mode Otomatis & Sistem bergerak otomatis berdasarkan koordinat target atau data hasil transformasi dari katalog objek langit. \\
 	\hline
-	12. & Komunikasi Real-Time & Mikrokontroler dan aplikasi berkomunikasi dua arah melalui protokol WebSocket untuk mengirim data sensor, koordinat, dan perintah kontrol. \\
+	12. & Tampilan Antarmuka Aplikasi & Aplikasi menampilkan status koneksi, posisi teleskop, data orientasi, dan arah pandang teleskop dalam bentuk visual. \\
 	\hline
-	13. & Tampilan Antarmuka Aplikasi & Aplikasi menampilkan status koneksi, posisi teleskop, data orientasi, dan arah pandang teleskop dalam bentuk visual. \\
-	\hline
-	14. & Penyimpanan dan Logging Data & Sistem menyimpan data hasil observasi (waktu, posisi, sudut, status sistem) ke dalam basis data untuk analisis dan dokumentasi. \\
-	\hline
-	15. & Indikator Sistem & Aplikasi memiliki indikator ketika koneksi terputus, batas sudut tercapai, atau sistem mengalami error. \\
+	13. & Indikator Sistem & Aplikasi memiliki indikator ketika koneksi terputus, batas sudut tercapai, atau sistem mengalami error. \\
 	\hline
 \end{longtable}
 
@@ -995,11 +991,10 @@ Parameter pengujian meliputi kecepatan, arah putaran, ketepatan langkah motor, s
 	\hline
 	3. & Sensor Encoder Magnetik (AS5600) & Menguji akurasi sudut absolut poros dan konsistensi pembacaan saat motor berputar. & Sudut encoder terbaca presisi dan linier terhadap pergerakan mekanik dengan maksimal error $0.2^\circ$. \\
 	\hline
-	4. & Integrasi Sensor IMU dan Encoder & Menguji fusi data sudut dari IMU dan encoder menggunakan algoritma estimasi. & Estimasi sudut lebih stabil dan minim \textit{noise}. \\
 	\hline
-	5. & Sistem Kontrol Alt--Azimuth & Menguji respon sistem terhadap perintah sudut target tertentu. & Teleskop mencapai sudut target dengan kesalahan kecil dengan batas toleransi $0.2^\circ$. \\
+	4. & Sistem Kontrol Alt--Azimuth & Menguji respon sistem terhadap perintah sudut target tertentu. & Teleskop mencapai sudut target dengan kesalahan kecil dengan batas toleransi $0.2^\circ$. \\
 	\hline
-	6. & Struktur mekanik teleskop & Menguji keseimbangan dan torsi penggerak pada berbagai posisi. & Dudukan stabil, tidak terjadi slip atau getaran berlebih. \\
+	5. & Struktur mekanik teleskop & Menguji keseimbangan dan torsi penggerak pada berbagai posisi. & Dudukan stabil, tidak terjadi slip atau getaran berlebih. \\
 	\hline
 	
 	
@@ -1032,12 +1027,12 @@ Tahap ini bertujuan untuk menilai kemampuan algoritma dalam menghasilkan estimas
 
 Pengujian ini mengacu pada penelitian Mahony \cite{Mahony2008} dan Hoang \cite{MinhLongHoang2022}, yang menekankan pentingnya stabilitas estimasi sudut untuk sistem kendali orientasi berbasis IMU.
 
-\subsection{Pengujian Perangkat Lunak dan Komunikasi Sistem}
-Pengujian perangkat lunak dilakukan untuk memverifikasi bahwa aplikasi kontrol berbasis Android dapat mengatur pergerakan teleskop secara manual maupun otomatis, serta berkomunikasi secara \textit{real-time} dengan mikrokontroler. Pengujian juga mencakup evaluasi antarmuka pengguna dan keandalan koneksi WebSocket. \par
+\subsection{Pengujian Algoritma Astronomi}
+Pengujian algoritma astronomi bertujuan untuk memvalidasi akurasi perhitungan koordinat horizontal (Alt-Az) dari koordinat ekuatorial (RA/Dec) dan perhitungan posisi benda langit berdasarkan waktu dan lokasi pengamat. Pengujian ini mencakup fungsi dasar transformasi koordinat serta perhitungan posisi spesifik untuk berbagai objek langit. \par
 
-\begin{longtable}{|b{0.05\textwidth}|p{0.2\textwidth}|p{0.3\textwidth}|p{0.3\textwidth}|}
-	\caption{Rancangan Pengujian Perangkat Lunak dan Komunikasi Sistem}
-	\label{table:3.ujiSoftware}\\
+\begin{longtable}{|b{0.05\textwidth}|p{0.22\textwidth}|p{0.28\textwidth}|p{0.3\textwidth}|}
+	\caption{Rancangan Pengujian Algoritma Astronomi}
+	\label{table:3.ujiAstronomy}\\
 	\hline
 	\textbf{No.} & \textbf{Fungsi yang Diuji} & \textbf{Metode Pengujian} & \textbf{Hasil yang Diharapkan} \\
 	\hline
@@ -1047,15 +1042,50 @@ Pengujian perangkat lunak dilakukan untuk memverifikasi bahwa aplikasi kontrol b
 	\hline
 	\endhead
 	
-	1. & Perhitungan posisi benda langit & Menguji perhitungan koordinat azimuth dan elevasi dari data waktu, lokasi, dan koordinat ekuatorial objek. & Koordinat azimuth dan elevasi dihitung dengan benar. \\
+	1. & Perhitungan Julian Date (JD) & Membandingkan hasil perhitungan JD dengan kalender astronomi standar. & Nilai JD akurat dengan kesalahan $< 0.001$ hari. \\
 	\hline
-	2. & Pelacakan objek langit (\textit{tracking}) & Menguji kemampuan aplikasi memperbarui posisi target secara berkala. & Objek tetap berada dalam bidang pandang teleskop. \\
+	2. & Perhitungan Local Sidereal Time (LST) & Menguji perhitungan LST berdasarkan JD dan bujur pengamat. & Nilai LST sesuai dengan tabel astronomi referensi. \\
 	\hline
-	3. & Validasi hasil pengamatan & Membandingkan arah teleskop dengan posisi objek langit aktual (1 Bintang, 1 Planet, Bulan, Matahari). & Selisih sudut berada dalam batas toleransi. \\
+	3. & Transformasi koordinat ekuatorial ke horizontal & Menguji konversi RA/Dec ke Az/Alt untuk berbagai posisi objek. & Koordinat Az/Alt dihitung dengan benar, kesalahan $< 0.5^\circ$. \\
 	\hline
-
+	4. & Perhitungan posisi Matahari & Menguji algoritma perhitungan RA/Dec Matahari berdasarkan waktu. & Posisi Matahari sesuai dengan data ephemeris dengan kesalahan $< 1^\circ$. \\
+	\hline
+	5. & Perhitungan posisi Bulan & Menguji algoritma perhitungan RA/Dec Bulan berdasarkan waktu. & Posisi Bulan sesuai dengan data ephemeris dengan kesalahan $< 2^\circ$. \\
+	\hline
+	6. & Perhitungan posisi Planet & Menguji algoritma perhitungan RA/Dec planet berdasarkan waktu. & Posisi planet sesuai dengan data ephemeris dengan kesalahan $< 2^\circ$. \\
+	\hline
+	7. & Koordinat Bintang dari katalog & Menguji pembacaan dan transformasi koordinat bintang dari input RA/Dec. & Koordinat bintang ditransformasi dengan benar ke Az/Alt. \\
+	\hline
 \end{longtable}
 
+Pengujian ini mengacu pada algoritma standar astronomi dari Meeus \cite{Meeus1998} dan metode perhitungan yang digunakan dalam perangkat lunak astronomi seperti Stellarium dan PyEphem.
+
+\subsection{Pengujian Sistem Fungsional}
+Pengujian sistem fungsional dilakukan untuk memverifikasi bahwa sistem teleskop robotik dapat mengarahkan dan melacak objek langit dengan akurat, serta berkomunikasi secara \textit{real-time} antara aplikasi Android dan mikrokontroler ESP32. Pengujian mencakup pengarahan otomatis (GoTo), pelacakan objek, kontrol manual, dan komunikasi sistem. \par
+
+\begin{longtable}{|b{0.05\textwidth}|p{0.22\textwidth}|p{0.28\textwidth}|p{0.3\textwidth}|}
+	\caption{Rancangan Pengujian Sistem Fungsional}
+	\label{table:3.ujiSoftware}\\
+	\hline
+	\textbf{No.} & \textbf{Aspek yang Diuji} & \textbf{Metode Pengujian} & \textbf{Hasil yang Diharapkan} \\
+	\hline
+	\endfirsthead
+	\hline
+	\textbf{No.} & \textbf{Aspek yang Diuji} & \textbf{Metode Pengujian} & \textbf{Hasil yang Diharapkan} \\
+	\hline
+	\endhead
+	
+	1. & Pengarahan objek langit (GoTo) & Mengarahkan teleskop ke 4 objek referensi: Matahari, Bulan, Jupiter, dan Betelgeuse. & Objek berada dalam bidang pandang teleskop (Hit). \\
+	\hline
+	2. & Pelacakan objek (Tracking) & Melacak setiap objek selama 1 jam, mengukur delta posisi dan dokumentasi visual. & Objek tetap dalam bidang pandang, delta posisi minimal. \\
+	\hline
+	3. & Kontrol manual & Menguji pergerakan 4 arah dalam 3 periode 10 detik, mengukur konsistensi dan kecepatan. & Gerakan konsisten dengan kecepatan stabil. \\
+	\hline
+	4. & Komunikasi WebSocket & Menguji koneksi, pengiriman perintah, penerimaan status, dan reconnect. & Komunikasi real-time stabil tanpa delay signifikan. \\
+	\hline
+	5. & Antarmuka pengguna & Evaluasi tampilan informasi, kontrol, dan indikator status/error. & Antarmuka informatif, intuitif, dan responsif. \\
+	\hline
+\end{longtable}
 
 Pengujian ini juga mengacu pada penelitian \cite{Hoang2020,Malasan2025}, yang menunjukkan pentingnya komunikasi dua arah antara sistem kendali dan antarmuka pengguna untuk memastikan keandalan sistem teleskop otomatis.
 
