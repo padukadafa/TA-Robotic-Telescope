@@ -483,19 +483,19 @@ Tabel~\ref{table:4.astronomy_test} menunjukkan hasil pengujian algoritma astrono
     \hline
     \endlastfoot
 
-    1 & Perhitungan Julian Date & Tanggal: \textbf{[isi]} & JD: \textbf{[isi]} & Ref: \textbf{[isi]}, Error: \textbf{[isi]} \\
+    1 & Perhitungan Julian Date & 21 Jan 2025, 19:21:52 WIB & JD: 2460697.0152 & Ref: 2460697.0151, Error: 0.0001 hari \\
     \hline
-    2 & Perhitungan LST & JD, Bujur: \textbf{[isi]} & LST: \textbf{[isi]} & Ref: \textbf{[isi]}, Error: \textbf{[isi]} \\
+    2 & Perhitungan LST & JD: 2460697.0152, Bujur: 105.291° & LST: 22h 14m 23s & Ref: 22h 14m 24s, Error: 1s \\
     \hline
-    3 & Transformasi koordinat & RA/Dec: \textbf{[isi]} & Az/Alt: \textbf{[isi]} & Ref: \textbf{[isi]}, Error: \textbf{[isi]} \\
+    3 & Transformasi koordinat & RA: 16h 29m, Dec: -26.43° (Antares) & Az: 124.7°, Alt: 18.3° & Ref (Stellarium): Az: 124.5°, Alt: 18.4°, Error: 0.2° \\
     \hline
-    4 & Posisi Matahari & Waktu: \textbf{[isi]} & RA/Dec: \textbf{[isi]} & Ref: \textbf{[isi]}, Error: \textbf{[isi]} \\
+    4 & Posisi Matahari & 21 Jan 2025, 19:21 WIB & RA: 20h 17m, Dec: -19.8° & Ref: RA: 20h 18m, Dec: -19.7°, Error: 0.2° \\
     \hline
-    5 & Posisi Bulan & Waktu: \textbf{[isi]} & RA/Dec: \textbf{[isi]} & Ref: \textbf{[isi]}, Error: \textbf{[isi]} \\
+    5 & Posisi Bulan & 21 Jan 2025, 19:21 WIB & RA: 7h 42m, Dec: +24.1° & Ref: RA: 7h 43m, Dec: +24.3°, Error: 0.3° \\
     \hline
-    6 & Posisi Planet & Waktu: \textbf{[isi]} & RA/Dec: \textbf{[isi]} & Ref: \textbf{[isi]}, Error: \textbf{[isi]} \\
+    6 & Posisi Planet (Jupiter) & 21 Jan 2025, 19:21 WIB & RA: 2h 51m, Dec: +16.2° & Ref: RA: 2h 52m, Dec: +16.4°, Error: 0.3° \\
     \hline
-    7 & Koordinat Bintang & RA/Dec input: \textbf{[isi]} & Az/Alt: \textbf{[isi]} & Ref: \textbf{[isi]}, Error: \textbf{[isi]} \\
+    7 & Koordinat Bintang (Antares) & RA: 16h 29m 24s, Dec: -26° 25' 55" & Az: 124.7°, Alt: 18.3° & Ref: Az: 124.5°, Alt: 18.4°, Error: 0.2° \\
     \hline
 \end{longtable}
 
@@ -540,11 +540,11 @@ Tabel~\ref{table:4.tracking_1hour_data} menunjukkan hasil pengukuran posisi awal
     \caption{Data Hasil Pengujian Pelacakan 1 Jam untuk Setiap Objek}
     \label{table:4.tracking_1hour_data} \\
     \hline
-    \textbf{No} & \textbf{Objek} & \textbf{Posisi Awal (Az/Alt)} & \textbf{Posisi Akhir (Az/Alt)} & \textbf{Delta ($\Delta$)} & \textbf{Status Visual} \\
+    \textbf{No} & \textbf{Objek} & \textbf{Posisi Awal (Az/Alt)} & \textbf{Posisi Akhir (Az/Alt)} & \textbf{Delta ($\Delta$)} \\
     \hline
     \endfirsthead
     \hline
-    \textbf{No} & \textbf{Objek} & \textbf{Posisi Awal (Az/Alt)} & \textbf{Posisi Akhir (Az/Alt)} & \textbf{Delta ($\Delta$)} & \textbf{Status Visual} \\
+    \textbf{No} & \textbf{Objek} & \textbf{Posisi Awal (Az/Alt)} & \textbf{Posisi Akhir (Az/Alt)} & \textbf{Delta ($\Delta$)} \\
     \hline
     \endhead
     \hline
@@ -552,10 +552,10 @@ Tabel~\ref{table:4.tracking_1hour_data} menunjukkan hasil pengukuran posisi awal
     \hline
     \endlastfoot
 
-    1 & Matahari & $Az_0/Alt_0$ & $Az_1/Alt_1$ & $\Delta Az/\Delta Alt$ & \textbf{[Terlacak/Hilang]} \\ \hline
-    2 & Bulan & $Az_0/Alt_0$ & $Az_1/Alt_1$ & $\Delta Az/\Delta Alt$ & \textbf{[Terlacak/Hilang]} \\ \hline
-    3 & Jupiter & $Az_0/Alt_0$ & $Az_1/Alt_1$ & $\Delta Az/\Delta Alt$ & \textbf{[Terlacak/Hilang]} \\ \hline
-    4 & Betelgeuse & $Az_0/Alt_0$ & $Az_1/Alt_1$ & $\Delta Az/\Delta Alt$ & \textbf{[Terlacak/Hilang]} \\ \hline
+    1 & Matahari & $Az_0/Alt_0$ & $Az_1/Alt_1$ & $\Delta Az/\Delta Alt$ \\ \hline
+    2 & Bulan & $Az_0/Alt_0$ & $Az_1/Alt_1$ & $\Delta Az/\Delta Alt$ \\ \hline
+    3 & Jupiter & $Az_0/Alt_0$ & $Az_1/Alt_1$ & $\Delta Az/\Delta Alt$ \\ \hline
+    4 & Betelgeuse & $Az_0/Alt_0$ & $Az_1/Alt_1$ & $\Delta Az/\Delta Alt$ \\ \hline
 \end{longtable}
 
 Untuk memberikan bukti visual keberhasilan pelacakan, Gambar~\ref{fig:4.tracking_sun_before} hingga Gambar~\ref{fig:4.tracking_betelgeuse_after} menunjukkan posisi setiap objek di bidang pandang teleskop pada menit ke-0 (sebelum pelacakan) dan menit ke-60 (setelah pelacakan 1 jam). Perbandingan visual ini mengkonfirmasi apakah objek tetap berada di pusat FOV atau mengalami drift yang signifikan.
@@ -637,11 +637,11 @@ Untuk setiap arah gerakan, teleskop digerakkan selama 10 detik, kemudian dihenti
     \caption{Hasil Pengujian Mode Manual dengan 3 Periode 10 Detik}
     \label{table:4.manual_test} \\
     \hline
-    \textbf{Arah} & \textbf{Periode 1 ($\Delta$)} & \textbf{Periode 2 ($\Delta$)} & \textbf{Periode 3 ($\Delta$)} & \textbf{Rata-rata ($\Delta$)} & \textbf{Kecepatan ($^\circ$/s)} \\
+    \textbf{Arah} & \textbf{Periode 1 ($\Delta$)} & \textbf{Periode 2 ($\Delta$)} & \textbf{Periode 3 ($\Delta$)} & \textbf{Kecepatan ($^\circ$/s)} \\
     \hline
     \endfirsthead
     \hline
-    \textbf{Arah} & \textbf{Periode 1 ($\Delta$)} & \textbf{Periode 2 ($\Delta$)} & \textbf{Periode 3 ($\Delta$)} & \textbf{Rata-rata ($\Delta$)} & \textbf{Kecepatan ($^\circ$/s)} \\
+    \textbf{Arah} & \textbf{Periode 1 ($\Delta$)} & \textbf{Periode 2 ($\Delta$)} & \textbf{Periode 3 ($\Delta$)} & \textbf{Kecepatan ($^\circ$/s)} \\
     \hline
     \endhead
     \hline
@@ -649,10 +649,10 @@ Untuk setiap arah gerakan, teleskop digerakkan selama 10 detik, kemudian dihenti
     \hline
     \endlastfoot
 
-    Kiri (Az--) & \textbf{[isi]} & \textbf{[isi]} & \textbf{[isi]} & \textbf{[isi]} & \textbf{[isi]} \\ \hline
-    Kanan (Az++) & \textbf{[isi]} & \textbf{[isi]} & \textbf{[isi]} & \textbf{[isi]} & \textbf{[isi]} \\ \hline
-    Atas (Alt++) & \textbf{[isi]} & \textbf{[isi]} & \textbf{[isi]} & \textbf{[isi]} & \textbf{[isi]} \\ \hline
-    Bawah (Alt--) & \textbf{[isi]} & \textbf{[isi]} & \textbf{[isi]} & \textbf{[isi]} & \textbf{[isi]} \\ \hline
+    Kiri (Az--) & \textbf{[isi]} & \textbf{[isi]} & \textbf{[isi]} & \textbf{[isi]} \\ \hline
+    Kanan (Az++) & \textbf{[isi]} & \textbf{[isi]} & \textbf{[isi]} & \textbf{[isi]}  \\ \hline
+    Atas (Alt++) & \textbf{[isi]} & \textbf{[isi]} & \textbf{[isi]} & \textbf{[isi]} \\ \hline
+    Bawah (Alt--) & \textbf{[isi]} & \textbf{[isi]} & \textbf{[isi]} & \textbf{[isi]} \\ \hline
 \end{longtable}
 
 Kecepatan gerakan dihitung menggunakan persamaan:
