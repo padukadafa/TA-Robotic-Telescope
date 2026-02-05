@@ -15,19 +15,12 @@ Sistem mekanik dibangun menggunakan teknologi cetak 3D dengan material PLA 2+ un
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.7\textwidth]{figure/alur_penelitian.png}
+    \includegraphics[width=0.7\textwidth]{figure/hasil_akhir_telescope.jpeg}
     \caption{Implementasi Fisik Sistem Mekanik Teleskop Robotik}
     \label{fig:4.mounting_mechanical}
 \end{figure}
 
 Desain mekanik memperhitungkan distribusi beban dengan menempatkan pusat massa OTA sedekat mungkin dengan titik tumpu untuk mengurangi momen gaya yang harus ditahan oleh motor stepper, disisi sebrang teleskop ditambahkan pemberat untuk mengatur titik berat supaya berada pada posisi seimbang seperti ditunjukkan pada Gambar~\ref{fig:4.mounting_balance}. Material PLA 2+ dipilih karena memiliki kekakuan yang lebih baik dibanding PLA standar dan lebih tahan terhadap deformasi akibat beban statis maupun getaran.
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.7\textwidth]{figure/alur_penelitian.png}
-    \caption{Implementasi Fisik Sistem Mekanik Teleskop Robotik}
-    \label{fig:4.mounting_balance}
-\end{figure}
 
 \subsubsection{Sistem Penggerak}
 Sistem transmisi menggunakan motor stepper NEMA 17 dengan resolusi 200 langkah per revolusi (1.8$^{\circ}$ per langkah). Untuk meningkatkan torsi dan presisi, ditambahkan \textit{planetary gear} dengan 4 \textit{stack} seperti ditunjukkan pada Gambar~\ref{fig:4.transmission_system}. Setiap \textit{stack} meningkatkan torsi sebesar 4 kali dan rasio perputarannya menjadi 4 kali untuk 1 putaran, sehingga rasio reduksi dari \textit{planetary gear} menjadi $4^4 = 256$:1. Selain itu, sistem transmisi dilengkapi dengan pasangan \textit{gear} tambahan dengan rasio 1.35:1 yang ditempatkan setelah \textit{planetary gear} untuk meningkatkan resolusi sudut dan torsi keluaran. Dengan demikian, total rasio reduksi sistem menjadi $256 \times 1.35 = 345.6$:1. \par
@@ -36,7 +29,7 @@ Dengan kombinasi ini, resolusi akhir sistem menjadi $200 \times 345.6 = 69120$ l
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.65\textwidth]{figure/alur_penelitian.png}
+    \includegraphics[width=0.65\textwidth]{figure/implementasi_gear.jpeg}
     \caption{Sistem Transmisi Motor Stepper NEMA 17 dengan Belt/Gear}
     \label{fig:4.transmission_system}
 \end{figure}
@@ -46,7 +39,7 @@ Pada implementasi ini, ESP32 menjalankan dua \textit{task} paralel seperti ditun
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.5\textwidth]{figure/alur_penelitian.png}
+    \includegraphics[width=0.5\textwidth]{figure/implementasi_sistem_elektronik.jpeg}
     \caption{Mikrokontroler ESP32 sebagai Unit Pemrosesan Pusat}
     \label{fig:4.esp32_controller}
 \end{figure}
@@ -58,7 +51,7 @@ Driver A4988 dilengkapi dengan proteksi arus berlebih dan proteksi temperatur ya
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.55\textwidth]{figure/alur_penelitian.png}
+    \includegraphics[width=0.55\textwidth]{figure/implementasi_a4998.jpeg}
     \caption{Driver Motor A4988 untuk Kendali Motor Stepper}
     \label{fig:4.motor_driver}
 \end{figure}
@@ -66,17 +59,32 @@ Driver A4988 dilengkapi dengan proteksi arus berlebih dan proteksi temperatur ya
 \subsubsection{Unit Sensor}
 Sistem teleskop robotik menggunakan tiga jenis sensor utama yang bekerja secara terintegrasi untuk memberikan informasi orientasi dan posisi teleskop secara akurat: sensor IMU MPU6050, sensor magnetometer QMC5883L, dan encoder magnetik AS5600. Ketiga sensor ini berkomunikasi dengan mikrokontroler ESP32 melalui protokol I$^2$C dan diatur dalam jalur bus yang sama dengan alamat berbeda.
 
+Sensor IMU MPU6050 merupakan sensor \textit{Inertial Measurement Unit} (IMU) 6-axis yang menggabungkan akselerometer 3-axis dan giroskop 3-axis dalam satu chip seperti ditunjukkan pada Gambar~\ref{fig:4.sensor_mpu6050}. Sensor ini digunakan untuk mengukur orientasi teleskop dalam bentuk sudut \textit{roll} dan \textit{pitch} yang kemudian digunakan dalam algoritma \textit{tilt compensation} untuk kompensasi kemiringan pembacaan kompas magnetik. MPU6050 berkomunikasi dengan ESP32 melalui protokol I$^2$C dengan alamat default 0x68. \par
+
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.65\textwidth]{figure/alur_penelitian.png}
-    \caption{Unit Sensor: MPU6050, QMC5883L, dan AS5600}
-    \label{fig:4.sensor_unit}
+    \includegraphics[width=0.5\textwidth]{figure/implementasi_mpu6050.jpeg}
+    \caption{Implementasi Sensor IMU MPU6050}
+    \label{fig:4.sensor_mpu6050}
 \end{figure}
 
-Sensor IMU MPU6050 merupakan sensor \textit{Inertial Measurement Unit} (IMU) 6-axis yang menggabungkan akselerometer 3-axis dan giroskop 3-axis dalam satu chip. Sensor ini digunakan untuk mengukur orientasi teleskop dalam bentuk sudut \textit{roll} dan \textit{pitch} yang kemudian digunakan dalam algoritma \textit{tilt compensation} untuk kompensasi kemiringan pembacaan kompas magnetik. MPU6050 berkomunikasi dengan ESP32 melalui protokol I$^2$C dengan alamat default 0x68. \par
-Sensor Magnetometer QMC5883L adalah sensor magnetometer 3-axis yang digunakan untuk mengukur medan magnet bumi dan menentukan arah \textit{heading} (azimuth) absolut terhadap utara magnetik. Sensor ini menggantikan kompas mekanik tradisional dan memberikan pembacaan digital dengan resolusi tinggi melalui protokol I$^2$C (alamat default 0x0D). Dalam implementasi, QMC5883L digunakan pada tahap inisialisasi sistem untuk menentukan referensi arah utara. Setelah sistem mendapatkan referensi awal melalui \textit{tilt-compensated heading}, pembacaan \textit{azimuth} operasional dialihkan ke encoder AS5600 yang lebih stabil terhadap interferensi elektromagnetik dari motor stepper. Sensor ini memiliki rentang pengukuran $\pm$8 Gauss dan resolusi output 16-bit per sumbu. \par
+Sensor Magnetometer QMC5883L adalah sensor magnetometer 3-axis yang digunakan untuk mengukur medan magnet bumi dan menentukan arah \textit{heading} (azimuth) absolut terhadap utara magnetik seperti ditunjukkan pada Gambar~\ref{fig:4.sensor_qmc5883l}. Sensor ini menggantikan kompas mekanik tradisional dan memberikan pembacaan digital dengan resolusi tinggi melalui protokol I$^2$C (alamat default 0x0D). Dalam implementasi, QMC5883L digunakan pada tahap inisialisasi sistem untuk menentukan referensi arah utara. Setelah sistem mendapatkan referensi awal melalui \textit{tilt-compensated heading}, pembacaan \textit{azimuth} operasional dialihkan ke encoder AS5600 yang lebih stabil terhadap interferensi elektromagnetik dari motor stepper. Sensor ini memiliki rentang pengukuran $\pm$8 Gauss dan resolusi output 16-bit per sumbu. \par
 
-Encoder Magnetik AS5600 merupakan encoder magnetik 12-bit \textit{contactless} yang memberikan pembacaan posisi sudut absolut dengan resolusi 4096 langkah per rotasi (360$^{\circ}$/4096 $\approx$ 0.088$^{\circ}$ per langkah). Sistem menggunakan dua buah encoder AS5600: satu untuk sumbu \textit{Azimuth} dan satu untuk sumbu \textit{Altitude}. Encoder ini bekerja dengan mendeteksi orientasi medan magnet dari magnet diametral yang dipasang pada poros rotasi sumbu. Keunggulan AS5600 dibanding encoder optik adalah ketahanannya terhadap debu dan tidak memerlukan kontak mekanik, sehingga lebih awet dan bebas perawatan. Sensor ini berkomunikasi melalui I$^2$C dan dapat dikonfigurasi untuk memberikan output sudut dalam format mentah (raw angle) atau sudut yang sudah dikalibrasi. Pada implementasi, pembacaan \textit{raw angle} digunakan dan offset kalibrasi diterapkan pada \textit{firmware} untuk fleksibilitas penyesuaian.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{figure/implementasi_qmc5883l.jpeg}
+    \caption{Implementasi Sensor Magnetometer QMC5883L}
+    \label{fig:4.sensor_qmc5883l}
+\end{figure}
+
+Encoder Magnetik AS5600 merupakan encoder magnetik 12-bit \textit{contactless} yang memberikan pembacaan posisi sudut absolut dengan resolusi 4096 langkah per rotasi (360$^{\circ}$/4096 $\approx$ 0.088$^{\circ}$ per langkah) seperti ditunjukkan pada Gambar~\ref{fig:4.sensor_as5600}. Sistem menggunakan dua buah encoder AS5600: satu untuk sumbu \textit{Azimuth} dan satu untuk sumbu \textit{Altitude}. Encoder ini bekerja dengan mendeteksi orientasi medan magnet dari magnet diametral yang dipasang pada poros rotasi sumbu. Keunggulan AS5600 dibanding encoder optik adalah ketahanannya terhadap debu dan tidak memerlukan kontak mekanik, sehingga lebih awet dan bebas perawatan. Sensor ini berkomunikasi melalui I$^2$C dan dapat dikonfigurasi untuk memberikan output sudut dalam format mentah (raw angle) atau sudut yang sudah dikalibrasi. Pada implementasi, pembacaan \textit{raw angle} digunakan dan offset kalibrasi diterapkan pada \textit{firmware} untuk fleksibilitas penyesuaian.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{figure/implementasi_encoder.jpeg}
+    \caption{Implementasi Encoder Magnetik AS5600}
+    \label{fig:4.sensor_as5600}
+\end{figure}
 
 \subsection{Implementasi Perangkat Lunak dan Algoritma} \label{IV.Software}
 Perangkat lunak (\textit{firmware}) berperan vital dalam menerjemahkan data sensor yang \textit{raw} dan \textit{noisy} menjadi informasi orientasi yang stabil. Berdasarkan implementasi program pada mikrokontroler, alur utama sistem terdiri dari dua bagian: (1) \textit{task} pembacaan sensor yang berjalan periodik, dan (2) \textit{loop} kendali motor serta komunikasi yang berjalan kontinu. \par
@@ -387,7 +395,7 @@ Tabel~\ref{table:4.hardware_test} menunjukkan hasil pengujian perangkat keras de
     \hline
     \endlastfoot
 
-    1 & Sensor IMU (MPU6050) & Kestabilan pembacaan akselerasi dan giroskop & Std Roll: 0.107, Std Pitch: 0.271  & Pass \\
+    1 & Sensor IMU (MPU6050) & Kestabilan pembacaan akselerasi dan giroskop & Std Roll: 0.107, Std Pitch: 0.271  & Half Pass \\
     \hline
     2 & Sensor Magnetometer (QMC5883L) & Akurasi arah azimuth terhadap referensi & Std Magnetometer:  & - \\
     \hline
@@ -422,7 +430,7 @@ Tabel~\ref{table:4.mahony_test} menunjukkan hasil pengujian algoritma Mahony Fil
     \hline
     \endlastfoot
 
-    1 & Estimasi orientasi (Roll, Pitch, Yaw) & Perbandingan dengan sudut referensi & Deviasi Roll: 0.107, Pitch: 0.271 & Pass \\
+    1 & Estimasi orientasi (Roll, Pitch, Yaw) & Perbandingan dengan sudut referensi & Deviasi Roll: 0.107, Pitch: 0.271 & Half Pass \\
     \hline
     2 & Kestabilan filter & Respon terhadap gerakan cepat dan posisi diam & Tidak berosilasi, std dev Roll:0.332, Pitch: 0.740  & Pass \\
     \hline
@@ -499,10 +507,10 @@ Tabel~\ref{table:4.astronomy_test} menunjukkan hasil pengujian algoritma astrono
     \hline
 \end{longtable}
 
-Hasil pengujian menunjukkan bahwa algoritma astronomi menghasilkan perhitungan dengan akurasi yang memadai untuk aplikasi pengarahan teleskop. Error perhitungan JD dan LST sangat kecil ($< 0.001$ hari), sedangkan transformasi koordinat dan perhitungan posisi objek memiliki error yang berada dalam batas toleransi yang ditetapkan ($< 2^\circ$). \par
+Hasil pengujian menunjukkan bahwa algoritma astronomi menghasilkan perhitungan dengan akurasi yang memadai untuk aplikasi pengarahan teleskop. Error perhitungan JD dan LST sangat kecil ($< 0.001$ hari), sedangkan transformasi koordinat dan perhitungan posisi objek memiliki error yang berada dalam batas toleransi yang ditetapkan ($< 0.2^\circ$). \par
 
 \subsection{Hasil Pengujian Sistem Fungsional} \label{IV.UjiFungsional}
-Pengujian sistem fungsional dilakukan untuk memverifikasi kemampuan sistem teleskop dalam mengarahkan dan melacak objek langit, kontrol manual, komunikasi real-time, dan antarmuka pengguna. Pengujian ini mencakup lima aspek utama: pengarahan objek (GoTo), pelacakan objek (Tracking), kontrol manual, komunikasi WebSocket, dan antarmuka pengguna. \par
+Pengujian sistem fungsional dilakukan untuk memverifikasi kemampuan sistem teleskop dalam mengarahkan dan melacak objek langit, kontrol manual, komunikasi real-time, dan antarmuka pengguna. Pengujian ini mencakup lima aspek utama: pengarahan objek (GoTo), pelacakan objek (Tracking), kontrol manual. \par
 
 \subsubsection{Pengujian Pengarahan Objek Langit (GoTo)} \label{IV.UjiPointing}
 Pengujian pengarahan dilakukan dengan mengarahkan teleskop ke empat objek referensi: Matahari, Bulan, Jupiter, dan Betelgeuse. Tabel~\ref{table:4.pointing_data} menunjukkan hasil pengujian yang mencakup koordinat target, koordinat terukur, error sudut, dan hasil visual observasi.
@@ -511,11 +519,11 @@ Pengujian pengarahan dilakukan dengan mengarahkan teleskop ke empat objek refere
     \caption{Data Hasil Pengujian Penunjukan Objek Langit}
     \label{table:4.pointing_data} \\
     \hline
-    \textbf{No} & \textbf{Objek} & \textbf{Target (Az/Alt)} & \textbf{Terukur (Az/Alt)} & \textbf{Error ($\Delta$)} & \textbf{Hasil Visual} \\
+    \textbf{No} & \textbf{Objek} & \textbf{Target (Az/Alt)} & \textbf{Terukur (Az/Alt)} & \textbf{Error ($\Delta Az/ \Delta Alt$)} \\
     \hline
     \endfirsthead
     \hline
-    \textbf{No} & \textbf{Objek} & \textbf{Target (Az/Alt)} & \textbf{Terukur (Az/Alt)} & \textbf{Error ($\Delta$)} & \textbf{Hasil Visual} \\
+    \textbf{No} & \textbf{Objek} & \textbf{Target (Az/Alt)} & \textbf{Terukur (Az/Alt)} & \textbf{Error ($\Delta Az/ \Delta Alt$)} \\
     \hline
     \endhead
     \hline
@@ -523,10 +531,10 @@ Pengujian pengarahan dilakukan dengan mengarahkan teleskop ke empat objek refere
     \hline
     \endlastfoot
 
-    1 & Matahari & - & - & - & \\ \hline
-    2 & Bulan & - & - & - & \\ \hline
-    3 & Jupiter & - & - & - & \\ \hline
-    4 & Betelgeuse & - & - & - & \\ \hline
+    1 & Matahari & - & - & - \\ \hline
+    2 & Bulan & $62^\circ30'$/$75^\circ12'$ & $63^\circ42'$/$72^\circ42'$ & $1^\circ12'$/$-2^\circ30'$ \\ \hline
+    3 & Jupiter & - & - & - \\ \hline
+    4 & Betelgeuse & - & - & - \\ \hline
 \end{longtable}
 
 \subsubsection{Pengujian Pelacakan Objek (Tracking)} \label{IV.UjiTracking}
@@ -553,7 +561,7 @@ Tabel~\ref{table:4.tracking_1hour_data} menunjukkan hasil pengukuran posisi awal
     \endlastfoot
 
     1 & Matahari & $Az_0/Alt_0$ & $Az_1/Alt_1$ & $\Delta Az/\Delta Alt$ \\ \hline
-    2 & Bulan & $Az_0/Alt_0$ & $Az_1/Alt_1$ & $\Delta Az/\Delta Alt$ \\ \hline
+    2 & Bulan & $62^\circ30'$/$75^\circ12'$ & $9^\circ/85^\circ7'$ & $-52^\circ55' /9^\circ55'$ \\ \hline
     3 & Jupiter & $Az_0/Alt_0$ & $Az_1/Alt_1$ & $\Delta Az/\Delta Alt$ \\ \hline
     4 & Betelgeuse & $Az_0/Alt_0$ & $Az_1/Alt_1$ & $\Delta Az/\Delta Alt$ \\ \hline
 \end{longtable}
@@ -564,14 +572,14 @@ Untuk memberikan bukti visual keberhasilan pelacakan, Gambar~\ref{fig:4.tracking
     \centering
     \begin{minipage}{0.48\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{figure/alur_penelitian.png}
+        \includegraphics[width=\textwidth]{figure/tracking_sun_2.png}
         \caption{Posisi Matahari pada Menit Ke-0}
         \label{fig:4.tracking_sun_before}
     \end{minipage}
     \hfill
     \begin{minipage}{0.48\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{figure/alur_penelitian.png}
+        \includegraphics[width=\textwidth]{figure/tracking_sun_1.png}
         \caption{Posisi Matahari pada Menit Ke-60}
         \label{fig:4.tracking_sun_after}
     \end{minipage}
@@ -581,14 +589,14 @@ Untuk memberikan bukti visual keberhasilan pelacakan, Gambar~\ref{fig:4.tracking
     \centering
     \begin{minipage}{0.48\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{figure/alur_penelitian.png}
+        \includegraphics[width=\textwidth]{figure/tracking_moon_1.png}
         \caption{Posisi Bulan pada Menit Ke-0}
         \label{fig:4.tracking_moon_before}
     \end{minipage}
     \hfill
     \begin{minipage}{0.48\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{figure/alur_penelitian.png}
+        \includegraphics[width=\textwidth]{figure/tracking_moon_2.png}
         \caption{Posisi Bulan pada Menit Ke-60}
         \label{fig:4.tracking_moon_after}
     \end{minipage}
@@ -633,15 +641,15 @@ Pengujian mode manual dilakukan untuk memverifikasi kemampuan pengguna menggerak
 
 Untuk setiap arah gerakan, teleskop digerakkan selama 10 detik, kemudian dihentikan untuk mencatat perubahan posisi. Proses ini diulangi dua kali lagi sehingga total terdapat tiga periode pengukuran untuk setiap arah. Tabel~\ref{table:4.manual_test} menunjukkan hasil pengujian yang mencakup perubahan sudut dalam setiap periode 10 detik dan kecepatan rata-rata gerakan. \par
 
-\begin{longtable}{|l|c|c|c|c|c|}
+\begin{longtable}{|l|c|c|c|c|}
     \caption{Hasil Pengujian Mode Manual dengan 3 Periode 10 Detik}
     \label{table:4.manual_test} \\
     \hline
-    \textbf{Arah} & \textbf{Periode 1 ($\Delta$)} & \textbf{Periode 2 ($\Delta$)} & \textbf{Periode 3 ($\Delta$)} & \textbf{Kecepatan ($^\circ$/s)} \\
+    \textbf{Arah} & \textbf{Periode 1 ($\Delta\theta$)} & \textbf{Periode 2 ($\Delta\theta$)} & \textbf{Periode 3 ($\Delta\theta$)} & \textbf{Kecepatan ($^\circ$/s)} \\
     \hline
     \endfirsthead
     \hline
-    \textbf{Arah} & \textbf{Periode 1 ($\Delta$)} & \textbf{Periode 2 ($\Delta$)} & \textbf{Periode 3 ($\Delta$)} & \textbf{Kecepatan ($^\circ$/s)} \\
+    \textbf{Arah} & \textbf{Periode 1 ($\Delta\theta$)} & \textbf{Periode 2 ($\Delta\theta$)} & \textbf{Periode 3 ($\Delta\theta$)} & \textbf{Kecepatan ($^\circ$/s)} \\
     \hline
     \endhead
     \hline
@@ -649,10 +657,10 @@ Untuk setiap arah gerakan, teleskop digerakkan selama 10 detik, kemudian dihenti
     \hline
     \endlastfoot
 
-    Kiri (Az-) & - & - & - & - \\ \hline
-    Kanan (Az+) & - & - & - & - \\ \hline
-    Atas (Alt+) & - & - & - & - \\ \hline
-    Bawah (Alt-) & - & - & - & - \\ \hline
+    Kiri (Az-) & -17.75 & -17.67 & -17.75 & -1.772 \\ \hline
+    Kanan (Az+) & +22.50 & +22.50 & +22.50 & +2.250 \\ \hline
+    Atas (Alt+) & +17.75 & +17.67 & +17.75 & +1.772 \\ \hline
+    Bawah (Alt-) & -22.50 & -22.50 & -22.50 & -2.250 \\ \hline
 \end{longtable}
 
 Kecepatan gerakan dihitung menggunakan persamaan:
@@ -661,11 +669,12 @@ Kecepatan gerakan dihitung menggunakan persamaan:
 \[
 v = \frac{\Delta\theta}{\Delta t}
 \]}
-dengan $\Delta\theta$ adalah perubahan sudut (dalam derajat) dan $\Delta t = 10$ detik adalah durasi gerakan. Kecepatan rata-rata untuk setiap arah diperoleh dengan merata-ratakan kecepatan dari ketiga periode pengujian. Konsistensi nilai perubahan sudut antar periode mengindikasikan stabilitas kontrol motor dan responsivitas sistem terhadap perintah manual. \par
+dengan $\Delta\theta$ adalah perubahan sudut (dalam derajat) dan $\Delta t = 10$ detik adalah durasi gerakan. Kecepatan rata-rata untuk setiap arah diperoleh dengan merata-ratakan kecepatan dari ketiga periode pengujian. \par
 
+Hasil pengujian menunjukkan konsistensi perubahan sudut yang sangat tinggi antar periode untuk setiap arah gerakan. Pada gerakan \textit{Kiri} (Az-), teleskop bergerak rata-rata -17.72$^\circ$ per 10 detik dengan kecepatan -1.772$^\circ$/s, dengan variasi minimal antara periode 2 dan periode lainnya (hanya 0.08$^\circ$).Konsistensi nilai perubahan sudut antar periode mengindikasikan stabilitas kontrol motor dan responsivitas sistem terhadap perintah manual. Perbedaan kecepatan antara arah positif dan negatif pada sumbu yang sama (misalnya Kiri vs Kanan, atau Atas vs Bawah) kemungkinan disebabkan oleh konfigurasi kecepatan motor atau beban mekanik yang asimetris. 
 \section{Analisis Hasil Penelitian} \label{IV.Analisis}
 
-Bab ini menganalisis hasil pengujian yang telah disajikan pada Bab~\ref{IV.HasilPengujian} sesuai dengan rancangan pengujian pada Bab~\ref{III.Rancang_Uji}. Analisis mencakup evaluasi perangkat keras, interpretasi data algoritma Mahony Filter, validasi akurasi algoritma astronomi, evaluasi sistem fungsional (pengarahan dan pelacakan), identifikasi faktor yang mempengaruhi performa sistem, serta pembahasan mengenai error budget dan strategi perbaikan. \par
+Bab ini menganalisis hasil pengujian yang telah disajikan pada Bab~\ref{IV.HasilPengujian} sesuai dengan rancangan pengujian pada Bab~\ref{III.Rancang_Uji}. Analisis mencakup evaluasi perangkat keras, interpretasi data algoritma Mahony Filter, validasi akurasi algoritma astronomi, evaluasi sistem fungsional (pengarahan dan pelacakan), identifikasi faktor yang mempengaruhi performa sistem dan strategi perbaikan. \par
 
 \subsection{Analisis Hasil Pengujian Perangkat Keras} \label{IV.AnalisisHardware}
 Hasil pengujian perangkat keras menunjukkan bahwa semua sensor dan komponen mekanik berfungsi sesuai dengan spesifikasi yang ditetapkan. Sensor IMU MPU6050, magnetometer QMC5883L, dan encoder AS5600 memberikan pembacaan yang stabil dengan error dalam batas toleransi ($< 0.2^\circ$). \par
@@ -682,94 +691,71 @@ Frekuensi pembaruan sensor yang mencapai mendekati 100~Hz menunjukkan bahwa sist
 \subsection{Analisis Algoritma Astronomi} \label{IV.AnalisisAstronomy}
 Hasil pengujian algoritma astronomi pada Tabel~\ref{table:4.astronomy_test} menunjukkan bahwa perhitungan Julian Date (JD), Local Sidereal Time (LST), dan transformasi koordinat ekuatorial ke horizontal menghasilkan nilai yang akurat dengan error sangat kecil. Perhitungan JD memiliki presisi tinggi (error $< 0.001$ hari), yang penting untuk akurasi perhitungan posisi benda langit. \par
 
-Algoritma perhitungan posisi Matahari, Bulan, dan Planet menggunakan model aproksimasi yang memberikan akurasi memadai untuk aplikasi pengarahan teleskop amatir. Error perhitungan posisi berada dalam batas toleransi yang ditetapkan ($< 2^\circ$ untuk Bulan dan Planet, $< 1^\circ$ untuk Matahari). Model aproksimasi ini dipilih karena dapat dijalankan secara \textit{on-device} pada mikrokontroler ESP32 tanpa memerlukan koneksi internet untuk mengakses ephemeris eksternal. \par
+Algoritma perhitungan posisi Matahari, Bulan, dan Planet menggunakan model aproksimasi yang memberikan akurasi memadai untuk aplikasi pengarahan teleskop amatir. Error perhitungan posisi berada dalam batas toleransi yang ditetapkan $< 0^\circ20'$. Model aproksimasi ini dipilih karena dapat dijalankan secara \textit{on-device} pada mikrokontroler ESP32 tanpa memerlukan koneksi internet untuk mengakses ephemeris eksternal. \par
 
 Untuk bintang, transformasi koordinat RA/Dec dari katalog ke Az/Alt lokal bergantung pada akurasi perhitungan LST dan presisi transformasi koordinat. Hasil pengujian menunjukkan bahwa transformasi koordinat memberikan akurasi yang konsisten, dengan error transformasi yang dapat dikompensasi melalui kalibrasi sistem. \par
 
 \subsection{Analisis Sistem Pengarahan (GoTo)} \label{IV.AnalisisPointing}
-Analisis akurasi penunjukan dilakukan berdasarkan data pada Tabel~\ref{table:4.pointing_data}. Error sudut pada dua sumbu dihitung menggunakan persamaan:
-\begin{equation}
-\Delta Az = wrap\left(Az_m - Az_t\right), \quad \Delta Alt = Alt_m - Alt_t
-\end{equation}
-dengan \textit{wrap} memastikan perbedaan azimuth berada pada rentang $[-180^{\circ}, 180^{\circ}]$. \par
+Analisis akurasi penunjukan dilakukan berdasarkan data pada Tabel~\ref{table:4.pointing_data}. Error sudut pada dua sumbu dihitung menggunakan persamaan $\Delta Az = Az_m - Az_t$ dan $\Delta Alt = Alt_m - Alt_t$, dengan $Az_m$, $Alt_m$ adalah koordinat terukur dan $Az_t$, $Alt_t$ adalah koordinat target. Berdasarkan data Bulan, error terukur adalah $\Delta Az = 1^{\circ}12'$ (1.2$^{\circ}$) dan $\Delta Alt = -2^{\circ}30'$ (-2.5$^{\circ}$). Error pada sumbu \textit{Altitude} lebih besar, mengindikasikan pengaruh gravitasi dan distribusi beban pada sumbu vertikal lebih signifikan. \par
 
-Untuk evaluasi komprehensif, metrik gabungan \textit{pointing error} dapat dihitung menggunakan proyeksi lokal:
-\begin{equation}
-\epsilon \approx \sqrt{\left(\Delta Az\,\cos(Alt_t)\right)^2 + \left(\Delta Alt\right)^2}
-\end{equation}
 
-Hasil \textit{Hit/Miss} tidak hanya ditentukan oleh error sudut, tetapi juga ukuran semu objek dan \textit{Field of View} (FOV) sistem optik. Bulan dan Matahari memiliki diameter sudut semu $\approx 0.5^{\circ}$, memberikan toleransi error yang lebih besar dibanding objek titik (bintang dan planet). Dengan FOV kecil ($< 1^{\circ}$), pengujian pada objek titik seperti Betelgeuse dan Jupiter menjadi uji yang lebih ketat untuk stabilitas mekanik dan repeatabilitas sistem. \par
-
-\subsection{Analisis Kalibrasi dan Offset Sistematis} \label{IV.AnalisisAlignment}
-Berdasarkan hasil pengujian yang menunjukkan adanya \textit{miss} pada beberapa target, diperlukan kalibrasi offset menggunakan metode \textit{one-star alignment}. Setelah teleskop diarahkan secara manual hingga objek berada di pusat FOV, offset dihitung:
-\begin{equation}
-\delta_{Az} = Az_t - Az_m, \quad \delta_{Alt} = Alt_t - Alt_m
-\end{equation}
-
-Koreksi kemudian diterapkan untuk perintah berikutnya:
-\begin{equation}
-Az_{cmd} = Az_t + \delta_{Az}, \quad Alt_{cmd} = Alt_t + \delta_{Alt}
-\end{equation}
-
-Metode ini efektif untuk mengurangi error sistematis yang konstan, namun tidak sepenuhnya mengatasi error yang bergantung pada posisi (misalnya flex yang berubah saat altitude tinggi). \par
+Error menunjukkan pola konsisten yang dapat dikompensasi melalui kalibrasi \textit{one-star alignment}. Dari data Bulan, offset koreksi yang diperlukan adalah $\delta_{Az} = -1^{\circ}12'$ dan $\delta_{Alt} = +2^{\circ}30'$, diterapkan pada perintah berikutnya: $Az_{cmd} = Az_t + \delta_{Az}$ dan $Alt_{cmd} = Alt_t + \delta_{Alt}$. Metode ini efektif untuk mengurangi error sistematis konstan (offset mounting sensor, kesalahan referensi kompas), namun tidak mengatasi error bergantung posisi seperti flex mekanik. \par
 
 \subsection{Analisis Sistem Pelacakan (Tracking)} \label{IV.AnalisisTracking}
-Pengujian pelacakan selama 1 jam untuk setiap objek memberikan informasi penting tentang kemampuan sistem mengikuti pergerakan semu benda langit akibat rotasi bumi. Delta posisi antara t=0 dan t=3600 detik pada Tabel~\ref{table:4.tracking_1hour_data} menunjukkan seberapa baik sistem dapat mempertahankan objek dalam bidang pandang. \par
+Pengujian pelacakan selama 1 jam mengevaluasi kemampuan sistem mengikuti pergerakan semu benda langit akibat rotasi bumi. Berdasarkan data Bulan pada Tabel~\ref{table:4.tracking_1hour_data}, terjadi perubahan posisi signifikan: $\Delta Az = -53.5^{\circ}$ dan $\Delta Alt = 9.92^{\circ}$. Perubahan besar pada \textit{Azimuth} disebabkan posisi Bulan mendekati zenith ($Alt > 75^{\circ}$), di mana lintasan azimuth sangat cepat karena lingkaran azimuth menyempit. Laju perubahan sudut adalah $\approx 0.89^{\circ}/\text{min}$ untuk \textit{Azimuth} dan $\approx 0.165^{\circ}/\text{min}$ untuk \textit{Altitude}. \par
 
-Sistem pelacakan memerlukan perhitungan ulang koordinat Az/Alt secara berkala berdasarkan waktu RTC dan lokasi pengamat. Akurasi pelacakan bergantung pada tiga faktor utama: (1) akurasi perhitungan algoritma astronomi, (2) presisi pembacaan sensor orientasi, dan (3) responsivitas sistem penggerak motor. Objek dengan diameter sudut semu besar seperti Matahari dan Bulan lebih toleran terhadap error pelacakan dibanding objek titik seperti Jupiter dan Betelgeuse. \par
+Akurasi pelacakan bergantung pada tiga faktor: (1) akurasi algoritma astronomi dengan error $< 0.3^{\circ}$, (2) presisi sensor orientasi dengan resolusi $0.088^{\circ}$ dan noise $\approx 0.1^{\circ}$--0.3$^{\circ}$, dan (3) responsivitas motor dengan kecepatan $\approx 1.8^{\circ}/\text{s}$ dan frekuensi update 5--10 detik. Dokumentasi visual (Gambar~\ref{fig:4.tracking_moon_before} dan \ref{fig:4.tracking_moon_after}) menunjukkan Bulan sudah berada di luar medan pandang teleskop, tetapi bayangan dari cahaya matahari masih terlihat. Hal ini menunjukkan bahwa teleskop tidak mampu untuk melacak benda langit dengan presisi, Hal ini dikarenakan drift dari motor dan hasil cetak gear yang tidak rigid sehingga menyebabkan error sudut yang diluar batas yang telah ditentukan yaitu $0.2^\circ$.  \par
 
-Dokumentasi visual pada menit ke-0 dan ke-60 memberikan bukti kualitatif keberhasilan pelacakan. Drift yang minimal mengindikasikan bahwa sistem berhasil mengkompensasi rotasi bumi dengan baik, sedangkan drift signifikan menunjukkan perlunya penyesuaian algoritma atau perbaikan mekanik. \par
+\subsection{Analisis Kontrol Manual} \label{IV.AnalisisManualKomunikasi}
+Hasil pengujian kontrol manual pada Tabel~\ref{table:4.manual_test} menunjukkan tingkat konsistensi yang sangat tinggi dengan standar deviasi maksimal hanya 0.046$^\circ$ (gerakan Kiri dan Atas), sementara gerakan Kanan dan Bawah menunjukkan konsistensi sempurna (standar deviasi = 0$^\circ$). Konsistensi ini mengindikasikan bahwa motor stepper dan sistem transmisi gear dengan rasio reduksi 345.6:1 bekerja dengan stabil dan mampu meminimalkan efek \textit{missed steps} serta \textit{backlash}. Kecepatan gerakan yang terukur berkisar antara 1.772$^\circ$/s hingga 2.250$^\circ$/s, memadai untuk aplikasi pengamatan astronomi amatir dan memberikan kontrol yang cukup presisi. \par
 
-\subsection{Analisis Kontrol Manual dan Komunikasi} \label{IV.AnalisisManualKomunikasi}
-Hasil pengujian kontrol manual pada Tabel~\ref{table:4.manual_test} menunjukkan konsistensi perubahan sudut antar periode 10 detik untuk setiap arah gerakan. Konsistensi ini mengindikasikan bahwa motor stepper dan sistem transmisi bekerja dengan stabil. Kecepatan gerakan yang terukur mencerminkan kemampuan maksimal sistem dalam mode manual, yang penting untuk operasi darurat atau penyesuaian cepat posisi teleskop. \par
-
-Pengujian komunikasi WebSocket menunjukkan bahwa sistem dapat mengirim dan menerima data secara real-time dengan delay minimal. Kemampuan reconnect otomatis dan fallback ke mode manual saat koneksi terputus meningkatkan keandalan sistem. Antarmuka pengguna yang informatif dan responsif memudahkan operator dalam mengontrol teleskop dan memantau status sistem. \par
+Analisis data mengungkap adanya asimetri kecepatan antara arah positif dan negatif pada kedua sumbu, dengan perbedaan sekitar 27\%. Pada sumbu \textit{Azimuth}, gerakan \textit{Kanan} lebih cepat dibanding \textit{Kiri}, sedangkan pada sumbu \textit{Altitude}, gerakan \textit{Bawah} lebih cepat dibanding \textit{Atas}. Asimetri ini kemungkinan disebabkan oleh kombinasi efek gravitasi (terutama pada sumbu vertikal), hasil cetak yang kurang presisi, dan distribusi beban mekanik yang tidak sepenuhnya simetris. Meskipun terdapat perbedaan kecepatan, repeatabilitas yang sangat tinggi pada setiap arah memastikan bahwa operator dapat mengandalkan respon yang konsisten dan prediktif untuk operasi manual, menjadikan mode manual sebagai \textit{fallback} yang andal ketika mode \textit{GoTo} tidak tersedia. \par
 
 \subsection{Analisis Faktor Mekanik} \label{IV.AnalisisMekanik}
-Performa sistem sangat dipengaruhi oleh faktor mekanik meskipun perhitungan sudut target telah akurat. Struktur cetak 3D memiliki flex mikro yang menyebabkan osilasi saat motor berhenti. Energi inersia OTA dapat menggeser sumbu optik, menyebabkan objek titik (Jupiter dan Betelgeuse) mudah keluar dari FOV. Fenomena serupa dilaporkan pada instrumen \textit{low-cost} untuk pengamatan hilal \cite{Hadi2022}. \par
+Meskipun perhitungan koordinat dan perintah sudut telah akurat, kinerja sistem masih sangat dipengaruhi oleh keterbatasan mekanik. Struktur \textit{mounting} yang dibuat dengan cetak 3D menggunakan material PLA memiliki kelemahan berupa lenturan kecil (\textit{flex}) yang terjadi saat motor berhenti mendadak. Lenturan ini menyebabkan teleskop mengalami getaran halus yang dapat menggeser posisi bidang pandang, terutama saat mengamati objek kecil seperti planet atau bintang yang memerlukan akurasi tinggi. Fenomena serupa juga dilaporkan pada penelitian teleskop \textit{low-cost} lainnya untuk pengamatan hilal \cite{Hadi2022}, yang menunjukkan bahwa material cetak 3D memang memiliki keterbatasan dalam hal kekakuan struktural dibandingkan dengan material logam seperti aluminium. \par
 
-Selain flex, \textit{backlash} pada transmisi gear dan toleransi pemasangan memunculkan error yang bergantung pada arah gerak (histeresis). Evaluasi backlash dapat dilakukan dengan pendekatan target dari dua arah berbeda dan membandingkan selisih sudut akhir. \par
+Selain masalah lenturan, sistem transmisi gear juga memiliki celah mekanik (\textit{backlash}) yang menyebabkan sedikit pergeseran posisi tergantung dari arah gerakan motor. Ketika motor bergerak dari kiri ke kanan atau sebaliknya, terdapat jarak mati kecil sebelum gear benar-benar menggerakkan teleskop. Hal ini menciptakan efek histeresis dimana posisi akhir teleskop sedikit berbeda jika didekati dari arah yang berbeda. Untuk mengevaluasi besarnya \textit{backlash}, dapat dilakukan pengujian dengan mengarahkan teleskop ke posisi yang sama dari dua arah berlawanan, kemudian mengukur selisih sudut yang terjadi. Toleransi pemasangan komponen yang tidak sempurna juga berkontribusi terhadap ketidakpresisian ini, memperbesar dampak \textit{backlash} terhadap akurasi pengarahan. \par
 
-\subsection{Analisis Error Budget Sistem} \label{IV.ErrorBudget}
-Error total sistem merupakan kombinasi dari beberapa komponen yang dapat dikategorikan sebagai berikut: 
-\begin{enumerate}[noitemsep]
-    \item \textbf{Error sensor acak}: direpresentasikan oleh standar deviasi ($\sigma$) pada IMU, kompas, dan encoder
-    \item \textbf{Error sensor sistematis}: offset kalibrasi seperti \textit{pitchCorrection}, \textit{rollCorrection}, \textit{altitudeOffset}, dan referensi \textit{deltaAzimuth}
-    \item \textbf{Error mekanik}: flex, backlash, dan misalignment antara sumbu sensor dan sumbu optik
-    \item \textbf{Error observasi}: getaran angin, kualitas tripod, dan kesalahan penilaian \textit{Hit/Miss} oleh operator
-\end{enumerate}
+% \subsection{Analisis Error Budget Sistem} \label{IV.ErrorBudget}
+% Error total sistem merupakan kombinasi dari beberapa komponen yang dapat dikategorikan sebagai berikut: 
+% \begin{enumerate}[noitemsep]
+%     \item \textbf{Error sensor acak}: direpresentasikan oleh standar deviasi ($\sigma$) pada IMU, kompas, dan encoder
+%     \item \textbf{Error sensor sistematis}: offset kalibrasi seperti \textit{pitchCorrection}, \textit{rollCorrection}, \textit{altitudeOffset}, dan referensi \textit{deltaAzimuth}
+%     \item \textbf{Error mekanik}: flex, backlash, dan misalignment antara sumbu sensor dan sumbu optik
+%     \item \textbf{Error observasi}: getaran angin, kualitas tripod, dan kesalahan penilaian \textit{Hit/Miss} oleh operator
+% \end{enumerate}
 
-Resolusi encoder AS5600 (12-bit) memberikan batas kuantisasi $\approx 0.088^{\circ}$ per langkah. Namun pada praktiknya, error mekanik seringkali lebih dominan. Tabel~\ref{table:4.error_budget} merangkum komponen error sistem beserta cara estimasinya.
+% Resolusi encoder AS5600 (12-bit) memberikan batas kuantisasi $\approx 0.088^{\circ}$ per langkah. Namun pada praktiknya, error mekanik seringkali lebih dominan. Tabel~\ref{table:4.error_budget} merangkum komponen error sistem beserta cara estimasinya.
 
-\begin{table}[H]
-    \centering
-    \caption{Ringkasan Komponen Error (Error Budget) Sistem}
-    \label{table:4.error_budget}
-    \begin{tabular}{|p{0.42\textwidth}|p{0.18\textwidth}|p{0.32\textwidth}|}
-    \hline
-    \textbf{Sumber Error} & \textbf{Besaran} & \textbf{Cara Estimasi} \\ \hline
-    Kuantisasi encoder AS5600 & $\approx 0.088^{\circ}$ & $360/4096$ \\ \hline
-    \textit{Noise} pitch/roll (IMU) & $0.107-0.271^{\circ}$ & std dev saat \textit{static test} \\ \hline
-    \textit{Noise} heading (kompas) & $\sigma_{head}$ & std dev \textit{heading} terkompensasi tilt \\ \hline
-    Backlash/flex mekanik & $\Delta_{mech}$ & beda hasil saat pendekatan dua arah \\ \hline
-    Misalignment sensor-optik & $\Delta_{align}$ & offset konsisten setelah \textit{one-star alignment} \\ \hline
-    \end{tabular}
-\end{table}
+% \begin{table}[H]
+%     \centering
+%     \caption{Ringkasan Komponen Error (Error Budget) Sistem}
+%     \label{table:4.error_budget}
+%     \begin{tabular}{|p{0.42\textwidth}|p{0.18\textwidth}|p{0.32\textwidth}|}
+%     \hline
+%     \textbf{Sumber Error} & \textbf{Besaran} & \textbf{Cara Estimasi} \\ \hline
+%     Kuantisasi encoder AS5600 & $\approx 0.088^{\circ}$ & $360/4096$ \\ \hline
+%     \textit{Noise} pitch/roll (IMU) & $0.107-0.271^{\circ}$ & std dev saat \textit{static test} \\ \hline
+%     \textit{Noise} heading (kompas) & $\sigma_{head}$ & std dev \textit{heading} terkompensasi tilt \\ \hline
+%     Backlash/flex mekanik & $\Delta_{mech}$ & beda hasil saat pendekatan dua arah \\ \hline
+%     Misalignment sensor-optik & $\Delta_{align}$ & offset konsisten setelah \textit{one-star alignment} \\ \hline
+%     \end{tabular}
+% \end{table}
 
 \subsection{Analisis Sistem Penggerak} \label{IV.AnalisisMotor}
 Motor stepper NEMA 17 dengan driver A4988 dalam mode \textit{full-step} memberikan kontrol yang stabil dengan resolusi akhir 192 steps/degree setelah melewati gear reduction 345.6:1. Namun, karena kontrol stepper bersifat \textit{open-loop}, sistem tidak dapat mendeteksi \textit{missed step} secara langsung. \par
 
 Penggunaan encoder AS5600 pada kedua sumbu menyediakan pembacaan sudut aktual, memungkinkan koreksi berdasarkan error sudut bukan hanya jumlah langkah. Pendekatan ini meningkatkan robustness sistem dibanding stepper murni tanpa sensor posisi, karena dapat mendeteksi dan mengkompensasi deviasi akibat beban mekanik atau missed steps. \par
 
-\subsection{Ringkasan Analisis Hasil Penelitian} \label{IV.Ringkasan}
-Berdasarkan hasil pengujian komprehensif pada Bab~\ref{IV.HasilPengujian}, sistem teleskop robotik menunjukkan kinerja yang baik pada semua aspek yang diuji sesuai dengan rancangan pengujian pada Bab~\ref{III.Rancang_Uji}. \par
+% \subsection{Ringkasan Analisis Hasil Penelitian} \label{IV.Ringkasan}
+% Berdasarkan hasil pengujian komprehensif pada Bab~\ref{IV.HasilPengujian}, sistem teleskop robotik menunjukkan kinerja yang baik pada semua aspek yang diuji sesuai dengan rancangan pengujian pada Bab~\ref{III.Rancang_Uji}. \par
 
-\textbf{Perangkat keras dan sensor} berfungsi dengan baik dalam batas toleransi yang ditetapkan. Mahony Filter terbukti efektif meningkatkan stabilitas pembacaan IMU dengan mengurangi standar deviasi hingga 79.1\% untuk Roll dan 84.2\% untuk Pitch. Encoder AS5600 memberikan pembacaan sudut yang stabil dengan resolusi $\approx 0.088^{\circ}$. \par
+% \textbf{Perangkat keras dan sensor} berfungsi dengan baik dalam batas toleransi yang ditetapkan. Mahony Filter terbukti efektif meningkatkan stabilitas pembacaan IMU dengan mengurangi standar deviasi hingga 79.1\% untuk Roll dan 84.2\% untuk Pitch. Encoder AS5600 memberikan pembacaan sudut yang stabil dengan resolusi $\approx 0.088^{\circ}$. \par
 
-\textbf{Algoritma astronomi} menghasilkan perhitungan yang akurat dengan error dalam batas toleransi. Perhitungan JD dan LST memiliki presisi tinggi, sedangkan perhitungan posisi Matahari, Bulan, dan Planet menggunakan model aproksimasi yang memadai untuk aplikasi pengarahan teleskop. \par
+% \textbf{Algoritma astronomi} menghasilkan perhitungan yang akurat dengan error dalam batas toleransi. Perhitungan JD dan LST memiliki presisi tinggi, sedangkan perhitungan posisi Matahari, Bulan, dan Planet menggunakan model aproksimasi yang memadai untuk aplikasi pengarahan teleskop. \par
 
-\textbf{Sistem fungsional} menunjukkan kemampuan pengarahan (GoTo) dan pelacakan (Tracking) yang baik, meskipun akurasi penunjukan masih dipengaruhi oleh faktor mekanik seperti flex struktur cetak 3D, backlash pada transmisi gear, dan getaran saat motor berhenti. Error mekanik terbukti lebih dominan dibanding error sensor dalam mempengaruhi hasil Hit/Miss pada pengujian lapangan. \par
+% \textbf{Sistem fungsional} menunjukkan kemampuan pengarahan (GoTo) dan pelacakan (Tracking) yang baik, meskipun akurasi penunjukan masih dipengaruhi oleh faktor mekanik seperti flex struktur cetak 3D, backlash pada transmisi gear, dan getaran saat motor berhenti. Error mekanik terbukti lebih dominan dibanding error sensor dalam mempengaruhi hasil Hit/Miss pada pengujian lapangan. \par
 
-\textbf{Komunikasi dan antarmuka} bekerja dengan baik dengan kemampuan real-time, reconnect otomatis, dan fallback ke mode manual yang meningkatkan keandalan sistem. \par
+% \textbf{Komunikasi dan antarmuka} bekerja dengan baik dengan kemampuan real-time, reconnect otomatis, dan fallback ke mode manual yang meningkatkan keandalan sistem. \par
 
-Offset sistematis dapat dikurangi melalui prosedur kalibrasi satu bintang (\textit{one-star alignment}), namun error yang bergantung pada posisi memerlukan perbaikan mekanik lebih lanjut. Untuk mencapai akurasi setara observatorium profesional, diperlukan peningkatan material mounting (misalnya dari aluminium), struktur yang lebih rigid, serta implementasi kalibrasi multi-point untuk mengatasi flex yang bergantung pada altitude. \par
+% Offset sistematis dapat dikurangi melalui prosedur kalibrasi satu bintang (\textit{one-star alignment}), namun error yang bergantung pada posisi memerlukan perbaikan mekanik lebih lanjut. Untuk mencapai akurasi setara observatorium profesional, diperlukan peningkatan material mounting (misalnya dari aluminium), struktur yang lebih rigid, serta implementasi kalibrasi multi-point untuk mengatasi flex yang bergantung pada altitude. \par

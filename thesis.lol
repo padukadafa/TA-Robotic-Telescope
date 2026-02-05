@@ -5,4 +5,4 @@
 \contentsline {lstlisting}{\numberline {4.5}{\ignorespaces Pseudocode Perhitungan RA/Dec Bulan (calcMoonRaDec, aproksimasi)}}{76}{lstlisting.4.5}%
 \contentsline {lstlisting}{\numberline {4.6}{\ignorespaces Pseudocode Perhitungan RA/Dec Planet (calcPlanetRaDec, aproksimasi)}}{77}{lstlisting.4.6}%
 \contentsline {lstlisting}{\numberline {4.7}{\ignorespaces Pseudocode Tilt-Compensated Heading}}{78}{lstlisting.4.7}%
-\contentsline {lstlisting}{\numberline {4.8}{\ignorespaces Pseudocode Konversi Sudut ke Step dan Kendali GoTo Motor}}{79}{lstlisting.4.8}%
+\contentsline {lstlisting}{\numberline {4.8}{\ignorespaces Pseudocode Konversi Sudut ke Step dan Kendali GoTo Motor}}{78}{lstlisting.4.8}%

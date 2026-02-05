@@ -1015,7 +1015,7 @@ Tahap ini bertujuan untuk menilai kemampuan algoritma dalam menghasilkan estimas
 	\hline
 	\endhead
 	
-	1. & Estimasi orientasi (\textit{Roll}, \textit{Pitch}, \textit{Yaw}) & Membandingkan hasil estimasi dengan sudut referensi dari data simulasi. & Deviasi hasil estimasi $< 1.5^\circ$. \\
+	1. & Estimasi orientasi (\textit{Roll}, \textit{Pitch}, \textit{Yaw}) & Membandingkan hasil estimasi dengan sudut referensi dari data simulasi. & Deviasi hasil estimasi $< 0.2^\circ$. \\
 	\hline
 	2. & Kestabilan filter & Menguji respon sistem terhadap gerakan cepat dan posisi diam. & Estimasi orientasi tidak berosilasi dan tetap stabil. \\
 	\hline
@@ -1046,13 +1046,13 @@ Pengujian algoritma astronomi bertujuan untuk memvalidasi akurasi perhitungan ko
 	\hline
 	2. & Perhitungan Local Sidereal Time (LST) & Menguji perhitungan LST berdasarkan JD dan bujur pengamat. & Nilai LST sesuai dengan tabel astronomi referensi. \\
 	\hline
-	3. & Transformasi koordinat ekuatorial ke horizontal & Menguji konversi RA/Dec ke Az/Alt untuk berbagai posisi objek. & Koordinat Az/Alt dihitung dengan benar, kesalahan $< 0.5^\circ$. \\
+	3. & Transformasi koordinat ekuatorial ke horizontal & Menguji konversi RA/Dec ke Az/Alt untuk berbagai posisi objek. & Koordinat Az/Alt dihitung dengan benar, kesalahan $< 0^\circ2'$. \\
 	\hline
-	4. & Perhitungan posisi Matahari & Menguji algoritma perhitungan RA/Dec Matahari berdasarkan waktu. & Posisi Matahari sesuai dengan data ephemeris dengan kesalahan $< 1^\circ$. \\
+	4. & Perhitungan posisi Matahari & Menguji algoritma perhitungan RA/Dec Matahari berdasarkan waktu. & Posisi Matahari sesuai dengan data ephemeris dengan kesalahan $< 0^\circ2'$. \\
 	\hline
-	5. & Perhitungan posisi Bulan & Menguji algoritma perhitungan RA/Dec Bulan berdasarkan waktu. & Posisi Bulan sesuai dengan data ephemeris dengan kesalahan $< 2^\circ$. \\
+	5. & Perhitungan posisi Bulan & Menguji algoritma perhitungan RA/Dec Bulan berdasarkan waktu. & Posisi Bulan sesuai dengan data ephemeris dengan kesalahan $< 0^\circ2'$. \\
 	\hline
-	6. & Perhitungan posisi Planet & Menguji algoritma perhitungan RA/Dec planet berdasarkan waktu. & Posisi planet sesuai dengan data ephemeris dengan kesalahan $< 2^\circ$. \\
+	6. & Perhitungan posisi Planet & Menguji algoritma perhitungan RA/Dec planet berdasarkan waktu. & Posisi planet sesuai dengan data ephemeris dengan kesalahan $< 0^\circ2'$. \\
 	\hline
 	7. & Koordinat Bintang dari katalog & Menguji pembacaan dan transformasi koordinat bintang dari input RA/Dec. & Koordinat bintang ditransformasi dengan benar ke Az/Alt. \\
 	\hline
