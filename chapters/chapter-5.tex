@@ -4,20 +4,20 @@
 \section{Kesimpulan} \label{V.Kesimpulan}
 Berdasarkan hasil implementasi, pengujian, dan analisis yang telah dilakukan pada sistem teleskop robotik \textit{Alt-Azimuth} dengan pendekatan algoritma filter dan sensor fusion, kesimpulan penelitian ini menjawab rumusan masalah dan tujuan penelitian sebagai berikut: \par
 
-\subsection{Jawaban Tujuan 1}
+\subsection{Jawaban Tujuan Penelitian 1}
 Berkaitan dengan perancangan dan pembangunan teleskop robotik dua sumbu berbasis \textit{Alt-Azimuth} yang dapat menyesuaikan posisi akibat pergeseran atau perpindahan, serta mendukung pelacakan objek antariksa: \par
 
 \begin{enumerate}
     \item Teleskop robotik berbasis \textit{Alt-Azimuth} telah berhasil dirancang dan dibangun dengan mengintegrasikan sensor IMU MPU6050, magnetometer QMC5883L, dan encoder magnetik AS5600 untuk memberikan informasi orientasi teleskop secara real-time. Sistem menggunakan mikrokontroler ESP32 dengan arsitektur \textit{dual-core} yang memproses pembacaan sensor pada \textit{core} 0 dengan frekuensi 100~Hz dan kendali motor pada \textit{core} 1.
     
-    \item Sistem mampu menyesuaikan posisi secara otomatis saat terjadi pergeseran atau perpindahan melalui mekanisme inisialisasi orientasi menggunakan kombinasi \textit{tilt-compensated heading} dari magnetometer QMC5883L dan pembacaan encoder AS5600. Proses kalibrasi dibutuhkan untuk memungkinkan sistem mengkompensasi error sistematis akibat pergeseran mounting.
+    \item Sistem mampu menyesuaikan posisi secara otomatis saat terjadi pergeseran atau perpindahan melalui mekanisme inisialisasi orientasi menggunakan pembacaan \textit{heading} dari magnetometer QMC5883L dan pembacaan sudut absolut dari encoder AS5600. Proses kalibrasi dibutuhkan untuk memungkinkan sistem mengkompensasi error sistematis akibat pergeseran mounting.
     
-    \item Sistem pengarahan otomatis (\textit{GoTo}) berhasil mengarahkan teleskop ke objek langit dengan \textit{pointing error} sebesar 2.52$^{\circ}$. Algoritma astronomi untuk perhitungan posisi Matahari, Bulan, dan Planet menghasilkan akurasi dengan error $< 0.3^{\circ}$.
+    \item Sistem pengarahan otomatis (\textit{GoTo}) berhasil mengarahkan teleskop ke objek langit dengan error bervariasi untuk setiap objek. Pengujian pada empat objek menunjukkan error azimuth berkisar antara 0$^\circ$10' hingga 1$^\circ$23', dan error altitude berkisar antara 1$^\circ$00' hingga 2$^\circ$30'. Error terbesar terjadi pada sumbu \textit{Altitude} yang dipengaruhi gravitasi dan distribusi beban. Algoritma astronomi untuk perhitungan posisi Matahari, Bulan, dan Planet menghasilkan akurasi dengan error $< 0.3^{\circ}$.
     
-    \item Kemampuan pelacakan (\textit{tracking}) objek antariksa telah berhasil diimplementasikan dengan sistem mampu mengikuti pergerakan semu benda langit selama 1 jam. Pengujian pada Bulan menunjukkan sistem dapat menangani laju perubahan koordinat hingga 0.89$^{\circ}$/menit untuk \textit{Azimuth} dan 0.165$^{\circ}$/menit untuk \textit{Altitude} akan tetapi tidak dapat mempertahankan object untuk berada dalam bidang pandang teleskop secara konsisten.
+    \item Kemampuan pelacakan (\textit{tracking}) objek antariksa telah berhasil diimplementasikan dengan sistem mampu mengikuti pergerakan semu benda langit. Pengujian pada empat objek (Matahari, Bulan, Jupiter, dan Betelgeuse) dengan durasi pengamatan yang bervariasi menunjukkan bahwa sistem dapat menghitung dan mengkompensasi pergerakan koordinat horizontal secara kontinu. Pengamatan Matahari selama 19 menit menunjukkan objek masih dalam bidang pandang dengan laju perubahan sekitar 0.126$^{\circ}$/menit untuk \textit{Azimuth} dan 0.075$^{\circ}$/menit untuk \textit{Altitude}. Namun, sistem mengalami drift signifikan pada objek mendekati zenith seperti Bulan yang mengalami laju perubahan azimuth sangat tinggi, menyebabkan objek keluar dari medan pandang. Keterbatasan ini disebabkan oleh kombinasi error mekanik (flex, backlash), frekuensi update yang terbatas (5-10 detik), dan akumulasi error selama periode pelacakan.
 \end{enumerate}
 
-\subsection{Jawaban Tujuan 2}
+\subsection{Jawaban Tujuan Penelitian 2}
 Berkaitan dengan evaluasi integrasi sensor IMU dengan penerapan \textit{Mahony Filter} dalam meningkatkan akurasi estimasi sudut pada teleskop robotik: \par
 
 \begin{enumerate}
@@ -28,9 +28,11 @@ Berkaitan dengan evaluasi integrasi sensor IMU dengan penerapan \textit{Mahony F
 \end{enumerate}
 
 \subsection{Kesimpulan Umum}
-Penelitian ini belum sepenuhnya berhasil mengembangkan teleskop robotik berbasis teknologi lokal menggunakan sistem \textit{Alt-Azimuth} dengan integrasi sensor fusion dan \textit{Mahony Filter} yang mampu melakukan pengarahan dan pelacakan objek langit secara otomatis dengan akurasi yang memadai untuk aplikasi astronomi amatir dan edukasi. Sistem berhasil mengatasi keterbatasan konfigurasi awal teleskop konvensional melalui mekanisme kalibrasi yang lebih sederhana dan kemampuan adaptasi terhadap pergeseran posisi. \par
+Penelitian ini telah berhasil mengembangkan teleskop robotik berbasis teknologi lokal menggunakan sistem \textit{Alt-Azimuth} dengan integrasi sensor fusion dan \textit{Mahony Filter} yang mampu melakukan pengarahan objek langit secara otomatis. Sistem berhasil mengatasi keterbatasan konfigurasi awal teleskop konvensional melalui mekanisme kalibrasi yang lebih sederhana dan kemampuan adaptasi terhadap pergeseran posisi. \par
 
-Meskipun sistem pengarahan (\textit{GoTo}) dapat mengarahkan teleskop ke objek langit dengan \textit{pointing error} 2.52$^{\circ}$ yang memadai untuk objek dengan diameter sudut besar, akurasi pelacakan jangka panjang masih terbatas karena faktor mekanik (flex struktur PLA dan backlash gear) yang dominan dibanding error sensor. Sistem pelacakan dapat mengikuti pergerakan objek selama 1 jam namun mengalami drift yang menyebabkan objek tidak konsisten berada di pusat bidang pandang. Untuk aplikasi astronomi amatir dan edukasi dengan objek langit terang berdiameter besar (Bulan, Matahari), sistem sudah cukup memadai, namun masih diperlukan perbaikan mekanik signifikan untuk pengamatan objek titik (planet, bintang) yang memerlukan presisi lebih tinggi. \par
+Sistem pengarahan (\textit{GoTo}) dapat mengarahkan teleskop ke objek langit dengan error yang bervariasi untuk setiap objek, berkisar 0$^\circ$10' hingga 2$^\circ$30', yang masih memadai untuk objek dengan diameter sudut besar seperti Matahari dan Bulan. Untuk pelacakan objek, sistem mampu menghitung dan mengkompensasi pergerakan semu benda langit secara kontinu, dengan keberhasilan yang bervariasi tergantung pada posisi objek di langit. Pengamatan Matahari selama 19 menit menunjukkan hasil yang memuaskan dengan objek tetap dalam bidang pandang, namun pelacakan objek mendekati zenith mengalami drift signifikan yang menyebabkan objek keluar dari medan pandang. \par
+
+Keterbatasan pelacakan disebabkan oleh kombinasi faktor mekanik (flex struktur PLA dan backlash gear) yang dominan dibanding error sensor, frekuensi update posisi yang terbatas (5-10 detik), dan akumulasi error selama periode pengamatan. Untuk aplikasi astronomi amatir dan edukasi dengan objek langit terang berdiameter besar pada posisi tidak mendekati zenith, sistem sudah cukup memadai. Namun, masih diperlukan perbaikan mekanik signifikan, peningkatan frekuensi update, dan implementasi sistem autoguiding untuk pengamatan objek titik (planet, bintang) dan pelacakan presisi tinggi. \par
 
 \section{Saran} \label{V.Saran}
 Berdasarkan hasil analisis dan keterbatasan yang ditemukan dalam penelitian ini, beberapa saran untuk pengembangan lebih lanjut adalah: \par
@@ -38,9 +40,14 @@ Berdasarkan hasil analisis dan keterbatasan yang ditemukan dalam penelitian ini,
 \begin{enumerate}
     \item Peningkatan Material Struktur Mekanik: Mengganti material PLA cetak 3D dengan material yang lebih rigid seperti aluminium atau kombinasi cetak 3D dengan rangka logam untuk mengurangi flex mekanik dan meningkatkan stabilitas struktur, terutama pada posisi \textit{Altitude} tinggi.
     
+    \item Peningkatan Frekuensi Update Pelacakan: Meningkatkan frekuensi pembaruan posisi dari 5-10 detik menjadi 1-2 detik untuk mengurangi akumulasi error selama pelacakan, terutama untuk objek dengan laju perubahan koordinat tinggi seperti objek mendekati zenith.
+    
+    \item Implementasi Sistem Autoguiding: Mengintegrasikan kamera guide dengan algoritma deteksi objek untuk koreksi posisi secara real-time berdasarkan citra objek target, sehingga dapat mengkompensasi drift mekanik secara dinamis selama pelacakan.
+    
     \item Implementasi Kalibrasi Multi-Titik: Mengembangkan sistem kalibrasi multi-titik yang mencakup berbagai kombinasi Az/Alt untuk membangun model koreksi berbasis interpolasi atau regresi polinomial, sehingga dapat mengkompensasi error yang bergantung pada posisi teleskop.
     
     \item Optimasi Sistem Transmisi: Mengurangi backlash mekanik dengan menggunakan gear presisi tinggi atau menambahkan mekanisme pre-load pada transmisi gear. Pertimbangkan penggunaan belt timing atau harmonic drive untuk aplikasi yang memerlukan akurasi lebih tinggi.
+    
     
     \item Peningkatan Algoritma Astronomi: Mengimplementasikan model ephemeris yang lebih akurat dengan memasukkan koreksi perturbasi planet, nutasi, aberasi, dan koreksi atmosferik untuk meningkatkan presisi perhitungan posisi benda langit hingga level arcminute atau arcsecond.
     
