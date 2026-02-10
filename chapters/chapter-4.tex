@@ -515,37 +515,36 @@ Pengujian sistem fungsional dilakukan untuk memverifikasi kemampuan sistem teles
 \subsubsection{Pengujian Pengarahan Objek Langit (GoTo)} \label{IV.UjiPointing}
 Pengujian pengarahan dilakukan dengan mengarahkan teleskop ke empat objek referensi: Matahari, Bulan, Jupiter, dan Betelgeuse. Tabel~\ref{table:4.pointing_data} menunjukkan hasil pengujian yang mencakup koordinat target, koordinat terukur, error sudut, dan hasil visual observasi.
 
-\begin{longtable}{|c|l|c|c|c|c|}
-    \caption{Data Hasil Pengujian Penunjukan Objek Langit}
-    \label{table:4.pointing_data} \\
-    \hline
-    \textbf{No} & \textbf{Objek} & \textbf{Target (Az/Alt)} & \textbf{Terukur (Az/Alt)} & \textbf{Error ($\Delta Az/ \Delta Alt$)} \\
-    \hline
-    \endfirsthead
-    \hline
-    \textbf{No} & \textbf{Objek} & \textbf{Target (Az/Alt)} & \textbf{Terukur (Az/Alt)} & \textbf{Error ($\Delta Az/ \Delta Alt$)} \\
-    \hline
-    \endhead
-    \hline
-    \endfoot
-    \hline
-    \endlastfoot
+\begin{longtable}{|c|l|c|c|c|}
+\caption{Data Hasil Pengujian Penunjukan Objek Langit}
+\label{table:4.pointing_data} \\
+\hline
+\textbf{No} & \textbf{Objek} & \textbf{Target (Az/Alt)} & \textbf{Terukur (Az/Alt)} & \textbf{Error ($\Delta Az/ \Delta Alt$)} \\
+\hline
+\endfirsthead
+\hline
+\textbf{No} & \textbf{Objek} & \textbf{Target (Az/Alt)} & \textbf{Terukur (Az/Alt)} & \textbf{Error ($\Delta Az/ \Delta Alt$)} \\
+\hline
+\endhead
+\hline
+\endfoot
+\hline
+\endlastfoot
 
-    1 & Matahari & - & - & - \\ \hline
-    2 & Bulan & $62^\circ30'$/$75^\circ12'$ & $63^\circ42'$/$72^\circ42'$ & $1^\circ12'$/$-2^\circ30'$ \\ \hline
-    3 & Jupiter & - & - & - \\ \hline
-    4 & Betelgeuse & - & - & - \\ \hline
+1 & Matahari & $108^\circ47'$/$51^\circ18'$ & $107^\circ24'$/$48^\circ54'$ & $-1^\circ23'$/$-2^\circ24'$ \\ \hline
+2 & Bulan & $62^\circ30'$/$75^\circ12'$ & $63^\circ42'$/$72^\circ42'$ & $1^\circ12'$/$-2^\circ30'$ \\ \hline
+3 & Jupiter & $24^\circ03'$/$58^\circ24'$ & $24^\circ34'$/$57^\circ24'$ & $0^\circ31'$/$-1^\circ00'$ \\ \hline
+4 & Betelgeuse & $296^\circ42'$/$59^\circ22'$ & $296^\circ32'$/$57^\circ58'$ & $-0^\circ10'$/$-1^\circ24'$ \\ \hline
+
 \end{longtable}
-
 \subsubsection{Pengujian Pelacakan Objek (Tracking)} \label{IV.UjiTracking}
-Pengujian pelacakan dilakukan untuk mengevaluasi kemampuan sistem mempertahankan objek di pusat bidang pandang saat koordinat berubah terhadap waktu akibat rotasi bumi. Pengujian ini menggunakan keempat objek referensi yang sama dengan pengujian pengarahan pada Bab~\ref{IV.UjiPointing}: Matahari, Bulan, Jupiter, dan Betelgeuse. Setiap objek dilacak secara kontinu selama 1 jam (3600 detik) untuk mengamati pergeseran posisi dan menguji kemampuan sistem dalam mengikuti pergerakan semu benda langit. \par
+Pengujian pelacakan dilakukan untuk mengevaluasi kemampuan sistem mempertahankan objek di pusat bidang pandang saat koordinat berubah terhadap waktu akibat rotasi bumi. Pengujian ini menggunakan keempat objek referensi yang sama dengan pengujian pengarahan pada Bab~\ref{IV.UjiPointing}: Matahari, Bulan, Jupiter, dan Betelgeuse. Setiap objek dilacak secara kontinu untuk mengamati pergeseran posisi dan menguji kemampuan sistem dalam mengikuti pergerakan semu benda langit. \par
 
-Selama pelacakan 1 jam, sistem secara kontinu menghitung ulang koordinat Alt-Azimuth target berdasarkan waktu RTC dan lokasi pengamat, kemudian menggerakkan motor untuk mengkompensasi pergerakan semu objek akibat rotasi bumi. Delta posisi ($\Delta Az$ dan $\Delta Alt$) dihitung sebagai selisih antara posisi encoder pada $t=3600$~detik dan $t=0$~detik. Pergeseran ini mencerminkan seberapa baik sistem dapat mengikuti laju perubahan koordinat horizontal objek langit. \par
+Selama pelacakan, sistem secara kontinu menghitung ulang koordinat Alt-Azimuth target berdasarkan waktu RTC dan lokasi pengamat, kemudian menggerakkan motor untuk mengkompensasi pergerakan semu objek akibat rotasi bumi. Delta posisi ($\Delta Az$ dan $\Delta Alt$) dihitung sebagai selisih antara posisi encoder pada $t_0$~detik dan $t_1$~detik. Pergeseran ini mencerminkan seberapa baik sistem dapat mengikuti laju perubahan koordinat horizontal objek langit. \par
 
-Tabel~\ref{table:4.tracking_1hour_data} menunjukkan hasil pengukuran posisi awal dan akhir untuk setiap objek, beserta delta posisi yang terjadi selama periode pelacakan 1 jam.
-
-\begin{longtable}{|c|l|c|c|c|c|}
-    \caption{Data Hasil Pengujian Pelacakan 1 Jam untuk Setiap Objek}
+Tabel~\ref{table:4.tracking_1hour_data} menunjukkan hasil pengukuran posisi awal dan akhir untuk setiap objek beserta delta posisi yang terjadi selama periode pelacakan.
+\begin{longtable}{|c|l|c|c|c|}
+    \caption{Data Hasil Pengujian Pelacakan untuk Setiap Objek}
     \label{table:4.tracking_1hour_data} \\
     \hline
     \textbf{No} & \textbf{Objek} & \textbf{Posisi Awal (Az/Alt)} & \textbf{Posisi Akhir (Az/Alt)} & \textbf{Delta ($\Delta$)} \\
@@ -560,27 +559,40 @@ Tabel~\ref{table:4.tracking_1hour_data} menunjukkan hasil pengukuran posisi awal
     \hline
     \endlastfoot
 
-    1 & Matahari & $Az_0/Alt_0$ & $Az_1/Alt_1$ & $\Delta Az/\Delta Alt$ \\ \hline
-    2 & Bulan & $62^\circ30'$/$75^\circ12'$ & $9^\circ/85^\circ7'$ & $-52^\circ55' /9^\circ55'$ \\ \hline
-    3 & Jupiter & $Az_0/Alt_0$ & $Az_1/Alt_1$ & $\Delta Az/\Delta Alt$ \\ \hline
-    4 & Betelgeuse & $Az_0/Alt_0$ & $Az_1/Alt_1$ & $\Delta Az/\Delta Alt$ \\ \hline
+    1 & Matahari & $108^\circ32'$/$51^\circ05'$ & $110^\circ56'$/$52^\circ30'$ & $+2^\circ24' / +1^\circ25'$ \\ \hline
+    2 & Bulan & $62^\circ30'$/$75^\circ12'$ & $9^\circ/85^\circ7'$ & $-52^\circ55' / +9^\circ55'$ \\ \hline
+    3 & Jupiter & $24^\circ18'$/$58^\circ05'$ & $3^\circ42' / 60^\circ54'$ & $-20^\circ36' / +2^\circ49'$ \\ \hline
+    4 & Betelgeuse & $296^\circ28'$/$59^\circ05'$ & $289^\circ11' / 51^\circ42'$ & $-7^\circ17' / -7^\circ23'$ \\ \hline
 \end{longtable}
 
-Untuk memberikan bukti visual keberhasilan pelacakan, Gambar~\ref{fig:4.tracking_sun_before} hingga Gambar~\ref{fig:4.tracking_betelgeuse_after} menunjukkan posisi setiap objek di bidang pandang teleskop pada menit ke-0 (sebelum pelacakan) dan menit ke-60 (setelah pelacakan 1 jam). Perbandingan visual ini mengkonfirmasi apakah objek tetap berada di pusat FOV atau mengalami drift yang signifikan.
+\begin{table}[H]
+    \centering
+    \caption{Waktu Pengamatan Pelacakan Objek}
+    \label{table:4.tracking_time}
+    \begin{tabular}{|c|l|l|}
+    \hline
+    \textbf{No} & \textbf{Objek} & \textbf{Waktu Pengamatan} \\ \hline
+    1 & Matahari & 3 Februari 2026, pukul 9:35 - 9:54 WIB \\ \hline
+    2 & Bulan & - \\ \hline
+    3 & Jupiter & - \\ \hline
+    4 & Betelgeuse & - \\ \hline
+    \end{tabular}
+\end{table}
+Untuk memberikan bukti visual keberhasilan pelacakan, Gambar~\ref{fig:4.tracking_sun_before} hingga Gambar~\ref{fig:4.tracking_moon_after} menunjukkan perbandingan posisi setiap objek di bidang pandang teleskop pada awal dan akhir periode pelacakan. Perbandingan visual ini mengkonfirmasi apakah objek tetap berada di pusat FOV atau mengalami drift yang signifikan selama pelacakan berlangsung.
 
 \begin{figure}[H]
     \centering
     \begin{minipage}{0.48\textwidth}
         \centering
         \includegraphics[width=\textwidth]{figure/tracking_sun_2.png}
-        \caption{Posisi Matahari pada Menit Ke-0}
+        \caption{Posisi Matahari pada Pukul 9:35 WIB Tanggal 3 Februari 2026}
         \label{fig:4.tracking_sun_before}
     \end{minipage}
     \hfill
     \begin{minipage}{0.48\textwidth}
         \centering
         \includegraphics[width=\textwidth]{figure/tracking_sun_1.png}
-        \caption{Posisi Matahari pada Menit Ke-60}
+        \caption{Posisi Matahari pada Pukul 9:54 WIB Tanggal 3 Februari 2026}
         \label{fig:4.tracking_sun_after}
     \end{minipage}
 \end{figure}
@@ -602,39 +614,39 @@ Untuk memberikan bukti visual keberhasilan pelacakan, Gambar~\ref{fig:4.tracking
     \end{minipage}
 \end{figure}
 
-\begin{figure}[H]
-    \centering
-    \begin{minipage}{0.48\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{figure/alur_penelitian.png}
-        \caption{Posisi Jupiter pada Menit Ke-0}
-        \label{fig:4.tracking_jupiter_before}
-    \end{minipage}
-    \hfill
-    \begin{minipage}{0.48\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{figure/alur_penelitian.png}
-        \caption{Posisi Jupiter pada Menit Ke-60}
-        \label{fig:4.tracking_jupiter_after}
-    \end{minipage}
-\end{figure}
+% \begin{figure}[H]
+%     \centering
+%     \begin{minipage}{0.48\textwidth}
+%         \centering
+%         \includegraphics[width=\textwidth]{figure/alur_penelitian.png}
+%         \caption{Posisi Jupiter pada Menit Ke-0}
+%         \label{fig:4.tracking_jupiter_before}
+%     \end{minipage}
+%     \hfill
+%     \begin{minipage}{0.48\textwidth}
+%         \centering
+%         \includegraphics[width=\textwidth]{figure/alur_penelitian.png}
+%         \caption{Posisi Jupiter pada Menit Ke-60}
+%         \label{fig:4.tracking_jupiter_after}
+%     \end{minipage}
+% \end{figure}
 
-\begin{figure}[H]
-    \centering
-    \begin{minipage}{0.48\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{figure/alur_penelitian.png}
-        \caption{Posisi Betelgeuse pada Menit Ke-0}
-        \label{fig:4.tracking_betelgeuse_before}
-    \end{minipage}
-    \hfill
-    \begin{minipage}{0.48\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{figure/alur_penelitian.png}
-        \caption{Posisi Betelgeuse pada Menit Ke-60}
-        \label{fig:4.tracking_betelgeuse_after}
-    \end{minipage}
-\end{figure}
+% \begin{figure}[H]
+%     \centering
+%     \begin{minipage}{0.48\textwidth}
+%         \centering
+%         \includegraphics[width=\textwidth]{figure/alur_penelitian.png}
+%         \caption{Posisi Betelgeuse pada Menit Ke-0}
+%         \label{fig:4.tracking_betelgeuse_before}
+%     \end{minipage}
+%     \hfill
+%     \begin{minipage}{0.48\textwidth}
+%         \centering
+%         \includegraphics[width=\textwidth]{figure/alur_penelitian.png}
+%         \caption{Posisi Betelgeuse pada Menit Ke-60}
+%         \label{fig:4.tracking_betelgeuse_after}
+%     \end{minipage}
+% \end{figure}
 
 \subsubsection{Pengujian Kontrol Manual} \label{IV.UjiManual}
 Pengujian mode manual dilakukan untuk memverifikasi kemampuan pengguna menggerakkan teleskop secara manual melalui aplikasi. Pengujian dilakukan dengan menggerakkan teleskop pada empat arah utama (Kiri, Kanan, Atas, Bawah) dalam tiga periode berturut-turut, masing-masing selama 10 detik dengan jeda berhenti di antara periode. Pengujian ini bertujuan untuk mengukur konsistensi perubahan posisi, kecepatan gerakan, dan responsivitas kontrol manual. \par
@@ -702,9 +714,20 @@ Analisis akurasi penunjukan dilakukan berdasarkan data pada Tabel~\ref{table:4.p
 Error menunjukkan pola konsisten yang dapat dikompensasi melalui kalibrasi \textit{one-star alignment}. Dari data Bulan, offset koreksi yang diperlukan adalah $\delta_{Az} = -1^{\circ}12'$ dan $\delta_{Alt} = +2^{\circ}30'$, diterapkan pada perintah berikutnya: $Az_{cmd} = Az_t + \delta_{Az}$ dan $Alt_{cmd} = Alt_t + \delta_{Alt}$. Metode ini efektif untuk mengurangi error sistematis konstan (offset mounting sensor, kesalahan referensi kompas), namun tidak mengatasi error bergantung posisi seperti flex mekanik. \par
 
 \subsection{Analisis Sistem Pelacakan (Tracking)} \label{IV.AnalisisTracking}
-Pengujian pelacakan selama 1 jam mengevaluasi kemampuan sistem mengikuti pergerakan semu benda langit akibat rotasi bumi. Berdasarkan data Bulan pada Tabel~\ref{table:4.tracking_1hour_data}, terjadi perubahan posisi signifikan: $\Delta Az = -53.5^{\circ}$ dan $\Delta Alt = 9.92^{\circ}$. Perubahan besar pada \textit{Azimuth} disebabkan posisi Bulan mendekati zenith ($Alt > 75^{\circ}$), di mana lintasan azimuth sangat cepat karena lingkaran azimuth menyempit. Laju perubahan sudut adalah $\approx 0.89^{\circ}/\text{min}$ untuk \textit{Azimuth} dan $\approx 0.165^{\circ}/\text{min}$ untuk \textit{Altitude}. \par
+Pengujian pelacakan dilakukan untuk mengevaluasi kemampuan sistem mengikuti pergerakan semu benda langit akibat rotasi bumi. Berdasarkan Tabel~\ref{table:4.tracking_1hour_data} dan Tabel~\ref{table:4.tracking_time}, durasi pengamatan untuk setiap objek bervariasi tergantung kondisi pengamatan. \par
 
-Akurasi pelacakan bergantung pada tiga faktor: (1) akurasi algoritma astronomi dengan error $< 0.3^{\circ}$, (2) presisi sensor orientasi dengan resolusi $0.088^{\circ}$ dan noise $\approx 0.1^{\circ}$--0.3$^{\circ}$, dan (3) responsivitas motor dengan kecepatan $\approx 1.8^{\circ}/\text{s}$ dan frekuensi update 5--10 detik. Dokumentasi visual (Gambar~\ref{fig:4.tracking_moon_before} dan \ref{fig:4.tracking_moon_after}) menunjukkan Bulan sudah berada di luar medan pandang teleskop, tetapi bayangan dari cahaya matahari masih terlihat. Hal ini menunjukkan bahwa teleskop tidak mampu untuk melacak benda langit dengan presisi, Hal ini dikarenakan drift dari motor dan hasil cetak gear yang tidak rigid sehingga menyebabkan error sudut yang diluar batas yang telah ditentukan yaitu $0.2^\circ$.  \par
+Untuk pengamatan Matahari yang dilakukan pada 3 Februari 2026 pukul 9:35--9:54 WIB (durasi 19 menit), terjadi perubahan posisi $\Delta Az = +2^\circ24'$ (2.4$^\circ$) dan $\Delta Alt = +1^\circ25'$ (1.42$^\circ$). Laju perubahan sudut yang terukur adalah sekitar $0.126^\circ$/menit untuk \textit{Azimuth} dan $0.075^\circ$/menit untuk \textit{Altitude}. Perubahan posisi ini mencerminkan pergerakan semu Matahari akibat rotasi bumi pada posisi ketinggian sekitar 51$^\circ$ di langit pagi. \par
+
+Untuk objek Bulan, terjadi perubahan posisi yang sangat signifikan: $\Delta Az = -52^\circ55'$ (-52.92$^\circ$) dan $\Delta Alt = +9^\circ55'$ (9.92$^\circ$). Perubahan besar pada \textit{Azimuth} disebabkan posisi Bulan mendekati zenith ($Alt > 75^\circ$), di mana lintasan azimuth sangat cepat karena lingkaran azimuth menyempit. Pada posisi mendekati zenith, bahkan perubahan kecil dalam waktu dapat menyebabkan perubahan azimuth yang sangat besar. \par
+
+Objek Jupiter menunjukkan perubahan $\Delta Az = -20^\circ36'$ dan $\Delta Alt = +2^\circ49'$, sedangkan Betelgeuse mengalami perubahan $\Delta Az = -7^\circ17'$ dan $\Delta Alt = -7^\circ23'$. Pola perubahan koordinat ini sesuai dengan karakteristik pergerakan semu benda langit yang bergantung pada posisi objek di langit dan waktu pengamatan. \par
+
+Akurasi pelacakan bergantung pada tiga faktor utama: akurasi algoritma astronomi dalam menghitung posisi objek dengan error $< 0.3^\circ$, presisi sensor orientasi dengan resolusi $0.088^\circ$ dan noise $\approx 0.1^\circ$--0.3$^\circ$, dan responsivitas motor dengan kecepatan $\approx 1.8^\circ$/s dan frekuensi update 5--10 detik. \par
+
+Dokumentasi visual pada Gambar~\ref{fig:4.tracking_sun_before} dan \ref{fig:4.tracking_sun_after} menunjukkan bahwa Matahari masih berada dalam medan pandang teleskop setelah 19 menit pelacakan, meskipun terjadi sedikit pergeseran dari pusat FOV. Untuk Bulan (Gambar~\ref{fig:4.tracking_moon_before} dan \ref{fig:4.tracking_moon_after}), objek sudah berada di luar medan pandang teleskop pada akhir periode pelacakan, meskipun bayangan dari cahaya bulan masih terlihat. Hal ini menunjukkan bahwa sistem mengalami drift yang cukup signifikan, terutama untuk objek yang berada mendekati zenith dengan laju perubahan azimuth yang sangat tinggi. \par
+
+Drift pelacakan disebabkan oleh kombinasi beberapa faktor: (1) error mekanik akibat hasil cetak gear yang tidak rigid sehingga terjadi backlash dan flex, (2) akumulasi error sudut yang melebihi batas toleransi $0.2^\circ$, (3) keterbatasan frekuensi update posisi yang hanya 5--10 detik tidak mampu mengikuti laju perubahan koordinat yang tinggi pada posisi mendekati zenith, dan (4) error algoritma astronomi yang meskipun kecil ($< 0.3^\circ$) dapat terakumulasi selama periode pelacakan yang panjang. \par
+
 
 \subsection{Analisis Kontrol Manual} \label{IV.AnalisisManualKomunikasi}
 Hasil pengujian kontrol manual pada Tabel~\ref{table:4.manual_test} menunjukkan tingkat konsistensi yang sangat tinggi dengan standar deviasi maksimal hanya 0.046$^\circ$ (gerakan Kiri dan Atas), sementara gerakan Kanan dan Bawah menunjukkan konsistensi sempurna (standar deviasi = 0$^\circ$). Konsistensi ini mengindikasikan bahwa motor stepper dan sistem transmisi gear dengan rasio reduksi 345.6:1 bekerja dengan stabil dan mampu meminimalkan efek \textit{missed steps} serta \textit{backlash}. Kecepatan gerakan yang terukur berkisar antara 1.772$^\circ$/s hingga 2.250$^\circ$/s, memadai untuk aplikasi pengamatan astronomi amatir dan memberikan kontrol yang cukup presisi. \par
@@ -712,8 +735,7 @@ Hasil pengujian kontrol manual pada Tabel~\ref{table:4.manual_test} menunjukkan 
 Analisis data mengungkap adanya asimetri kecepatan antara arah positif dan negatif pada kedua sumbu, dengan perbedaan sekitar 27\%. Pada sumbu \textit{Azimuth}, gerakan \textit{Kanan} lebih cepat dibanding \textit{Kiri}, sedangkan pada sumbu \textit{Altitude}, gerakan \textit{Bawah} lebih cepat dibanding \textit{Atas}. Asimetri ini kemungkinan disebabkan oleh kombinasi efek gravitasi (terutama pada sumbu vertikal), hasil cetak yang kurang presisi, dan distribusi beban mekanik yang tidak sepenuhnya simetris. Meskipun terdapat perbedaan kecepatan, repeatabilitas yang sangat tinggi pada setiap arah memastikan bahwa operator dapat mengandalkan respon yang konsisten dan prediktif untuk operasi manual, menjadikan mode manual sebagai \textit{fallback} yang andal ketika mode \textit{GoTo} tidak tersedia. \par
 
 \subsection{Analisis Faktor Mekanik} \label{IV.AnalisisMekanik}
-Meskipun perhitungan koordinat dan perintah sudut telah akurat, kinerja sistem masih sangat dipengaruhi oleh keterbatasan mekanik. Struktur \textit{mounting} yang dibuat dengan cetak 3D menggunakan material PLA memiliki kelemahan berupa lenturan kecil (\textit{flex}) yang terjadi saat motor berhenti mendadak. Lenturan ini menyebabkan teleskop mengalami getaran halus yang dapat menggeser posisi bidang pandang, terutama saat mengamati objek kecil seperti planet atau bintang yang memerlukan akurasi tinggi. Fenomena serupa juga dilaporkan pada penelitian teleskop \textit{low-cost} lainnya untuk pengamatan hilal \cite{Hadi2022}, yang menunjukkan bahwa material cetak 3D memang memiliki keterbatasan dalam hal kekakuan struktural dibandingkan dengan material logam seperti aluminium. \par
-
+Meskipun perhitungan koordinat dan perintah sudut telah akurat, kinerja sistem masih sangat dipengaruhi oleh keterbatasan mekanik. Struktur \textit{mounting} yang dibuat dengan cetak 3D menggunakan material PLA memiliki kelemahan berupa lenturan kecil (\textit{flex}) yang terjadi saat motor berhenti mendadak. Lenturan ini menyebabkan teleskop mengalami getaran halus yang dapat menggeser posisi bidang pandang, terutama saat mengamati objek kecil seperti planet atau bintang yang memerlukan akurasi tinggi. \par
 Selain masalah lenturan, sistem transmisi gear juga memiliki celah mekanik (\textit{backlash}) yang menyebabkan sedikit pergeseran posisi tergantung dari arah gerakan motor. Ketika motor bergerak dari kiri ke kanan atau sebaliknya, terdapat jarak mati kecil sebelum gear benar-benar menggerakkan teleskop. Hal ini menciptakan efek histeresis dimana posisi akhir teleskop sedikit berbeda jika didekati dari arah yang berbeda. Untuk mengevaluasi besarnya \textit{backlash}, dapat dilakukan pengujian dengan mengarahkan teleskop ke posisi yang sama dari dua arah berlawanan, kemudian mengukur selisih sudut yang terjadi. Toleransi pemasangan komponen yang tidak sempurna juga berkontribusi terhadap ketidakpresisian ini, memperbesar dampak \textit{backlash} terhadap akurasi pengarahan. \par
 
 % \subsection{Analisis Error Budget Sistem} \label{IV.ErrorBudget}
