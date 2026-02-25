@@ -200,10 +200,10 @@ Berdasarkan Gambar~\ref{fig:2.5}, sistem koordinat ekliptika menggunakan dua par
 	\centering
 	\includegraphics[width=0.6\textwidth]{figure/tata_koordinat_ekuatorial.png}
 	\caption{Tata koordinat ekuatorial}
-	\label{fig:2.5}
+	\label{fig:2.6}
 	{\footnotesize Sumber: Astronomy Principles and Practice} % Untuk memberikan sumber
 \end{figure}
-Transformasi koordinat dari sistem ekuator (Right Ascension dan Declination) ke sistem alt-azimuth (Azimuth dan Altitude) diperlukan agar teleskop dapat mengarahkan diri ke posisi objek langit berdasarkan lokasi dan waktu pengamatan\cite{Roy2018}. Berdasarkan gambar \ref{fig:2.5} dapat kita rumuskan.
+Transformasi koordinat dari sistem ekuator (Right Ascension dan Declination) ke sistem alt-azimuth (Azimuth dan Altitude) diperlukan agar teleskop dapat mengarahkan diri ke posisi objek langit berdasarkan lokasi dan waktu pengamatan\cite{Roy2018}. Berdasarkan gambar \ref{fig:2.6} dapat kita rumuskan.
 \begin{equationcaptioned}[eq:2.transformasiDeklinasi]{
 			\sin{\delta} = \sin{\phi}\sin{a} + \cos{\phi}\cos{a}\cos{A}
 	} {
@@ -444,11 +444,11 @@ Pendekatan ini menghasilkan akurasi yang memadai untuk keperluan penunjukan (\te
 
 Posisi planet dihitung berdasarkan elemen orbit Keplerian dengan asumsi model dua-benda antara Matahari dan planet yang bersangkutan. Elemen orbit yang digunakan meliputi sumbu semi-mayor, eksentrisitas, inklinasi, bujur node naik, argumen perihelion, dan anomali rata-rata \cite{Meeus1998,EMStandish1992}. 
 
-Melalui penyelesaian persamaan Kepler, diperoleh nilai anomali eksentrik dan anomali sejati yang selanjutnya digunakan untuk menentukan posisi planet dalam koordinat heliosentris. Koordinat tersebut kemudian ditransformasikan ke sistem ekliptika dan ekuatorial agar dapat digunakan oleh sistem teleskop otomatis. Pendekatan ini umum digunakan pada sistem teleskop robotik dengan kebutuhan akurasi menengah \cite{meeus}.
+Melalui penyelesaian persamaan Kepler, diperoleh nilai anomali eksentrik dan anomali sejati yang selanjutnya digunakan untuk menentukan posisi planet dalam koordinat heliosentris. Koordinat tersebut kemudian ditransformasikan ke sistem ekliptika dan ekuatorial agar dapat digunakan oleh sistem teleskop otomatis. Pendekatan ini umum digunakan pada sistem teleskop robotik dengan kebutuhan akurasi menengah \cite{Meeus1998}.
 
 \subsection{Perhitungan Posisi Bulan} \label{II.TeoriBulan}
 
-Posisi Bulan memiliki variasi yang lebih kompleks dibandingkan Matahari akibat pengaruh gravitasi Bumi dan Matahari serta eksentrisitas orbitnya yang relatif besar. Dalam penelitian ini, perhitungan posisi Bulan dilakukan menggunakan pendekatan orde rendah dengan mempertimbangkan bujur rata-rata Bulan, anomali Bulan, dan sudut argumen lintang \cite{meeus}. 
+Posisi Bulan memiliki variasi yang lebih kompleks dibandingkan Matahari akibat pengaruh gravitasi Bumi dan Matahari serta eksentrisitas orbitnya yang relatif besar. Dalam penelitian ini, perhitungan posisi Bulan dilakukan menggunakan pendekatan orde rendah dengan mempertimbangkan bujur rata-rata Bulan, anomali Bulan, dan sudut argumen lintang \cite{Meeus1998}. 
 
 Hasil perhitungan posisi Bulan dinyatakan dalam koordinat ekliptika yang kemudian ditransformasikan ke koordinat ekuatorial untuk memperoleh nilai Right Ascension dan Declination. Model ini memberikan akurasi yang cukup untuk keperluan observasi visual dan pengendalian teleskop robotik \cite{Meeus1998}.
 
