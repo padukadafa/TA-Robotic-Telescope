@@ -351,7 +351,7 @@ Desain sistem merupakan tahap penting dalam pembangunan teleskop robotik berbasi
 Flowchart sistem menggambarkan alur logika dan proses kerja sistem teleskop robotik dari awal hingga akhir. Diagram ini membantu memahami bagaimana data dikirimkan dari aplikasi kontrol, diproses oleh mikrokontroler, kemudian menghasilkan aksi berupa gerakan motor pengarah teleskop. \par
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.85\textwidth]{figure/flowchart_sistem.png}
+	\includegraphics[width=0.85\textwidth]{figure/flowchart_ref.png}
 	\caption{Flowchart sistem kontrol teleskop robotik}
 	\label{fig:3.flowchart}
 \end{figure}
@@ -361,7 +361,7 @@ Arsitektur sistem secara umum terdiri dari mikrokontroler sebagai unit kendali u
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.9\textwidth]{figure/arsitektur_sistem.png}
+	\includegraphics[width=0.9\textwidth]{figure/ppt_sidang_daniel.png}
 	\caption{Arsitektur sistem teleskop robotik}
 	\label{fig:3.arsitektur}
 \end{figure}
@@ -825,78 +825,362 @@ Dengan demikian, posisi Bulan diperoleh:
 \alpha = 9.10^h,\quad \delta = 18.1^\circ
 \]
 }
+\subsection{Perhitungan Posisi Planet Jupiter}
 
-\subsection{Perhitungan Posisi Planet (Mars)}
-\label{III.ContohPlanet}
+Sebagai contoh, dihitung posisi planet Jupiter menggunakan elemen orbit Keplerian dengan koreksi perubahan elemen terhadap waktu.
 
-Sebagai contoh, ditentukan posisi planet Mars menggunakan elemen orbit Keplerian dengan asumsi sebagai berikut:
+Diasumsikan waktu pengamatan:
+
 {\setlength{\abovedisplayskip}{8pt}%
-	\setlength{\belowdisplayskip}{8pt}%
+\setlength{\belowdisplayskip}{8pt}%
 \[
-a = 1.5237\ \text{AU},\quad e = 0.0934
-\]
-}
-Anomali rata-rata Mars dihitung dari:
-{\setlength{\abovedisplayskip}{8pt}%
-	\setlength{\belowdisplayskip}{8pt}%
-\[
-M = L - \bar{\omega} = -4.55^\circ - (-23.94^\circ) = 19.39^\circ
-\]
-}
-Persamaan Kepler:\\
-{\setlength{\abovedisplayskip}{8pt}%
-	\setlength{\belowdisplayskip}{8pt}%
-\[
-M = E - e\sin E
+JD = 2460686.5
 \]
 }\\
-Diselesaikan secara iteratif menggunakan metode Newton–Raphson dan diperoleh:\\
+
+Waktu dalam satuan Julian century:
+
+\begin{equationcaptioned}[eq:jupiter.time]{
+T = \frac{JD - 2451545.0}{36525}
+}{
+Waktu dalam satuan Julian century
+}
+\end{equationcaptioned}
+
 {\setlength{\abovedisplayskip}{8pt}%
-	\setlength{\belowdisplayskip}{8pt}%
+\setlength{\belowdisplayskip}{8pt}%
 \[
-E \approx 21.1^\circ
-\]
-}\\
-Anomali sejati ($\nu$):
-{\setlength{\abovedisplayskip}{8pt}%
-	\setlength{\belowdisplayskip}{8pt}%
-\[
-\tan\frac{\nu}{2} = \sqrt{\frac{1+e}{1-e}} \tan\frac{E}{2}
-\Rightarrow \nu \approx 23.0^\circ
+T =
+\frac{2460686.5 - 2451545.0}{36525}
+\approx 0.2503
 \]
 }
-Jarak heliosentris Mars:
+
+
+
+\subsubsection*{Elemen Orbit Awal Jupiter}
+
 {\setlength{\abovedisplayskip}{8pt}%
-	\setlength{\belowdisplayskip}{8pt}%
-\[
-r = a(1 - e\cos E) \approx 1.41\ \text{AU}
-\]
-}
-Bujur ekliptika Mars:\\
-{\setlength{\abovedisplayskip}{8pt}%
-	\setlength{\belowdisplayskip}{8pt}%
-\[
-\lambda = \nu + \bar{\omega} \approx -0.94^\circ
-\]
-}\\
-Transformasi ke koordinat ekuatorial memberikan:
-{\setlength{\abovedisplayskip}{8pt}%
-	\setlength{\belowdisplayskip}{8pt}%
+\setlength{\belowdisplayskip}{8pt}%
 \[
 \begin{split}
-\delta \approx -0.38^\circ \\
-\alpha \approx 359.1^\circ = 23.94^h
+a_0 &= 5.20288700\ \text{AU} \\
+e_0 &= 0.04838624 \\
+I_0 &= 1.30439695^\circ \\
+L_0 &= 34.39644051^\circ \\
+\bar{\omega}_0 &= 14.72847983^\circ \\
+\Omega_0 &= 100.47390909^\circ
 \end{split}
 \]
 }
-Sehingga posisi planet Mars diperoleh:
+
+Laju perubahan elemen orbit per abad:
+
 {\setlength{\abovedisplayskip}{8pt}%
-	\setlength{\belowdisplayskip}{8pt}%
+\setlength{\belowdisplayskip}{8pt}%
 \[
-\alpha = 23.94^h,\quad \delta = -0.38^\circ
+\begin{split}
+\dot{a} &= -0.00011607 \\
+\dot{e} &= -0.00013253 \\
+\dot{I} &= -0.00183714^\circ \\
+\dot{L} &= 3034.74612775^\circ \\
+\dot{\bar{\omega}} &= 0.21252668^\circ \\
+\dot{\Omega} &= 0.20469106^\circ
+\end{split}
 \]
 }
 
+
+\subsubsection*{Koreksi Elemen Orbit}
+
+Elemen orbit dikoreksi menggunakan:
+
+\begin{equationcaptioned}[eq:jupiter.elementUpdate]{
+X = X_0 + \dot{X} \cdot T
+}{
+Koreksi elemen orbit terhadap waktu
+}
+\end{equationcaptioned}
+
+Substitusi nilai \(T = 0.2503\):
+
+{\setlength{\abovedisplayskip}{8pt}%
+\setlength{\belowdisplayskip}{8pt}%
+\[
+\begin{split}
+a &= 5.20288700 + (-0.00011607)(0.2503)
+\approx 5.202858\ \text{AU} \\
+e &= 0.04838624 + (-0.00013253)(0.2503)
+\approx 0.048353 \\
+I &= 1.30439695 + (-0.00183714)(0.2503)
+\approx 1.30394^\circ \\
+L &= 34.39644051 + (3034.74612775)(0.2503)
+\approx 794.47^\circ \\
+\bar{\omega} &= 14.72847983 + (0.21252668)(0.2503)
+\approx 14.78^\circ \\
+\Omega &= 100.47390909 + (0.20469106)(0.2503)
+\approx 100.53^\circ
+\end{split}
+\]
+}
+
+Normalisasi sudut \(L\):
+
+{\setlength{\abovedisplayskip}{8pt}%
+\setlength{\belowdisplayskip}{8pt}%
+\[
+L = 794.47^\circ - 720^\circ
+\approx 74.47^\circ
+\]
+}
+
+
+\subsubsection*{Anomali Rata-rata}
+
+{\setlength{\abovedisplayskip}{8pt}%
+\setlength{\belowdisplayskip}{8pt}%
+\[
+M = L - \bar{\omega}
+\]
+}\\
+
+{\setlength{\abovedisplayskip}{8pt}%
+\setlength{\belowdisplayskip}{8pt}%
+\[
+M = 74.47^\circ - 14.78^\circ
+\approx 59.69^\circ
+\]
+}\\
+
+Konversi ke radian:
+
+{\setlength{\abovedisplayskip}{8pt}%
+\setlength{\belowdisplayskip}{8pt}%
+\[
+M \approx 1.042\ \text{rad}
+\]
+}
+\subsubsection*{Persamaan Kepler}
+
+\begin{equationcaptioned}[eq:jupiter.kepler]{
+M = E - e\sin E
+}{
+Persamaan Kepler
+}
+\end{equationcaptioned}
+
+Diselesaikan dengan metode Newton–Raphson:
+
+{\setlength{\abovedisplayskip}{8pt}%
+\setlength{\belowdisplayskip}{8pt}%
+\[
+E \approx 1.091\ \text{rad}
+= 62.5^\circ
+\]
+}
+
+
+\subsubsection*{Anomali Sejati}
+
+{\setlength{\abovedisplayskip}{8pt}%
+\setlength{\belowdisplayskip}{8pt}%
+\[
+\nu =
+2 \tan^{-1}
+\left(
+\frac{\sqrt{1+e}\sin(E/2)}
+{\sqrt{1-e}\cos(E/2)}
+\right)
+\]
+}\\
+
+{\setlength{\abovedisplayskip}{8pt}%
+\setlength{\belowdisplayskip}{8pt}%
+\[
+\nu \approx 65.6^\circ
+\]
+}
+
+
+\subsubsection*{Jarak Heliosentris}
+
+{\setlength{\abovedisplayskip}{8pt}%
+\setlength{\belowdisplayskip}{8pt}%
+\[
+r = a(1 - e\cos E)
+\]
+}\\
+
+{\setlength{\abovedisplayskip}{8pt}%
+\setlength{\belowdisplayskip}{8pt}%
+\[
+r \approx 5.07\ \text{AU}
+\]
+}
+
+
+\subsubsection*{Koordinat Heliosentris Jupiter}
+
+ perihelion:
+
+{\setlength{\abovedisplayskip}{8pt}%
+\setlength{\belowdisplayskip}{8pt}%
+\[
+\omega = \bar{\omega} - \Omega
+\]
+}\\
+
+{\setlength{\abovedisplayskip}{8pt}%
+\setlength{\belowdisplayskip}{8pt}%
+\[
+\omega = 14.78^\circ - 100.53^\circ
+\approx -85.75^\circ
+\]
+}\\
+
+Koordinat heliosentris:
+
+\begin{equationcaptioned}[eq:jupiter.xyz]{
+\begin{aligned}
+x &= r(\cos\Omega \cos(\omega+\nu)
+- \sin\Omega \sin(\omega+\nu)\cos I) \\
+y &= r(\sin\Omega \cos(\omega+\nu)
++ \cos\Omega \sin(\omega+\nu)\cos I) \\
+z &= r(\sin(\omega+\nu)\sin I)
+\end{aligned}
+}{
+Koordinat heliosentris ekliptika
+}
+\end{equationcaptioned}
+
+Hasil:
+
+{\setlength{\abovedisplayskip}{8pt}%
+\setlength{\belowdisplayskip}{8pt}%
+\[
+\begin{split}
+x_p &\approx 3.37\ \text{AU} \\
+y_p &\approx 3.64\ \text{AU} \\
+z_p &\approx -0.10\ \text{AU}
+\end{split}
+\]
+}
+
+
+\subsubsection*{Koordinat Geosentris}
+
+Dengan mengurangkan posisi heliosentris Bumi pada tanggal yang sama:
+
+{\setlength{\abovedisplayskip}{8pt}%
+\setlength{\belowdisplayskip}{8pt}%
+\[
+\begin{split}
+x &\approx 4.22 \\
+y &\approx 2.85 \\
+z &\approx -0.10
+\end{split}
+\]
+}
+
+
+\subsubsection*{Transformasi ke Koordinat Ekuatorial}
+
+Kemiringan ekliptika dinamis:
+
+{\setlength{\abovedisplayskip}{8pt}%
+\setlength{\belowdisplayskip}{8pt}%
+\[
+\varepsilon =
+23.439291 - 0.0130042T
+\]
+}\\
+
+Dengan \(T = 0.2503\):
+
+{\setlength{\abovedisplayskip}{8pt}%
+\setlength{\belowdisplayskip}{8pt}%
+\[
+\varepsilon \approx 23.436^\circ
+\]
+}
+
+Setelah rotasi ke sistem ekuatorial:
+
+{\setlength{\abovedisplayskip}{8pt}%
+\setlength{\belowdisplayskip}{8pt}%
+\[
+\begin{split}
+x_{eq} &\approx 4.22 \\
+y_{eq} &\approx 2.62 \\
+z_{eq} &\approx 1.05
+\end{split}
+\]
+}
+
+
+\subsubsection*{Perhitungan Right Ascension dan Declination}
+
+Right Ascension dan Declination dihitung dari koordinat kartesian ekuatorial menggunakan:
+
+\begin{equationcaptioned}[eq:radec]{
+\begin{aligned}
+\alpha &= \tan^{-1}
+\left(
+\frac{y_{eq}}{x_{eq}}
+\right) \\
+\delta &= \tan^{-1}
+\left(
+\frac{z_{eq}}
+{\sqrt{x_{eq}^2 + y_{eq}^2}}
+\right)
+\end{aligned}
+}{
+Perhitungan Right Ascension dan Declination
+}
+\end{equationcaptioned}
+
+Jika nilai Right Ascension negatif, maka dinormalisasi:
+
+{\setlength{\abovedisplayskip}{8pt}%
+\setlength{\belowdisplayskip}{8pt}%
+\[
+\alpha = \alpha + 360^\circ
+\]
+}\\
+
+Konversi Right Ascension dari derajat ke jam:
+
+{\setlength{\abovedisplayskip}{8pt}%
+\setlength{\belowdisplayskip}{8pt}%
+\[
+\alpha_h = \frac{\alpha}{15}
+\]
+}
+
+diperoleh:
+
+{\setlength{\abovedisplayskip}{8pt}%
+\setlength{\belowdisplayskip}{8pt}%
+\[
+\begin{split}
+\alpha &\approx 31.8^\circ = 2.12^h \\
+\delta &\approx 12.3^\circ
+\end{split}
+\]
+}
+
+\subsubsection*{Hasil Akhir}
+
+Posisi geosentris planet Jupiter pada  
+21 Januari 2026:
+
+{\setlength{\abovedisplayskip}{8pt}%
+\setlength{\belowdisplayskip}{8pt}%
+\[
+\alpha = 2.12^h,\quad
+\delta = 12.3^\circ
+\]
+}
 \subsection{Konversi Sudut ke Langkah Motor Stepper} \label{III.SudutStepper}
 
 Setelah koordinat altitudo ($a$) dan azimuth ($A$) dari objek langit berhasil dihitung, nilai sudut tersebut perlu dikonversikan menjadi jumlah langkah motor stepper yang digunakan untuk menggerakkan sumbu teleskop. Motor stepper yang digunakan memiliki spesifikasi sebagai berikut:

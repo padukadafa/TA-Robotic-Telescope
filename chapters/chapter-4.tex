@@ -115,6 +115,61 @@ loopSensor() {
 
 Pseudocode pada Kode \ref{code:4.pseudocode_main} merangkum implementasi aktual: Mahony Filter digunakan untuk menghasilkan \textit{pitch} dan \textit{roll} yang stabil dari MPU6050 \cite{Mahony2007,Maton2024}. Sementara itu, sensor kompas QMC5883L berfungsi sebagai acuan arah absolut untuk mendapatkan referensi \textit{Azimuth} pada saat inisialisasi (melalui \textit{tilt compensation}), kemudian sistem bergantung pada pembacaan encoder AS5600 untuk \textit{Azimuth} dan \textit{Altitude} agar lebih stabil terhadap \textit{noise} sesaat dan gangguan elektromagnetik dari motor. \par
 
+\subsubsection{Implementasi Mahony Filter} \label{IV.Software.Mahony}
+\textit{Mahony Filter} merupakan algoritma estimasi orientasi berbasis fusi sensor yang menggabungkan data giroskop dan akselerometer menggunakan pendekatan pengendali PI (\textit{Proporsional-Integral}). Filter ini mengatasi kelemahan sensor MPU6050 seperti \textit{noise}, \textit{drift} giroskop, dan ketidakakuratan akselerometer dengan menggunakan vektor gravitasi dari akselerometer sebagai acuan untuk mengoreksi estimasi orientasi dari giroskop. \par
+
+Representasi orientasi menggunakan \textit{quaternion} $(q_0, q_1, q_2, q_3)$ yang lebih efisien secara komputasi dan menghindari masalah \textit{gimbal lock}. Parameter gain proporsional ($k_p$) dan integral ($k_i$) menentukan seberapa cepat filter merespons error dan seberapa kuat filter mengkompensasi \textit{drift} jangka panjang. \par
+
+\begin{lstlisting}[caption={Pseudocode Mahony Filter untuk Estimasi Orientasi}, label={code:4.pseudocode_mahony}, language=C]
+MahonyUpdate(gx, gy, gz, ax, ay, az, dt) {
+    // Normalisasi akselerometer (vektor gravitasi)
+    norm = sqrt(ax*ax + ay*ay + az*az);
+    if (norm == 0) return;  // Hindari pembagian dengan nol
+    ax /= norm; ay /= norm; az /= norm;
+
+    // Estimasi arah gravitasi dari quaternion saat ini
+    halfvx = q1*q3 - q0*q2;
+    halfvy = q0*q1 + q2*q3;
+    halfvz = q0*q0 - 0.5 + q3*q3;
+
+    // Error: cross product antara gravitasi terukur dan estimasi
+    halfex = (ay*halfvz - az*halfvy);
+    halfey = (az*halfvx - ax*halfvz);
+    halfez = (ax*halfvy - ay*halfvx);
+
+    // Akumulasi error untuk term integral (mengatasi drift)
+    if (twoKi > 0.0) {
+        integralFBx += twoKi * halfex * dt;
+        integralFBy += twoKi * halfey * dt;
+        integralFBz += twoKi * halfez * dt;
+        // Terapkan koreksi integral ke giroskop
+        gx += integralFBx;
+        gy += integralFBy;
+        gz += integralFBz;
+    }
+
+    // Terapkan koreksi proporsional ke giroskop
+    gx += twoKp * halfex;
+    gy += twoKp * halfey;
+    gz += twoKp * halfez;
+
+    // Integrasi giroskop terkoreksi untuk update quaternion
+    gx *= 0.5 * dt; gy *= 0.5 * dt; gz *= 0.5 * dt;
+    
+    qa = q0; qb = q1; qc = q2;
+    q0 += (-qb*gx - qc*gy - q3*gz);
+    q1 += ( qa*gx + qc*gz - q3*gy);
+    q2 += ( qa*gy - qb*gz + q3*gx);
+    q3 += ( qa*gz + qb*gy - qc*gx);
+
+    // Normalisasi quaternion
+    norm = sqrt(q0*q0 + q1*q1 + q2*q2 + q3*q3);
+    q0 /= norm; q1 /= norm; q2 /= norm; q3 /= norm;
+}
+\end{lstlisting}
+
+Algoritma bekerja dengan langkah-langkah berikut: (1) Normalisasi vektor akselerometer untuk mendapatkan arah gravitasi terukur, (2) Estimasi arah gravitasi dari quaternion saat ini, (3) Hitung error sebagai \textit{cross product} antara gravitasi terukur dan estimasi, (4) Akumulasi error untuk koreksi integral yang mengatasi \textit{drift} jangka panjang, (5) Terapkan koreksi proporsional dan integral ke giroskop, (6) Integrasi giroskop terkoreksi untuk memperbarui quaternion, dan (7) Normalisasi quaternion untuk menjaga validitas matematis. Keluaran berupa quaternion yang telah diperbarui kemudian dikonversi menjadi sudut Euler (Roll, Pitch, Yaw) untuk digunakan dalam sistem kendali teleskop. \par
+
 
 \subsubsection{Perhitungan Posisi Benda Langit (Bintang/Matahari/Bulan/Planet)} \label{IV.Software.Astro}
 Pada mode \textit{GoTo}, sistem membentuk target \textit{Altitude} dan \textit{Azimuth} dari input lokasi (lintang, bujur) dan waktu RTC. Untuk bintang, nilai \textit{Right Ascension} (RA) dan \textit{Declination} (Dec) diperoleh dari perintah aplikasi, sedangkan untuk Matahari, Bulan, dan Planet, RA/Dec dihitung secara \textit{on-device} menggunakan model aproksimasi. \par
@@ -257,53 +312,94 @@ calcMoonRaDec(JD) {
 \end{lstlisting}
 
 \subsubsection{Perhitungan RA/Dec Planet (\texttt{calcPlanetRaDec})} \label{IV.Software.PlanetRaDec}
-Fungsi \texttt{calcPlanetRaDec} menggunakan parameter orbit sederhana tiap planet (semi-mayor $a$, eksentrisitas $e$, bujur rata-rata $L$, dan bujur perihelion $\bar{\omega}$). Nilai anomali rata-rata $M$ dihitung dari $L-\bar{\omega}$, kemudian eksentrik anomali $E$ diselesaikan secara iteratif (beberapa iterasi cukup untuk pendekatan ini). Setelah itu dihitung \textit{true anomaly} $v$ dan posisi relatif pada bidang ekliptika, lalu dipetakan ke koordinat ekuatorial menggunakan kemiringan ekliptika. Model ini merupakan aproksimasi untuk kebutuhan \textit{GoTo} dan belum memasukkan koreksi perturbasi dan model heliosentrik/geosentrik lengkap. \par
+Fungsi \texttt{calcPlanetRaDec} menggunakan model heliosentrik geosentris untuk menghitung posisi planet. Metode ini menghitung posisi heliosentrik planet target dan Bumi, kemudian menghitung vektor geosentris sebagai selisih kedua posisi tersebut. Parameter orbit setiap planet (semi-mayor axis $a$, eksentrisitas $e$, inklinasi $I$, bujur rata-rata $L$, bujur perihelion $\bar{\omega}$, dan bujur node ascending $\Omega$) diperbarui secara dinamis berdasarkan abad Julian $T$. \par
 
-\begin{lstlisting}[caption={Pseudocode Perhitungan RA/Dec Planet (calcPlanetRaDec, aproksimasi)}, label={code:4.pseudocode_planet_radec}, language=C]
-calcPlanetRaDec(index, JD) {
+Langkah perhitungan meliputi: (1) pembaruan elemen orbit berdasarkan waktu, (2) penyelesaian persamaan Kepler menggunakan metode Newton-Raphson untuk mendapatkan anomali eksentrik $E$, (3) perhitungan \textit{true anomaly} $v$ dan jarak radial $r$, (4) transformasi ke koordinat heliosentrik ekliptika dengan memperhitungkan inklinasi orbit dan orientasi node, (5) konversi posisi relatif geosentris dari ekliptika ke ekuatorial menggunakan obliquitas dinamis, dan (6) perhitungan RA/Dec dari vektor ekuatorial. Metode ini memberikan akurasi yang memadai untuk aplikasi \textit{GoTo} teleskop amatir. \par
+
+\begin{lstlisting}[caption={Pseudocode Fungsi Pembantu: Normalisasi Sudut 0--360$^{\circ}$}, label={code:4.pseudocode_normalize}, language=C]
+normalize360(angle) {
+    angle = angle mod 360;
+    if (angle < 0) angle += 360;
+    return angle;
+}
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Pseudocode Perhitungan Posisi Heliosentrik Planet}, label={code:4.pseudocode_heliocentric}, language=C]
+heliocentricXYZ(index, JD) {
     p = planets[index];
+    T = (JD - 2451545.0)/36525.0;
 
-    M = radians(wrap360(p.L - p.w_bar));
+    a     = p.a     + PLANET_RATES[index][0]*T;
+    e     = p.e     + PLANET_RATES[index][1]*T;
+    I     = p.I     + PLANET_RATES[index][2]*T;
+    L     = p.L     + PLANET_RATES[index][3]*T;
+    w_bar = p.w_bar + PLANET_RATES[index][4]*T;
+    omega = p.omega + PLANET_RATES[index][5]*T;
+
+    L     = normalize360(L);
+    w_bar = normalize360(w_bar);
+    omega = normalize360(omega);
+
+    M = radians(normalize360(L - w_bar));
 
     E = M;
-    for (int i = 0; i < 5; i++) {
-        E = M + p.e*sin(E);
+    for (int i = 0; i < 10; i++) {
+        dE = (E - e*sin(E) - M) / (1 - e*cos(E));
+        E -= dE;
+        if (abs(dE) < 1e-6) break;
     }
 
-    xv = cos(E) - p.e;
-    yv = sqrt(1 - p.e*p.e) * sin(E);
-    v  = atan2(yv, xv);
-    r  = sqrt(xv*xv + yv*yv);
+    v = 2*atan2(
+        sqrt(1 + e) * sin(E/2),
+        sqrt(1 - e) * cos(E/2)
+    );
 
-    lon = v + radians(p.w_bar);
-    eps = radians(23.439291);
+    r = a * (1 - e*cos(E));
 
-    x = r*cos(lon);
-    y = r*cos(eps)*sin(lon);
-    z = r*sin(eps)*sin(lon);
+    I_rad = radians(I);
+    w     = radians(w_bar - omega);
+    O     = radians(omega);
 
-    ra  = atan2(y, x);
-    dec = atan2(z, sqrt(x*x + y*y));
-    return (wrap360(degrees(ra)), degrees(dec));
+    x = r * (cos(O)*cos(w+v) - sin(O)*sin(w+v)*cos(I_rad));
+    y = r * (sin(O)*cos(w+v) + cos(O)*sin(w+v)*cos(I_rad));
+    z = r * (sin(w+v) * sin(I_rad));
+
+    return (x, y, z);
 }
 \end{lstlisting}
 
-\subsubsection{Tilt Compensation untuk Heading Kompas} \label{IV.Software.CompassTilt}
-Untuk mengurangi kesalahan \textit{heading} kompas akibat kemiringan pemasangan sensor, dilakukan \textit{tilt compensation}. Intinya, vektor medan magnet $(m_x,m_y,m_z)$ diproyeksikan ke bidang horizontal menggunakan estimasi \textit{roll} dan \textit{pitch}, lalu \textit{heading} dihitung dengan $\mathrm{atan2}$. \par
+\begin{lstlisting}[caption={Pseudocode Perhitungan RA/Dec Planet (Geosentris Heliosentrik)}, label={code:4.pseudocode_planet_radec}, language=C]
+calcPlanetRaDec(index, JD) {
+    // Posisi heliosentrik planet target
+    (xp, yp, zp) = heliocentricXYZ(index, JD);
 
-\begin{lstlisting}[caption={Pseudocode Tilt-Compensated Heading}, label={code:4.pseudocode_tilt_heading}, language=C]
-tiltCompensatedHeading(mx, my, mz, rollDeg, pitchDeg) {
-    roll  = radians(rollDeg);
-    pitch = radians(pitchDeg);
+    // Posisi heliosentrik Bumi (index=2)
+    (xe, ye, ze) = heliocentricXYZ(2, JD);
 
-    Xh = mx*cos(pitch) + mz*sin(pitch);
-    Yh = mx*sin(roll)*sin(pitch) + my*cos(roll) - mz*sin(roll)*cos(pitch);
+    // Vektor geosentris (planet relatif terhadap Bumi)
+    x = xp - xe;
+    y = yp - ye;
+    z = zp - ze;
 
-    heading = degrees(atan2(Yh, Xh));
-    if (heading < 0) heading += 360;
-    return heading;
+    // Obliquity dinamis (kemiringan ekliptika)
+    T   = (JD - 2451545.0)/36525.0;
+    eps = radians(23.439291 - 0.0130042*T);
+
+    // Rotasi dari ekliptika ke ekuatorial
+    xequ = x;
+    yequ = y*cos(eps) - z*sin(eps);
+    zequ = y*sin(eps) + z*cos(eps);
+
+    // Hitung RA dan Dec dari vektor ekuatorial
+    raDeg = degrees(atan2(yequ, xequ));
+    if (raDeg < 0) raDeg += 360;
+
+    decDeg = degrees(atan2(zequ, sqrt(xequ*xequ + yequ*yequ)));
+
+    return (raDeg, decDeg);
 }
 \end{lstlisting}
+
 
 \subsubsection{Konversi Derajat ke Step Motor dan Logika \textit{GoTo}} \label{IV.Software.Steps}
 Konversi sudut ke langkah motor ditentukan oleh total langkah per satu rotasi mekanik sumbu, yang dipengaruhi oleh \textit{step angle} motor, \textit{microstepping}, dan rasio transmisi (jika ada). Pada implementasi, nilai ini disatukan sebagai konstanta \texttt{STEP\_ONE\_ROTATION}. Dengan \texttt{STEP\_ONE\_ROTATION}=69120, maka resolusi teoritis adalah $69120/360=192$ step per derajat (sekitar $0.00521^{\circ}$/step). \par
@@ -337,7 +433,7 @@ Bab ini menyajikan hasil pengujian sistem teleskop robotik yang telah diimplemen
 Validasi dilakukan dengan memetakan kebutuhan fungsional dan non-fungsional yang telah didefinisikan pada Bab~\ref{III.Metode.Uji} terhadap hasil pengujian yang dilakukan. Tabel~\ref{table:4.validasi_kebutuhan} menunjukkan hasil validasi yang menghubungkan setiap kebutuhan dengan bukti pengujian yang relevan. \par
 
 
-\begin{longtable}{|b{0.06\textwidth}|p{0.44\textwidth}|p{0.26\textwidth}|p{0.14\textwidth}|}
+\begin{longtable}{|b{0.05\textwidth}|p{0.35\textwidth}|p{0.25\textwidth}|p{0.15\textwidth}|}
     \caption{Matriks Validasi Kebutuhan (Bab III) terhadap Hasil Pengujian (Bab IV)}
     \label{table:4.validasi_kebutuhan} \\
     \hline
@@ -360,17 +456,17 @@ Validasi dilakukan dengan memetakan kebutuhan fungsional dan non-fungsional yang
     4 & Kalibrasi/inisialisasi sensor & Inisialisasi heading kompas dan offset encoder (Bab~\ref{IV.Software.CompassTilt}) & Terpenuhi \\ \hline
     5 & Transformasi koordinat ekuatorial ke Alt-Azimuth & Pseudocode JD/LST/AltAz dan uji algoritma astronomi (Bab~\ref{IV.Software.Transform}, Bab~\ref{IV.UjiAstronomy}) & Terpenuhi \\ \hline
     6 & Konversi sudut ke langkah motor & Pseudocode derajat-ke-step dan kendali GoTo (Bab~\ref{IV.Software.Steps}) & Terpenuhi \\ \hline
-    7 & Sistem pengarahan otomatis (GoTo) & Pengujian \textit{pointing accuracy} (Bab~\ref{IV.UjiFungsional}) & - \\ \hline
-    8 & Sistem pelacakan objek (update koordinat kontinu) & Uji \textit{tracking} (Bab~\ref{IV.UjiFungsional}) & - \\ \hline
+    7 & Sistem pengarahan otomatis (GoTo) & Pengujian \textit{pointing accuracy} (Bab~\ref{IV.UjiFungsional}) & Terpenuhi \\ \hline
+    8 & Sistem pelacakan objek (update koordinat kontinu) & Uji \textit{tracking} (Bab~\ref{IV.UjiFungsional}) & Terpenuhi \\ \hline
     9 & Katalog bintang/benda langit dapat dipilih & Uji pemilihan target dan eksekusi perintah (Bab~\ref{IV.UjiFungsional}) & Terpenuhi \\ \hline
     10 & Mode manual & Uji kontrol manual (Bab~\ref{IV.UjiFungsional}) & Terpenuhi \\ \hline
-    11 & Mode otomatis & Uji GoTo (Bab~\ref{IV.UjiFungsional}) & - \\ \hline
+    11 & Mode otomatis & Uji GoTo (Bab~\ref{IV.UjiFungsional}) & Terpenuhi \\ \hline
 
     \multicolumn{4}{|l|}{\textbf{B. Kebutuhan Non-Fungsional (rujukan: Tabel~\ref{table:3.kebutuhanNF})}} \\ \hline
-    12 & Kinerja: pembaruan posisi minimal 100~Hz & Uji frekuensi loop sensor (Bab~\ref{IV.UjiMahony}) & - \\ \hline
-    13 & Akurasi: galat estimasi sudut $\pm 1.5^{\circ}$ setelah filtrasi & Analisis standar deviasi (Bab~\ref{IV.UjiMahony}) & - \\ \hline
-    14 & Keandalan: mode manual saat koneksi terputus & Uji komunikasi dan fallback manual (Bab~\ref{IV.UjiFungsional}) & - \\ \hline
-    15 & Portabilitas: aplikasi Android terintegrasi ESP32 & Bukti integrasi aplikasi--ESP32 (Bab~\ref{IV.UjiFungsional}) & - \\ \hline
+    12 & Kinerja: pembaruan posisi minimal 100~Hz & Uji frekuensi loop sensor (Bab~\ref{IV.UjiMahony}) & Tidak Terpenuhi \\ \hline
+    13 & Akurasi: galat estimasi sudut $\pm 1.5^{\circ}$ setelah filtrasi & Analisis standar deviasi (Bab~\ref{IV.UjiMahony}) & Terpenuhi \\ \hline
+    14 & Keandalan: mode manual saat koneksi terputus & Uji komunikasi dan fallback manual (Bab~\ref{IV.UjiFungsional}) & Terpenuhi sebagian \\ \hline
+    15 & Portabilitas: aplikasi Android terintegrasi ESP32 & Bukti integrasi aplikasi--ESP32 (Bab~\ref{IV.UjiFungsional}) & Terpenuhi \\ \hline
 \end{longtable}
 
 
@@ -379,7 +475,7 @@ Pengujian perangkat keras dilakukan untuk memastikan seluruh komponen elektronik
 
 Tabel~\ref{table:4.hardware_test} menunjukkan hasil pengujian perangkat keras dengan parameter yang diukur dan hasil yang diperoleh dibandingkan dengan hasil yang diharapkan.
 
-\begin{longtable}{|c|p{0.2\textwidth}|p{0.28\textwidth}|p{0.2\textwidth}|p{0.16\textwidth}|}
+\begin{longtable}{|p{0.05\textwidth}|p{0.15\textwidth}|p{0.25\textwidth}|p{0.2\textwidth}|p{0.15\textwidth}|}
     \caption{Hasil Pengujian Perangkat Keras Sistem Teleskop Robotik}
     \label{table:4.hardware_test} \\
     \hline
@@ -397,13 +493,13 @@ Tabel~\ref{table:4.hardware_test} menunjukkan hasil pengujian perangkat keras de
 
     1 & Sensor IMU (MPU6050) & Kestabilan pembacaan akselerasi dan giroskop & Std Roll: 0.107, Std Pitch: 0.271  & Half Pass \\
     \hline
-    2 & Sensor Magnetometer (QMC5883L) & Akurasi arah azimuth terhadap referensi & Std Magnetometer:  & - \\
+    % 2 & Sensor Magnetometer (QMC5883L) & Akurasi arah azimuth terhadap referensi & Std Magnetometer:  & - \\
+    % \hline
+    2 & Sensor Encoder Magnetik (AS5600) & Akurasi sudut absolut dan konsistensi pembacaan & Std AZ: 0,Std Alt: 0& Pass \\
     \hline
-    3 & Sensor Encoder Magnetik (AS5600) & Akurasi sudut absolut dan konsistensi pembacaan & Std AZ: 0,Std Alt: 0& Pass \\
+    3 & Sistem Kontrol Alt-Azimuth & Respon terhadap perintah sudut target (GOTO) & Error Az: $0^\circ10'$ - $1^\circ23'$, Error Alt: $1^\circ00'$ - $2^\circ30'$  & Half Pass \\
     \hline
-    4 & Sistem Kontrol Alt-Azimuth & Respon terhadap perintah sudut target & Error posisi:  & - \\
-    \hline
-    5 & Struktur mekanik teleskop & Keseimbangan dan stabilitas pada berbagai posisi & \textit{Peak to Peak Azimuth} : $13.974^{\circ}$, \textit{Peak to Peak Altitude} : $12.3047^{\circ}$,  & Fail \\
+    4 & Struktur mekanik teleskop & Keseimbangan dan stabilitas pada berbagai posisi & \textit{Peak to Peak Azimuth} : $13.974^{\circ}$, \textit{Peak to Peak Altitude} : $12.3047^{\circ}$,  & Fail \\
     \hline
 \end{longtable}
 
@@ -414,7 +510,7 @@ Pengujian algoritma Mahony Filter dilakukan sesuai dengan rancangan pada Tabel~\
 
 Tabel~\ref{table:4.mahony_test} menunjukkan hasil pengujian algoritma Mahony Filter untuk keempat aspek yang dirancang pada Bab~\ref{III.Rancang_Uji}.
 
-\begin{longtable}{|c|p{0.24\textwidth}|p{0.3\textwidth}|p{0.2\textwidth}|p{0.14\textwidth}|}
+\begin{longtable}{|p{0.05\textwidth}|p{0.2\textwidth}|p{0.25\textwidth}|p{0.2\textwidth}|p{0.1\textwidth}|}
     \caption{Hasil Pengujian Algoritma Mahony Filter}
     \label{table:4.mahony_test} \\
     \hline
@@ -434,7 +530,7 @@ Tabel~\ref{table:4.mahony_test} menunjukkan hasil pengujian algoritma Mahony Fil
     \hline
     2 & Kestabilan filter & Respon terhadap gerakan cepat dan posisi diam & Tidak berosilasi, std dev Roll:0.332, Pitch: 0.740  & Pass \\
     \hline
-    3 & Waktu respon algoritma & Pengukuran frekuensi pembaruan data IMU & Frekuensi: ~100 Hz & Pass \\
+    3 & Waktu respon algoritma & Pengukuran frekuensi pembaruan data IMU & Frekuensi: ~100 Hz & Fail \\
     \hline
     4 & Perbandingan dengan data mentah & Visualisasi grafik filter vs raw data & Reduksi noise Roll: 79.1\%, Pitch: 84.2\% & Pass \\
     \hline
@@ -475,15 +571,15 @@ Pengujian algoritma astronomi dilakukan untuk memvalidasi akurasi perhitungan ko
 
 Tabel~\ref{table:4.astronomy_test} menunjukkan hasil pengujian algoritma astronomi dengan membandingkan hasil perhitungan sistem terhadap data referensi astronomi standar (ephemeris).
 
-\begin{longtable}{|c|p{0.22\textwidth}|p{0.26\textwidth}|p{0.18\textwidth}|p{0.18\textwidth}|}
+\begin{longtable}{|p{0.05\textwidth}|p{0.17\textwidth}|p{0.18\textwidth}|p{0.20\textwidth}|p{0.20\textwidth}|}
     \caption{Hasil Pengujian Algoritma Astronomi}
     \label{table:4.astronomy_test} \\
     \hline
-    \textbf{No} & \textbf{Fungsi yang Diuji} & \textbf{Input Pengujian} & \textbf{Hasil Sistem} & \textbf{Referensi/Error} \\
+    \textbf{No} & \textbf{Fungsi yang Diuji} & \textbf{Input Pengujian} & \textbf{Hasil Sistem} & \textbf{Referensi / Error} \\
     \hline
     \endfirsthead
     \hline
-    \textbf{No} & \textbf{Fungsi yang Diuji} & \textbf{Input Pengujian} & \textbf{Hasil Sistem} & \textbf{Referensi/Error} \\
+    \textbf{No} & \textbf{Fungsi yang Diuji} & \textbf{Input Pengujian} & \textbf{Hasil Sistem} & \textbf{Referensi / Error} \\
     \hline
     \endhead
     \hline
@@ -491,23 +587,23 @@ Tabel~\ref{table:4.astronomy_test} menunjukkan hasil pengujian algoritma astrono
     \hline
     \endlastfoot
 
-    1 & Perhitungan Julian Date & 21 Jan 2025, 19:21:52 WIB & JD: 2460697.0152 & Ref: 2460697.0151, Error: 0.0001 hari \\
+    1 & Perhitungan Julian Date & 21 Jan 2026, 13:00:00 WIB & JD: 2461061.750 & Ref: 2461061.75000, Error: 0.000 hari \\
     \hline
-    2 & Perhitungan LST & JD: 2460697.0152, Bujur: 105.291° & LST: 22h 14m 23s & Ref: 22h 14m 24s, Error: 1s \\
+    2 & Perhitungan LST & JD: 2461061.750, Bujur: 105.267° & LST: 21h 03m 33s & Ref: 21h 03m 33s, Error: 0s \\
     \hline
-    3 & Transformasi koordinat & RA: 16h 29m, Dec: -26.43° (Antares) & Az: 124.7°, Alt: 18.3° & Ref (Stellarium): Az: 124.5°, Alt: 18.4°, Error: 0.2° \\
+    3 & Transformasi koordinat & RA: 5h 55m, Dec: +7.41° (Betelgeuse) & Az: 84.90°, Alt: -43.18° & Ref: Az: 84°53'47", Alt: -43°31'40", Error: 0.28° \\
     \hline
-    4 & Posisi Matahari & 21 Jan 2025, 19:21 WIB & RA: 20h 17m, Dec: -19.8° & Ref: RA: 20h 18m, Dec: -19.7°, Error: 0.2° \\
+    4 & Posisi Matahari & 21 Jan 2026, 13:00 WIB & RA: 20h 13m, Dec: -19.89°, Az: 218.79°, Alt: 71.11° & Ref: Az: 218°48'7", Alt: 71°6'37", Error: 0.08° \\
     \hline
-    5 & Posisi Bulan & 21 Jan 2025, 19:21 WIB & RA: 7h 42m, Dec: +24.1° & Ref: RA: 7h 43m, Dec: +24.3°, Error: 0.3° \\
+    5 & Posisi Bulan & 21 Jan 2026, 13:00 WIB & RA: 22h 05m, Dec: -12.97°, Az: 117.59°, Alt: 73.05° & Ref: Az: 115°3'3", Alt: 72°20'16", Error: 2.56° Az, 0.75° Alt \\
     \hline
-    6 & Posisi Planet (Jupiter) & 21 Jan 2025, 19:21 WIB & RA: 2h 51m, Dec: +16.2° & Ref: RA: 2h 52m, Dec: +16.4°, Error: 0.3° \\
+    6 & Posisi Planet (Jupiter) & 21 Jan 2026, 13:00 WIB & RA: 7h 19m, Dec: +22.47°, Az: 53.29°, Alt: -59.61° & Ref: Az: 53°0'38", Alt: -59°56'44", Error: 0.29° Az, 0.62° Alt \\
     \hline
-    7 & Koordinat Bintang (Antares) & RA: 16h 29m 24s, Dec: -26° 25' 55" & Az: 124.7°, Alt: 18.3° & Ref: Az: 124.5°, Alt: 18.4°, Error: 0.2° \\
+    7 & Koordinat Bintang (Betelgeuse) & RA: 5h 55m 10s, Dec: +7° 24' 25" & Az: 84.90°, Alt: -43.18° & Ref: Az: 84°53'47", Alt: -43°31'40", Error: 0.28° \\
     \hline
 \end{longtable}
 
-Hasil pengujian menunjukkan bahwa algoritma astronomi menghasilkan perhitungan dengan akurasi yang memadai untuk aplikasi pengarahan teleskop. Error perhitungan JD dan LST sangat kecil ($< 0.001$ hari), sedangkan transformasi koordinat dan perhitungan posisi objek memiliki error yang berada dalam batas toleransi yang ditetapkan ($< 0.2^\circ$). \par
+Hasil pengujian menunjukkan bahwa algoritma astronomi menghasilkan perhitungan dengan akurasi yang memadai untuk aplikasi pengarahan teleskop. Error perhitungan JD dan LST sangat kecil (error sempurna untuk JD), sedangkan transformasi koordinat dan perhitungan posisi objek memiliki error yang berada dalam batas toleransi yang ditetapkan. Error terbesar terjadi pada perhitungan posisi Bulan (2.56° untuk Azimuth) yang masih wajar untuk model aproksimasi, sementara Matahari, Jupiter, dan Betelgeuse memiliki error $< 0.3^\circ$. \par
 
 \subsection{Hasil Pengujian Sistem Fungsional} \label{IV.UjiFungsional}
 Pengujian sistem fungsional dilakukan untuk memverifikasi kemampuan sistem teleskop dalam mengarahkan dan melacak objek langit, kontrol manual, komunikasi real-time, dan antarmuka pengguna. Pengujian ini mencakup lima aspek utama: pengarahan objek (GoTo), pelacakan objek (Tracking), kontrol manual. \par
@@ -515,7 +611,7 @@ Pengujian sistem fungsional dilakukan untuk memverifikasi kemampuan sistem teles
 \subsubsection{Pengujian Pengarahan Objek Langit (GoTo)} \label{IV.UjiPointing}
 Pengujian pengarahan dilakukan dengan mengarahkan teleskop ke empat objek referensi: Matahari, Bulan, Jupiter, dan Betelgeuse. Tabel~\ref{table:4.pointing_data} menunjukkan hasil pengujian yang mencakup koordinat target, koordinat terukur, error sudut, dan hasil visual observasi.
 
-\begin{longtable}{|c|l|c|c|c|}
+\begin{longtable}{|p{0.05\textwidth}|p{0.15\textwidth}|p{0.2\textwidth}|p{0.2\textwidth}|p{0.2\textwidth}|}
 \caption{Data Hasil Pengujian Penunjukan Objek Langit}
 \label{table:4.pointing_data} \\
 \hline
@@ -543,15 +639,15 @@ Pengujian pelacakan dilakukan untuk mengevaluasi kemampuan sistem mempertahankan
 Selama pelacakan, sistem secara kontinu menghitung ulang koordinat Alt-Azimuth target berdasarkan waktu RTC dan lokasi pengamat, kemudian menggerakkan motor untuk mengkompensasi pergerakan semu objek akibat rotasi bumi. Delta posisi ($\Delta Az$ dan $\Delta Alt$) dihitung sebagai selisih antara posisi encoder pada $t_0$~detik dan $t_1$~detik. Pergeseran ini mencerminkan seberapa baik sistem dapat mengikuti laju perubahan koordinat horizontal objek langit. \par
 
 Tabel~\ref{table:4.tracking_1hour_data} menunjukkan hasil pengukuran posisi awal dan akhir untuk setiap objek beserta delta posisi yang terjadi selama periode pelacakan.
-\begin{longtable}{|c|l|c|c|c|}
+\begin{longtable}{|p{0.05\textwidth}|p{0.15\textwidth}|p{0.2\textwidth}|p{0.2\textwidth}|p{0.2\textwidth}|}
     \caption{Data Hasil Pengujian Pelacakan untuk Setiap Objek}
     \label{table:4.tracking_1hour_data} \\
     \hline
-    \textbf{No} & \textbf{Objek} & \textbf{Posisi Awal (Az/Alt)} & \textbf{Posisi Akhir (Az/Alt)} & \textbf{Delta ($\Delta$)} \\
+    \textbf{No} & \textbf{Objek} & \textbf{Posisi Awal} & \textbf{Posisi Akhir} & \textbf{Delta )} \\
     \hline
     \endfirsthead
     \hline
-    \textbf{No} & \textbf{Objek} & \textbf{Posisi Awal (Az/Alt)} & \textbf{Posisi Akhir (Az/Alt)} & \textbf{Delta ($\Delta$)} \\
+    \textbf{No} & \textbf{Objek} & \textbf{Posisi Awal} & \textbf{Posisi Akhir} & \textbf{Delta} \\
     \hline
     \endhead
     \hline
@@ -573,9 +669,9 @@ Tabel~\ref{table:4.tracking_1hour_data} menunjukkan hasil pengukuran posisi awal
     \hline
     \textbf{No} & \textbf{Objek} & \textbf{Waktu Pengamatan} \\ \hline
     1 & Matahari & 3 Februari 2026, pukul 9:35 - 9:54 WIB \\ \hline
-    2 & Bulan & - \\ \hline
-    3 & Jupiter & - \\ \hline
-    4 & Betelgeuse & - \\ \hline
+    2 & Bulan & 5 Februari 2026, pukul 0:40 - 1:21 WIB \\ \hline
+    3 & Jupiter & 7 Februari 2026, pukul 21:06 - 22:02 WIB \\ \hline
+    4 & Betelgeuse & 7 Februari 2026, pukul 22:36 - 23:16 WIB \\ \hline
     \end{tabular}
 \end{table}
 Untuk memberikan bukti visual keberhasilan pelacakan, Gambar~\ref{fig:4.tracking_sun_before} hingga Gambar~\ref{fig:4.tracking_moon_after} menunjukkan perbandingan posisi setiap objek di bidang pandang teleskop pada awal dan akhir periode pelacakan. Perbandingan visual ini mengkonfirmasi apakah objek tetap berada di pusat FOV atau mengalami drift yang signifikan selama pelacakan berlangsung.
@@ -657,11 +753,11 @@ Untuk setiap arah gerakan, teleskop digerakkan selama 10 detik, kemudian dihenti
     \caption{Hasil Pengujian Mode Manual dengan 3 Periode 10 Detik}
     \label{table:4.manual_test} \\
     \hline
-    \textbf{Arah} & \textbf{Periode 1 ($\Delta\theta$)} & \textbf{Periode 2 ($\Delta\theta$)} & \textbf{Periode 3 ($\Delta\theta$)} & \textbf{Kecepatan ($^\circ$/s)} \\
+    \textbf{Arah} & \textbf{Periode 1} & \textbf{Periode 2} & \textbf{Periode 3} & \textbf{Kecepatan} \\
     \hline
     \endfirsthead
     \hline
-    \textbf{Arah} & \textbf{Periode 1 ($\Delta\theta$)} & \textbf{Periode 2 ($\Delta\theta$)} & \textbf{Periode 3 ($\Delta\theta$)} & \textbf{Kecepatan ($^\circ$/s)} \\
+    \textbf{Arah} & \textbf{Periode 1} & \textbf{Periode 2} & \textbf{Periode 3} & \textbf{Kecepatan} \\
     \hline
     \endhead
     \hline

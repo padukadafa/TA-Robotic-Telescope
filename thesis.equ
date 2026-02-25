@@ -15,10 +15,10 @@
 \contentsline {myequations}{\numberline {Rumus~2.15} Perhitungan Right Ascension dari koordinat ekliptika }{19}{equation.2.15}%
 \contentsline {myequations}{\numberline {Rumus~2.16} Perhitungan Declination dari koordinat ekliptika }{19}{equation.2.16}%
 \contentsline {myequations}{\numberline {Rumus~2.17} Vektor elemen orbit Keplerian \blx@tocontentsinit {0}\cite {vallado} }{20}{equation.2.17}%
-\contentsline {myequations}{\numberline {Rumus~2.18} Mean anomaly sebagai fungsi waktu \blx@tocontentsinit {0}\cite {meeus} }{21}{equation.2.18}%
+\contentsline {myequations}{\numberline {Rumus~2.18} Mean anomaly sebagai fungsi waktu \blx@tocontentsinit {0}\cite {Meeus1998} }{21}{equation.2.18}%
 \contentsline {myequations}{\numberline {Rumus~2.19} Mean motion orbit \blx@tocontentsinit {0}\cite {vallado} }{21}{equation.2.19}%
-\contentsline {myequations}{\numberline {Rumus~2.20} Hubungan antara eccentric anomaly dan true anomaly \blx@tocontentsinit {0}\cite {meeus} }{21}{equation.2.20}%
-\contentsline {myequations}{\numberline {Rumus~2.21} Persamaan Kepler untuk orbit elips \blx@tocontentsinit {0}\cite {meeus} }{21}{equation.2.21}%
+\contentsline {myequations}{\numberline {Rumus~2.20} Hubungan antara eccentric anomaly dan true anomaly \blx@tocontentsinit {0}\cite {Meeus1998} }{21}{equation.2.20}%
+\contentsline {myequations}{\numberline {Rumus~2.21} Persamaan Kepler untuk orbit elips \blx@tocontentsinit {0}\cite {Meeus1998} }{21}{equation.2.21}%
 \contentsline {myequations}{\numberline {Rumus~2.22} Metode Newton–Raphson untuk menyelesaikan persamaan Kepler \blx@tocontentsinit {0}\cite {vallado} }{22}{equation.2.22}%
 \contentsline {myequations}{\numberline {Rumus~2.23} Estimasi vektor gravitasi dari kuaternion orientasi \blx@tocontentsinit {0}\cite {MinhLongHoang2022} }{24}{equation.2.23}%
 \contentsline {myequations}{\numberline {Rumus~2.24} Perhitungan vektor galat orientasi \blx@tocontentsinit {0}\cite {MinhLongHoang2022} }{24}{equation.2.24}%
@@ -27,10 +27,15 @@
 \contentsline {myequations}{\numberline {Rumus~2.27} Integrasi laju perubahan kuaternion \blx@tocontentsinit {0}\cite {MinhLongHoang2022} }{24}{equation.2.27}%
 \contentsline {myequations}{\numberline {Rumus~2.28} Integrasi laju perubahan kuaternion dalam bentuk matriks \blx@tocontentsinit {0}\cite {MinhLongHoang2022} }{24}{equation.2.28}%
 \contentsline {myequations}{\numberline {Rumus~2.29} Standar Deviasi }{26}{equation.2.29}%
-\contentsline {myequations}{\numberline {Rumus~3.1} Konversi kuaternion ke sudut Euler (roll, pitch, yaw) }{51}{equation.3.1}%
-\contentsline {myequations}{\numberline {Rumus~3.2} Bujur rata-rata Matahari }{55}{equation.3.2}%
-\contentsline {myequations}{\numberline {Rumus~3.3} Anomali rata-rata Matahari }{55}{equation.3.3}%
-\contentsline {myequations}{\numberline {Rumus~3.4} Equation Of Center }{55}{equation.3.4}%
-\contentsline {myequations}{\numberline {Rumus~3.5} Parameter Orbit Bulan }{56}{equation.3.5}%
-\contentsline {myequations}{\numberline {Rumus~3.6} Bujur ekliptika Bulan (pendekatan orde rendah) }{56}{equation.3.6}%
-\contentsline {myequations}{\numberline {Rumus~3.7} Lintang ekliptika Bulan (pendekatan orde rendah) }{56}{equation.3.7}%
+\contentsline {myequations}{\numberline {Rumus~3.1} Konversi kuaternion ke sudut Euler (roll, pitch, yaw) }{52}{equation.3.1}%
+\contentsline {myequations}{\numberline {Rumus~3.2} Bujur rata-rata Matahari }{56}{equation.3.2}%
+\contentsline {myequations}{\numberline {Rumus~3.3} Anomali rata-rata Matahari }{56}{equation.3.3}%
+\contentsline {myequations}{\numberline {Rumus~3.4} Equation Of Center }{56}{equation.3.4}%
+\contentsline {myequations}{\numberline {Rumus~3.5} Parameter Orbit Bulan }{57}{equation.3.5}%
+\contentsline {myequations}{\numberline {Rumus~3.6} Bujur ekliptika Bulan (pendekatan orde rendah) }{57}{equation.3.6}%
+\contentsline {myequations}{\numberline {Rumus~3.7} Lintang ekliptika Bulan (pendekatan orde rendah) }{57}{equation.3.7}%
+\contentsline {myequations}{\numberline {Rumus~3.8} Waktu dalam satuan Julian century }{58}{equation.3.8}%
+\contentsline {myequations}{\numberline {Rumus~3.9} Koreksi elemen orbit terhadap waktu }{59}{equation.3.9}%
+\contentsline {myequations}{\numberline {Rumus~3.10} Persamaan Kepler }{60}{equation.3.10}%
+\contentsline {myequations}{\numberline {Rumus~3.11} Koordinat heliosentris ekliptika }{61}{equation.3.11}%
+\contentsline {myequations}{\numberline {Rumus~3.12} Perhitungan Right Ascension dan Declination }{62}{equation.3.12}%

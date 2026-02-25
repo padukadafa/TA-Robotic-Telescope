@@ -134,9 +134,9 @@ Dengan:
 
 \subsection{\textit{Local Sidereal Time}} \label{II.TeoriLST}
 
-Waktu sideris (\textit{Sidereal Time}) merupakan ukuran waktu astronomi yang didasarkan pada rotasi Bumi relatif terhadap bintang-bintang jauh, bukan terhadap Matahari seperti pada waktu matahari rata-rata. Satu hari sideris memiliki durasi sekitar 23 jam 56 menit, sedikit lebih pendek dibandingkan satu hari matahari \cite{meeus}. 
+Waktu sideris (\textit{Sidereal Time}) merupakan ukuran waktu astronomi yang didasarkan pada rotasi Bumi relatif terhadap bintang-bintang jauh, bukan terhadap Matahari seperti pada waktu matahari rata-rata. Satu hari sideris memiliki durasi sekitar 23 jam 56 menit, sedikit lebih pendek dibandingkan satu hari matahari \cite{Meeus1998}. 
 
-Waktu sideris lokal (\textit{Local Sidereal Time}, LST) menyatakan posisi titik vernal ($\Upsilon$) relatif terhadap meridian pengamat dan digunakan secara langsung dalam penentuan sudut jam (\textit{Hour Angle}) suatu objek langit. LST dapat dihitung dari waktu sideris Greenwich (\textit{Greenwich Sidereal Time}, GST) dengan menambahkan bujur geografis pengamat sebagai berikut \cite{meeus}:
+Waktu sideris lokal (\textit{Local Sidereal Time}, LST) menyatakan posisi titik vernal ($\Upsilon$) relatif terhadap meridian pengamat dan digunakan secara langsung dalam penentuan sudut jam (\textit{Hour Angle}) suatu objek langit. LST dapat dihitung dari waktu sideris Greenwich (\textit{Greenwich Sidereal Time}, GST) dengan menambahkan bujur geografis pengamat sebagai berikut \cite{Meeus1998}:
 
 \begin{equationcaptioned}[eq:2.lst]{
 		LST = GST + \lambda
@@ -321,7 +321,7 @@ Transformasi ini digunakan secara luas dalam mekanika benda langit karena posisi
 
 \subsection{\textit{Elemen Orbit Keplerian}} \label{II.TeoriElemenOrbit}
 
-Elemen orbit Keplerian merupakan parameter-parameter yang digunakan untuk mendeskripsikan bentuk, orientasi, dan posisi benda langit pada lintasannya. Dengan enam buah elemen orbit, keadaan orbit planet atau satelit dapat ditentukan secara lengkap dalam model dua-benda \cite{meeus,vallado}.
+Elemen orbit Keplerian merupakan parameter-parameter yang digunakan untuk mendeskripsikan bentuk, orientasi, dan posisi benda langit pada lintasannya. Dengan enam buah elemen orbit, keadaan orbit planet atau satelit dapat ditentukan secara lengkap dalam model dua-benda \cite{Meeus1998}.
 
 Elemen orbit Keplerian terdiri dari:
 
@@ -359,7 +359,7 @@ Elemen orbit digunakan sebagai dasar perhitungan posisi planet dalam koordinat k
 
 \subsection{\textit{Anomali Orbit}} \label{II.TeoriAnomali}
 
-Anomali orbit adalah sudut-sudut yang digunakan untuk menyatakan posisi benda langit pada orbit elips. Terdapat tiga jenis anomali yang umum digunakan, yaitu mean anomaly, eccentric anomaly, dan true anomaly. Ketiganya saling berhubungan dan digunakan dalam perhitungan posisi orbit \cite{meeus}.
+Anomali orbit adalah sudut-sudut yang digunakan untuk menyatakan posisi benda langit pada orbit elips. Terdapat tiga jenis anomali yang umum digunakan, yaitu mean anomaly, eccentric anomaly, dan true anomaly. Ketiganya saling berhubungan dan digunakan dalam perhitungan posisi orbit \cite{Meeus1998}.
 
 \begin{enumerate}
 	\item \textbf{Mean Anomaly ($M$)}\\
@@ -368,7 +368,7 @@ Anomali orbit adalah sudut-sudut yang digunakan untuk menyatakan posisi benda la
 	\begin{equationcaptioned}[eq:2.meanAnomaly]{
 			M(t) = M_{0} + n(t - t_{0})
 		}{
-			Mean anomaly sebagai fungsi waktu \cite{meeus}
+			Mean anomaly sebagai fungsi waktu \cite{Meeus1998}
 		}
 	\end{equationcaptioned}
 	
@@ -395,7 +395,7 @@ Anomali orbit adalah sudut-sudut yang digunakan untuk menyatakan posisi benda la
 			\sqrt{\frac{1+e}{1-e}}
 			\tan\left(\frac{E}{2}\right)
 		}{
-			Hubungan antara eccentric anomaly dan true anomaly \cite{meeus}
+			Hubungan antara eccentric anomaly dan true anomaly \cite{Meeus1998}
 		}
 	\end{equationcaptioned}
 \end{enumerate}
@@ -405,14 +405,14 @@ Anomali orbit memungkinkan perubahan posisi benda langit direpresentasikan secar
 
 \subsection{\textit{Persamaan Kepler}} \label{II.TeoriPersamaanKepler}
 
-Persamaan Kepler merupakan hubungan antara mean anomaly ($M$) dan eccentric anomaly ($E$) pada orbit elips. Persamaan ini menjadi inti dari perhitungan posisi benda langit terhadap waktu \cite{meeus,vallado}.
+Persamaan Kepler merupakan hubungan antara mean anomaly ($M$) dan eccentric anomaly ($E$) pada orbit elips. Persamaan ini menjadi inti dari perhitungan posisi benda langit terhadap waktu \cite{Meeus1998}.
 
 Persamaan Kepler dituliskan sebagai:
 
 \begin{equationcaptioned}[eq:2.persamaanKepler]{
 		M = E - e\sin E
 	}{
-		Persamaan Kepler untuk orbit elips \cite{meeus}
+		Persamaan Kepler untuk orbit elips \cite{Meeus1998}
 	}
 \end{equationcaptioned}
 
@@ -435,14 +435,14 @@ Persamaan Kepler menjadi dasar dalam penentuan posisi planet, satelit buatan, se
 
 \subsection{Perhitungan Posisi Matahari} \label{II.TeoriMatahari}
 
-Perhitungan posisi Matahari diperlukan dalam sistem teleskop robotik untuk keperluan observasi Matahari maupun pembatasan arah gerak teleskop demi keamanan instrumen. Posisi Matahari dapat ditentukan berdasarkan parameter orbit elips Bumi dengan pendekatan anomali rata-rata dan koreksi pusat (\textit{equation of center}) \cite{meeus}. 
+Perhitungan posisi Matahari diperlukan dalam sistem teleskop robotik untuk keperluan observasi Matahari maupun pembatasan arah gerak teleskop demi keamanan instrumen. Posisi Matahari dapat ditentukan berdasarkan parameter orbit elips Bumi dengan pendekatan anomali rata-rata dan koreksi pusat (\textit{equation of center}) \cite{Meeus1998}. 
 
 Bujur ekliptika Matahari ($\lambda$) dihitung dari bujur rata-rata dan koreksi anomali, kemudian ditransformasikan ke koordinat ekuatorial menggunakan sudut kemiringan ekliptika. Nilai Right Ascension ($\alpha$) dan Declination ($\delta$) Matahari diperoleh melalui transformasi koordinat ekliptika ke ekuatorial sebagaimana dijelaskan pada Subbab~\ref{II.Teori4.33}.
 
-Pendekatan ini menghasilkan akurasi yang memadai untuk keperluan penunjukan (\textit{pointing}) dan pelacakan (\textit{tracking}) teleskop robotik \cite{meeus}.
+Pendekatan ini menghasilkan akurasi yang memadai untuk keperluan penunjukan (\textit{pointing}) dan pelacakan (\textit{tracking}) teleskop robotik \cite{Meeus1998}.
 \subsection{Perhitungan Posisi Planet} \label{II.TeoriPlanet}
 
-Posisi planet dihitung berdasarkan elemen orbit Keplerian dengan asumsi model dua-benda antara Matahari dan planet yang bersangkutan. Elemen orbit yang digunakan meliputi sumbu semi-mayor, eksentrisitas, inklinasi, bujur node naik, argumen perihelion, dan anomali rata-rata \cite{meeus,vallado}. 
+Posisi planet dihitung berdasarkan elemen orbit Keplerian dengan asumsi model dua-benda antara Matahari dan planet yang bersangkutan. Elemen orbit yang digunakan meliputi sumbu semi-mayor, eksentrisitas, inklinasi, bujur node naik, argumen perihelion, dan anomali rata-rata \cite{Meeus1998,EMStandish1992}. 
 
 Melalui penyelesaian persamaan Kepler, diperoleh nilai anomali eksentrik dan anomali sejati yang selanjutnya digunakan untuk menentukan posisi planet dalam koordinat heliosentris. Koordinat tersebut kemudian ditransformasikan ke sistem ekliptika dan ekuatorial agar dapat digunakan oleh sistem teleskop otomatis. Pendekatan ini umum digunakan pada sistem teleskop robotik dengan kebutuhan akurasi menengah \cite{meeus}.
 
@@ -450,7 +450,7 @@ Melalui penyelesaian persamaan Kepler, diperoleh nilai anomali eksentrik dan ano
 
 Posisi Bulan memiliki variasi yang lebih kompleks dibandingkan Matahari akibat pengaruh gravitasi Bumi dan Matahari serta eksentrisitas orbitnya yang relatif besar. Dalam penelitian ini, perhitungan posisi Bulan dilakukan menggunakan pendekatan orde rendah dengan mempertimbangkan bujur rata-rata Bulan, anomali Bulan, dan sudut argumen lintang \cite{meeus}. 
 
-Hasil perhitungan posisi Bulan dinyatakan dalam koordinat ekliptika yang kemudian ditransformasikan ke koordinat ekuatorial untuk memperoleh nilai Right Ascension dan Declination. Model ini memberikan akurasi yang cukup untuk keperluan observasi visual dan pengendalian teleskop robotik \cite{meeus}.
+Hasil perhitungan posisi Bulan dinyatakan dalam koordinat ekliptika yang kemudian ditransformasikan ke koordinat ekuatorial untuk memperoleh nilai Right Ascension dan Declination. Model ini memberikan akurasi yang cukup untuk keperluan observasi visual dan pengendalian teleskop robotik \cite{Meeus1998}.
 
 
 \subsection{\textit{Mahony Filter}} \label{II.Teori5}

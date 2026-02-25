@@ -48,7 +48,8 @@ Berdasarkan hasil analisis dan keterbatasan yang ditemukan dalam penelitian ini,
     
     \item Optimasi Sistem Transmisi: Mengurangi backlash mekanik dengan menggunakan gear presisi tinggi atau menambahkan mekanisme pre-load pada transmisi gear. Pertimbangkan penggunaan belt timing atau harmonic drive untuk aplikasi yang memerlukan akurasi lebih tinggi.
     
-    
     \item Peningkatan Algoritma Astronomi: Mengimplementasikan model ephemeris yang lebih akurat dengan memasukkan koreksi perturbasi planet, nutasi, aberasi, dan koreksi atmosferik untuk meningkatkan presisi perhitungan posisi benda langit hingga level arcminute atau arcsecond.
+    
+    \item Implementasi Kontroler PID: Menerapkan kontroler PID (\textit{Proportional-Integral-Derivative}) untuk sistem kendali motor pada kedua sumbu Az dan Alt guna meningkatkan akurasi pengarahan dan stabilitas pelacakan. Kontroler PID dapat mengurangi error steady-state, mempercepat waktu settling, dan meminimalkan overshoot saat pengarahan. Parameter PID perlu di-tuning secara spesifik untuk setiap sumbu mengingat karakteristik beban dan dinamika yang berbeda, terutama pada sumbu \textit{Altitude} yang dipengaruhi gravitasi.
     
 \end{enumerate}
