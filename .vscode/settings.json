@@ -11,6 +11,20 @@
         "-outdir=%OUTDIR%",
         "%DOC%"
       ]
+    },
+    {
+      "name": "latexmk_clean",
+      "command": "/Library/TeX/texbin/latexmk",
+      "args": ["-C", "%DOC%"]
     }
-  ]
+  ],
+  "latex-workshop.latex.recipes": [
+    {
+      "name": "latexmk",
+      "tools": ["latexmk"]
+    }
+  ],
+  "latex-workshop.latex.autoBuild.run": "onSave",
+  "latex-workshop.latex.autoClean.run": "onBuilt",
+  "latex-workshop.view.pdf.viewer": "tab"
 }

@@ -59,11 +59,11 @@
 		
 	%Informasi Dosen Penguji
 	\pengujiA%
-		{Dosen Penguji I}%				% Nama Dosen Penguji 1
-		{NIP. 19900000 2000 00 0 000}	% NIP Dosen Penguji 1
+		{Prof. Sarwono Sutikno, Dr,Eng., CISA, CISSP, CISM, CSX-F, IIAP, CC.}%				% Nama Dosen Penguji 1
+		{NIP. 19591014 198503 1 003}	% NIP Dosen Penguji 1
 	\pengujiB%
-		{Dosen Penguji II}%				% Nama Dosen Penguji 2
-		{NIP. 19900000 2000 00 0 000}	% NIP Dosen Penguji 2
+		{Muhammad Habib Algifari, S.Kom., M.TI.}%				% Nama Dosen Penguji 2
+		{NIP. 19910525 202203 1 002}	% NIP Dosen Penguji 2
 
 	\sloppy % mencegah text overflow. (Jose)
     \pagenumbering{roman}
@@ -150,6 +150,7 @@
     \pagestyle{alternatingstyle}
 
     \input{chapters/chapter-1}
+
     \input{chapters/chapter-2}
     \input{chapters/chapter-3}
     \input{chapters/chapter-4}
@@ -164,8 +165,17 @@
     \newpage
     \appendix
     \addcontentsline{toc}{chapter}{LAMPIRAN}
+
     \chapter*{Lampiran}
+        \begin{figure}[H] % Kalau menggunakan H, posisi gambar akan tepat dibawah teks
+    	\centering
+    	\includegraphics[width=0.6\textwidth]{figure/qr_lampiran.png}
+    	\caption{Lampiran}
+    	
+    	
+    \end{figure}
+
     \renewcommand\thesection{\Alph{section}}
-    \input{chapters/appendix}
+    %\input{chapters/appendix}
     %----------------------------------------------------------------%
 \end{document}
